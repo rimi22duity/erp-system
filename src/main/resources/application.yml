@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: ERPSystem
+
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/erp_system
+    username: root
+    password: root1234
+  jpa:
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
