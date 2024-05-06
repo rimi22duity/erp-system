@@ -1,7 +1,6 @@
 package maks.erp.system.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 /**
  * @author duity
@@ -11,4 +10,9 @@ import jakarta.persistence.Table;
 @Entity
 @Table
 public class LeaveInfo {
+
+    @Id
+    @SequenceGenerator(name = "leaveInfoSeq", sequenceName = "leaveInfoSeq", allocationSize = 1)
+    @GeneratedValue(generator = "leaveInfoSeq")
+    private long id;
 }

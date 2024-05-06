@@ -1,6 +1,7 @@
 package maks.erp.system.model;
 
 import jakarta.persistence.*;
+import maks.erp.system.model.user.User;
 
 import java.util.ArrayList;
 import java.util.Currency;
