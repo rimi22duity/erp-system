@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.List;
+
 /**
  * @author duity
  * @since 5/4/24
@@ -22,4 +24,7 @@ public class DesignationType {
     private String title;
     private String jobDescription;
     private String salaryRange;
+
+    @OneToMany
+    private List<User> users;
 }

@@ -11,6 +11,7 @@ import lombok.Setter;
  * @since 5/4/24
  */
 
+
 @Entity
 @Getter
 @Setter

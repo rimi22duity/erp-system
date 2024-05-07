@@ -23,6 +23,7 @@ public class User {
     @GeneratedValue(generator = "userSeq")
     private long id;
 
+    @Column(unique = true)
     private String username;
     private String firstName;
     private String lastName;
@@ -34,10 +35,17 @@ public class User {
 
     private Gender gender;
 
-    @OneToOne
+    private double salary;
+
+    @ManyToOne
+    @JoinColumn(name = "designation_id")
     private DesignationType designation;
+
     @OneToOne
     private ContactInfo contactInfo;
     @OneToOne
-    private ContactInfo emergencyContact;
+    private EmergencyContactInfo emergencyContact;
+
+    @OneToOne
+    private UserDocuments userDocuments;
 }

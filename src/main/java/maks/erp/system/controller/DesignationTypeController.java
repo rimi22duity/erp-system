@@ -20,7 +20,7 @@ public class DesignationTypeController {
 
     @GetMapping("/designations")
     public String addDesignations(ModelMap model) {
-        return DESIGNATION_PAGE;
+        return "designation";
     }
 
     @PostMapping("/designations")
