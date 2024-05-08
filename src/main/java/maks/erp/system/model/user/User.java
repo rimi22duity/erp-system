@@ -39,7 +39,7 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "designation_id")
-    private DesignationType designation;
+    private Designation designation;
 
     @OneToOne
     private ContactInfo contactInfo;

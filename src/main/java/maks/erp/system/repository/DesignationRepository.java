@@ -1,6 +1,6 @@
 package maks.erp.system.repository;
 
-import maks.erp.system.model.user.DesignationType;
+import maks.erp.system.model.user.Designation;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  */
 
 @Repository
-public interface DesignationTypeRepository extends JpaRepository<DesignationType, Long> {
+public interface DesignationRepository extends JpaRepository<Designation, Long> {
 }

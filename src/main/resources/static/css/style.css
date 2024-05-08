@@ -17,6 +17,9 @@ body {
   font-family: "Open Sans", sans-serif;
   background: #f6f9ff;
   color: #444444;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -1098,6 +1101,11 @@ h6 {
   font-weight: 600;
 }
 
+.error {
+  color: darkred;
+  font-size: smaller;
+}
+
 .contact .php-email-form .sent-message {
   display: none;
   color: #fff;
@@ -1218,6 +1226,7 @@ h6 {
   font-size: 14px;
   transition: all 0.3s;
   border-top: 1px solid #cddfff;
+  margin-top: auto;
 }
 
 .footer .copyright {

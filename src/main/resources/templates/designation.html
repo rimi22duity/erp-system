@@ -14,7 +14,6 @@
 
 <body>
 <div th:replace="~{links}"></div>
-<div th:replace="~{scripts}"></div>
 <div th:replace="~{topbar}"></div>
 <div th:replace="~{sidebar}"></div>
 
@@ -24,39 +23,53 @@
       <div class="card">
           <div class="card-body">
             <h5 class="card-title">Add Designation Information</h5>
-
-            <div class="row">
-              <div class="col-sm-10">
-                <div class="form-floating mb-3">
-                  <input class="form-control"
-                         id="title">
-                  <label for="title">Title</label>
-                </div>
-                <div class="form-floating mb-3">
-                  <textarea class="form-control"
-                            placeholder="Leave a comment here"
-                            id="description" style="height: 100px;"></textarea>
-                  <label for="description">Job Description</label>
-                </div>
-
-                <!--Salary Range-->
+            <form action="#" th:action="@{/designation}" th:object="${designation}" method="post">
                 <div class="row">
-                  <div class="col-sm-10">
-                    <label for="customRange1" class="form-label">Salary Range</label>
-                  </div>
-                  <div class="col-sm-2">
-                    <label for="customRange1" class="form-label">৳ 10K</label>
-                  </div>
-                </div>
-                <input type="range" class="form-range" id="customRange1" min="0" max="100">
-              </div>
-            </div>
+                   <div class="col-sm-10">
+                      <div class="form-floating mb-3">
+                          <input class="form-control" id="title" th:field="*{title}"/>
+                          <span th:if="${#fields.hasErrors('title')}"
+                                th:errors="*{title}"
+                                class="error"></span>
+                          <label for="title">Title</label>
+                      </div>
+                      <div class="form-floating mb-3">
+                        <textarea class="form-control"
+                                  id="description"
+                                  placeholder="Leave a comment here"
+                                  style="height: 100px;"
+                                  th:field="*{jobDescription}">
 
-            <div class="row mb-3">
-              <div class="col-sm-10">
-                <button type="submit" class="btn btn-primary">Submit</button>
-              </div>
-            </div>
+                        </textarea>
+                        <label for="description">Job Description</label>
+                      </div>
+
+                      <!--Salary Range-->
+                      <div class="row">
+                        <div class="col-sm-10">
+                          <label class="form-label">Salary Range</label>
+                        </div>
+                        <div class="col-sm-2">
+                          <label id="currentSalary"
+                                 class="form-label"></label>
+                        </div>
+                      </div>
+                      <input type="range"
+                             class="form-range"
+                             id="salaryRange"
+                             th:field="*{salaryRange}"
+                             min="0"
+                             max="100">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <div class="col-sm-10">
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+            </form>
+
           </div>
         </div>
     </div>
@@ -65,10 +78,25 @@
 
 <div th:replace="~{footer}"></div>
 
+
+
 <a href="#"
    class="back-to-top d-flex align-items-center justify-content-center">
   <i class="bi bi-arrow-up-short"></i>
 </a>
+
+<script>
+  let salaryInputRange = document.getElementById("salaryRange");
+  let currentSalaryLabel = document.getElementById("currentSalary");
+
+  currentSalaryLabel.innerText = "৳" + salaryInputRange.valueAsNumber + "K";
+
+  salaryInputRange.addEventListener('change', () => {
+    currentSalaryLabel.innerText = "৳" + salaryInputRange.valueAsNumber + "K";
+  })
+</script>
+
+<div th:replace="~{scripts}"></div>
 </body>
 
 </html>

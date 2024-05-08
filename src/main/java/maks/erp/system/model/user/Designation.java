@@ -1,6 +1,8 @@
 package maks.erp.system.model.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -15,13 +17,17 @@ import java.util.List;
 @Table
 @Getter
 @Setter
-public class DesignationType {
+public class Designation {
 
     @Id
-    @SequenceGenerator(name = "designationTypeSeq", sequenceName = "designationTypeSeq", allocationSize = 1)
-    @GeneratedValue(generator = "designationTypeSeq")
+    @SequenceGenerator(name = "designationSeq", sequenceName = "designationSeq", allocationSize = 1)
+    @GeneratedValue(generator = "designationSeq")
     private long id;
+
+    @NotBlank
+    @Size(max = 8)
     private String title;
+
     private String jobDescription;
     private String salaryRange;
 
