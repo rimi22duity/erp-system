@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 /**
  * @author duity
+ * @author deepty
  * @since 5/4/24
  */
 
@@ -27,6 +28,9 @@ public class DesignationController {
     @GetMapping("/designation")
     public String addDesignations(ModelMap model) {
         model.put("designation", new Designation());
+
+        setupReferenceData(model);
+
         return DESIGNATION_PAGE;
     }
 
@@ -36,15 +40,17 @@ public class DesignationController {
                               ModelMap model) {
 
         if (result.hasErrors()) {
+            setupReferenceData(model);
 
-            System.out.println("Has Errors!!");
-//            model.put("designation", designation);
             return DESIGNATION_PAGE;
         }
-        System.out.println("Title : " + designation.getTitle());
-        model.put("designationType", designation);
+
         designationService.save(designation);
 
-        return DESIGNATION_PAGE;
+        return "redirect:/" + DESIGNATION_PAGE;
+    }
+
+    public void setupReferenceData(ModelMap model) {
+        model.put("designationList", designationService.getDesignations());
     }
 }

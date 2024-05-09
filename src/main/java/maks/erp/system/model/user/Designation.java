@@ -28,6 +28,7 @@ public class Designation {
     @Size(max = 8)
     private String title;
 
+    @NotBlank
     private String jobDescription;
     private String salaryRange;
 

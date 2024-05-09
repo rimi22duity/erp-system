@@ -12,11 +12,12 @@ public class DesignationService {
 
     @Autowired
     DesignationRepository designationRepository;
-    public void save(Designation designationType) {
-        designationRepository.save(designationType);
+
+    public void save(Designation designation) {
+        designationRepository.save(designation);
     }
 
-    public List<Designation> showDesignation() {
+    public List<Designation> getDesignations() {
         return designationRepository.findAll();
     }
 }
