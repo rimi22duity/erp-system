@@ -18,7 +18,9 @@ import java.util.Date;
 public class UserDocuments {
 
     @Id
-    @SequenceGenerator(name = "userDocSeq", sequenceName = "userDocSeq", allocationSize = 1)
+    @SequenceGenerator(name = "userDocSeq",
+            sequenceName = "userDocSeq",
+            allocationSize = 1)
     @GeneratedValue(generator = "userDocSeq")
     private long id;
 

@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.servlet.tags.form.TextareaTag;
 
 import java.util.List;
 
@@ -25,11 +26,13 @@ public class Designation {
     private long id;
 
     @NotBlank
-    @Size(max = 8)
+    @Size(max = 50)
     private String title;
 
     @NotBlank
+    @Column(columnDefinition = "TEXT")
     private String jobDescription;
+
     private String salaryRange;
 
     @OneToMany

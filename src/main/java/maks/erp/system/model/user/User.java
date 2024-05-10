@@ -36,6 +36,7 @@ public class User {
     private Gender gender;
 
     private double salary;
+    private String religion;
 
     @ManyToOne
     @JoinColumn(name = "designation_id")

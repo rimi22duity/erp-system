@@ -26,5 +26,5 @@ public class Address {
     private String thana;
     private String city;
     private String district;
-    private String locationCode;
+    private String postalCode;
 }

@@ -19,13 +19,12 @@
   <main id="main" class="main">
     <section class="section">
       <div class="row">
-        <div class="col-lg-6">
+        <div class="col-lg-10">
 
           <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">General Form Elements</h5>
+            <div class="register-card-body">
+              <h5 class="card-title">General Information</h5>
 
-              <!-- General Form Elements -->
               <form>
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Username</label>
@@ -61,25 +60,19 @@
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputEmail" class="col-sm-2 col-form-label">Email</label>
+                  <label class="col-sm-2 col-form-label">Email</label>
                   <div class="col-sm-10">
                     <input type="email" class="form-control">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
+                  <label class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
                     <input type="password" class="form-control">
                   </div>
                 </div>
                 <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">Number</label>
-                  <div class="col-sm-10">
-                    <input type="number" class="form-control">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputNumber" class="col-sm-2 col-form-label">File Upload</label>
+                  <label class="col-sm-2 col-form-label">Documents Upload</label>
                   <div class="col-sm-10">
                     <input class="form-control" type="file" id="formFile">
                   </div>
@@ -105,25 +98,7 @@
                            class="form-control">
                   </div>
                 </div>
-                <div class="row mb-3">
-                  <label for="inputTime" class="col-sm-2 col-form-label">Time</label>
-                  <div class="col-sm-10">
-                    <input type="time" class="form-control">
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label for="inputColor" class="col-sm-2 col-form-label">Color Picker</label>
-                  <div class="col-sm-10">
-                    <input type="color" class="form-control form-control-color" id="exampleColorInput" value="#4154f1" title="Choose your color">
-                  </div>
-                </div>
-                <div class="row mb-3">
-                  <label for="inputPassword" class="col-sm-2 col-form-label">Textarea</label>
-                  <div class="col-sm-10">
-                    <textarea class="form-control" style="height: 100px"></textarea>
-                  </div>
-                </div>
+                <!-- Gender -->
                 <fieldset class="row mb-3">
                   <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
                   <div class="col-sm-10">
@@ -135,40 +110,28 @@
                                th:value= "${gender}">
                         <label class="form-check-label"
                                th:text = "${gender}">
-
                         </label>
                       </div>
                     </div>
                   </div>
                 </fieldset>
+
+                <!-- Religion -->
                 <div class="row mb-3">
-                  <legend class="col-form-label col-sm-2 pt-0">Checkboxes</legend>
-                  <div class="col-sm-10">
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gridCheck1">
-                      <label class="form-check-label" for="gridCheck1">
-                        Example checkbox
-                      </label>
-                    </div>
-
-                    <div class="form-check">
-                      <input class="form-check-input" type="checkbox" id="gridCheck2" checked>
-                      <label class="form-check-label" for="gridCheck2">
-                        Example checkbox 2
-                      </label>
-                    </div>
-
+                  <label class="col-sm-3 col-form-label">Religion</label>
+                  <div class="col-sm-6">
+                    <select class="form-select"
+                            aria-label="Default select example">
+                      <option selected>Please Select</option>
+                      <div th:each="religion: ${religionList}">
+                        <option th:value="${religion}"
+                                th:text="${religion}"></option>
+                      </div>
+                    </select>
                   </div>
                 </div>
 
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Disabled</label>
-                  <div class="col-sm-10">
-                    <input type="text" class="form-control" value="Read only / Disabled" disabled>
-                  </div>
-                </div>
-
+                <!-- Currency -->
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Salary Currency</label>
                   <div class="col-sm-10">
@@ -181,10 +144,10 @@
                   </div>
                 </div>
 
-                <!--Salary-->
+                <!-- Salary -->
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Salary</label>
-                  <div class="col-sm-10">
+                  <div class="col-sm-6">
                     <div class="input-group mb-3">
                       <span class="input-group-text">৳</span>
                       <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
@@ -193,145 +156,220 @@
                   </div>
                 </div>
 
+                <!--    Designation      -->
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Multi Select</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" multiple aria-label="multiple select example">
-                      <option selected>Open this select menu</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                  <label class="col-sm-3 col-form-label">Designation</label>
+                  <div class="col-sm-6">
+                    <select class="form-select"
+                            aria-label="Default select example">
+                      <option selected>Please Select</option>
+                      <div th:each="designation: ${designationList}">
+                        <option th:value="${designation}"
+                                th:text="${designation.title}"></option>
+                      </div>
                     </select>
                   </div>
                 </div>
 
+                <!-- Contact Information -->
+                <h5 class="card-title">Contact Information</h5>
                 <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Submit Button</label>
+                  <label for="contactPhone"
+                         class="col-sm-2 col-form-label">Phone</label>
+                  <div class="col-sm-10">
+                    <input id ="contactPhone"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="contactMobile"
+                         class="col-sm-2 col-form-label">Mobile</label>
+                  <div class="col-sm-10">
+                    <input id ="contactMobile"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+                <!-- Present Address -->
+                <!-- Road, thana, City, District, postal code -->
+                <h6 class="card-title">Present Address Information</h6>
+
+                <div class="row mb-3">
+                  <label for="presentAddressRoad"
+                         class="col-sm-2 col-form-label">Road</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressRoad"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="presentAddressThana"
+                         class="col-sm-2 col-form-label">Thana</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressThana"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="presentAddressCity"
+                         class="col-sm-2 col-form-label">City</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressCity"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="presentAddressDistrict"
+                         class="col-sm-2 col-form-label">District</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressDistrict"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="presentAddressCode"
+                         class="col-sm-2 col-form-label">Postal Code</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressCode"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <!-- End of Present Address -->
+
+                <!-- Permanent Address -->
+                <!-- Road, thana, City, District, postal code -->
+                  <h6 class="card-title">Permanent Address Information</h6>
+                  <div class="row mb-3">
+                      <div class="col-sm-6 form-check">
+                        <label class="col-form-label"
+                               for="flexCheckDefault">
+                          Same As Present Address
+                        </label>
+                        <input class="form-check-input"
+                               type="checkbox"
+                               value=""
+                               id="flexCheckDefault">
+                      </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="permanentAddressRoad"
+                           class="col-sm-2 col-form-label">Road</label>
+                    <div class="col-sm-10">
+                      <input id ="permanentAddressRoad"
+                             type="text"
+                             class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="permanentAddressThana"
+                           class="col-sm-2 col-form-label">Thana</label>
+                    <div class="col-sm-10">
+                      <input id ="permanentAddressThana"
+                             type="text"
+                             class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="permanentAddressCity"
+                           class="col-sm-2 col-form-label">City</label>
+                    <div class="col-sm-10">
+                      <input id ="permanentAddressCity"
+                             type="text"
+                             class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="permanentAddressDistrict"
+                           class="col-sm-2 col-form-label">District</label>
+                    <div class="col-sm-10">
+                      <input id ="permanentAddressDistrict"
+                             type="text"
+                             class="form-control">
+                    </div>
+                  </div>
+
+                  <div class="row mb-3">
+                    <label for="permanentAddressCode"
+                           class="col-sm-2 col-form-label">Postal Code</label>
+                    <div class="col-sm-10">
+                      <input id ="permanentAddressCode"
+                             type="text"
+                             class="form-control">
+                    </div>
+                  </div>
+                <!-- End of Permanent Address -->
+
+                <!-- Emergency Contact Information -->
+                <h5 class="card-title">Emergency Contact Information</h5>
+                <div class="row mb-3">
+                  <label for="emergencyContactName"
+                         class="col-sm-2 col-form-label">Name</label>
+                  <div class="col-sm-10">
+                    <input id ="emergencyContactName"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="emergencyContactPhone"
+                         class="col-sm-2 col-form-label">Phone</label>
+                  <div class="col-sm-10">
+                    <input id ="emergencyContactPhone"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="emergencyContactMobile"
+                         class="col-sm-2 col-form-label">Mobile</label>
+                  <div class="col-sm-10">
+                    <input id ="emergencyContactMobile"
+                           type="text"
+                           class="form-control">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Relation</label>
+                  <div class="col-sm-6">
+                    <select class="form-select"
+                            aria-label="Default select example">
+                      <option selected>Please Select</option>
+                      <div th:each="relationship: ${relationshipList}">
+                        <option th:value="${relationship}"
+                                th:text="${relationship}"></option>
+                      </div>
+                    </select>
+                  </div>
+                </div>
+
+                <!--     Submit           -->
+                <div class="row mb-3">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit Form</button>
                   </div>
                 </div>
-
-              </form><!-- End General Form Elements -->
-
+              </form>
             </div>
           </div>
-
-        </div>
-
-        <div class="col-lg-6">
-
-          <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">Advanced Form Elements</h5>
-
-              <!-- Advanced Form Elements -->
-              <form>
-                <div class="row mb-5">
-                  <label class="col-sm-2 col-form-label">Switches</label>
-                  <div class="col-sm-10">
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault">
-                      <label class="form-check-label" for="flexSwitchCheckDefault">Default switch checkbox input</label>
-                    </div>
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked" checked>
-                      <label class="form-check-label" for="flexSwitchCheckChecked">Checked switch checkbox input</label>
-                    </div>
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckDisabled" disabled>
-                      <label class="form-check-label" for="flexSwitchCheckDisabled">Disabled switch checkbox input</label>
-                    </div>
-                    <div class="form-check form-switch">
-                      <input class="form-check-input" type="checkbox" id="flexSwitchCheckCheckedDisabled" checked disabled>
-                      <label class="form-check-label" for="flexSwitchCheckCheckedDisabled">Disabled checked switch checkbox input</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-5">
-                  <label class="col-sm-2 col-form-label">Ranges</label>
-                  <div class="col-sm-10">
-                    <div>
-                      <label for="customRange1" class="form-label">Example range</label>
-                      <input type="range" class="form-range" id="customRange1">
-                    </div>
-                    <div>
-                      <label for="disabledRange" class="form-label">Disabled range</label>
-                      <input type="range" class="form-range" id="disabledRange" disabled>
-                    </div>
-                    <div>
-                      <label for="customRange2" class="form-label">Min and max with steps</label>
-                      <input type="range" class="form-range" min="0" max="5" step="0.5" id="customRange2">
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Floating labels</label>
-                  <div class="col-sm-10">
-                    <div class="form-floating mb-3">
-                      <input type="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                      <label for="floatingInput">Email address</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                      <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
-                      <label for="floatingPassword">Password</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                      <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea" style="height: 100px;"></textarea>
-                      <label for="floatingTextarea">Comments</label>
-                    </div>
-                    <div class="form-floating mb-3">
-                      <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
-                        <option selected>Open this select menu</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
-                      </select>
-                      <label for="floatingSelect">Works with selects</label>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="row mb-5">
-                  <label class="col-sm-2 col-form-label">Input groups</label>
-                  <div class="col-sm-10">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1">
-                    </div>
-
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-                      <span class="input-group-text" id="basic-addon2">@example.com</span>
-                    </div>
-
-                    <label for="basic-url" class="form-label">Your vanity URL</label>
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon3">https://example.com/users/</span>
-                      <input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
-                    </div>
-
-
-                    <div class="input-group mb-3">
-                      <input type="text" class="form-control" placeholder="Username" aria-label="Username">
-                      <span class="input-group-text">@</span>
-                      <input type="text" class="form-control" placeholder="Server" aria-label="Server">
-                    </div>
-
-                    <div class="input-group">
-                      <span class="input-group-text">With textarea</span>
-                      <textarea class="form-control" aria-label="With textarea"></textarea>
-                    </div>
-                  </div>
-                </div>
-
-              </form><!-- End General Form Elements -->
-
-            </div>
-          </div>
-
         </div>
       </div>
     </section>

@@ -11,7 +11,7 @@ public enum Gender {
 
     MALE("Male"),
     FEMALE("Female"),
-    LGBTQ("LGBTQ");
+    Other("Other");
 
     private String fullString;
 
