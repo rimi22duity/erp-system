@@ -24,8 +24,11 @@ public class UserDocuments {
     @GeneratedValue(generator = "userDocSeq")
     private long id;
 
-    private String nidNumber;
-    private String birthCertNumber;
-    private String passportNumber;
-    private Date passportDateOfExpiry;
+    @Column(columnDefinition = "MEDIUMBLOB")
+    private String document;
+
+//    private String nidNumber;
+//    private String birthCertNumber;
+//    private String passportNumber;
+//    private Date passportDateOfExpiry;
 }

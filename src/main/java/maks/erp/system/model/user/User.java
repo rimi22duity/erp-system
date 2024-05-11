@@ -1,6 +1,7 @@
 package maks.erp.system.model.user;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;
 import lombok.Setter;
 import maks.erp.system.enums.Gender;
@@ -23,9 +24,15 @@ public class User {
     @GeneratedValue(generator = "userSeq")
     private long id;
 
+    @NotBlank
     @Column(unique = true)
     private String username;
+    private String password;
+
+    @NotBlank
     private String firstName;
+
+    @NotBlank
     private String lastName;
 
     private Date created;
@@ -35,15 +42,27 @@ public class User {
 
     private Gender gender;
 
+    @NotBlank
     private double salary;
+
     private String religion;
 
+    @NotBlank
     @ManyToOne
     @JoinColumn(name = "designation_id")
     private Designation designation;
 
     @OneToOne
     private ContactInfo contactInfo;
+
+    @OneToOne
+    @JoinColumn(name = "present_address_id")
+    private Address presentAddress;
+
+    @OneToOne
+    @JoinColumn(name = "permanent_address_id")
+    private Address permanentAddress;
+
     @OneToOne
     private EmergencyContactInfo emergencyContact;
 

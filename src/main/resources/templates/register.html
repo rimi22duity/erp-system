@@ -25,7 +25,9 @@
             <div class="register-card-body">
               <h5 class="card-title">General Information</h5>
 
-              <form>
+              <form th:action="@{/register}"
+                    th:object="${newUser}"
+                    method="post">
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Username</label>
                   <div class="col-sm-10">
@@ -35,7 +37,8 @@
                              class="form-control"
                              placeholder="Username"
                              aria-label="Username"
-                             aria-describedby="basic-addon1">
+                             aria-describedby="basic-addon1"
+                             th:field="*{username}">
                     </div>
                   </div>
                 </div>
@@ -46,7 +49,8 @@
                   <div class="col-sm-10">
                     <input id ="firstNameInput"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{firstName}">
                   </div>
                 </div>
 
@@ -56,25 +60,32 @@
                   <div class="col-sm-10">
                     <input id ="lastNameInput"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{lastName}">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Email</label>
                   <div class="col-sm-10">
-                    <input type="email" class="form-control">
+                    <input type="email"
+                           class="form-control"
+                           th:field="*{contactInfo.email}">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
-                    <input type="password" class="form-control">
+                    <input type="password"
+                           class="form-control"
+                           th:field="*{password}">
                   </div>
                 </div>
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Documents Upload</label>
                   <div class="col-sm-10">
-                    <input class="form-control" type="file" id="formFile">
+                    <input class="form-control"
+                           type="file"
+                           id="formFile">
                   </div>
                 </div>
                 <!-- Birth Date-->
@@ -84,7 +95,8 @@
                   <div class="col-sm-10">
                     <input type="date"
                            id="birthDate"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{birthDate}">
                   </div>
                 </div>
 
@@ -95,7 +107,9 @@
                   <div class="col-sm-10">
                     <input type="date"
                            id="joiningDate"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{joiningDate}"
+                    >
                   </div>
                 </div>
                 <!-- Gender -->
@@ -106,6 +120,7 @@
                       <div class="form-check">
                         <input class="form-check-input"
                                th:name="gender"
+                               th:field="*{gender}"
                                type="radio"
                                th:value= "${gender}">
                         <label class="form-check-label"
@@ -125,6 +140,7 @@
                       <option selected>Please Select</option>
                       <div th:each="religion: ${religionList}">
                         <option th:value="${religion}"
+                                th:field="*{religion}"
                                 th:text="${religion}"></option>
                       </div>
                     </select>
@@ -134,11 +150,13 @@
                 <!-- Currency -->
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Salary Currency</label>
-                  <div class="col-sm-10">
-                    <select class="form-select" aria-label="Default select example">
+                  <div class="col-sm-4">
+                    <select class="form-select"
+                            aria-label="Default select example">
                       <option selected>Please Select</option>
                       <div th:each="currency: ${currencyList}">
-                        <option th:value="${currency}" th:text="${currency}"></option>
+                        <option th:value="${currency}"
+                                th:text="${currency}"></option>
                       </div>
                     </select>
                   </div>
@@ -150,7 +168,9 @@
                   <div class="col-sm-6">
                     <div class="input-group mb-3">
                       <span class="input-group-text">৳</span>
-                      <input type="text" class="form-control" aria-label="Amount (to the nearest dollar)">
+                      <input type="text" class="form-control"
+                             aria-label="Amount (to the nearest dollar)"
+                             th:field="*{salary}">
                       <span class="input-group-text">.00</span>
                     </div>
                   </div>
@@ -165,7 +185,8 @@
                       <option selected>Please Select</option>
                       <div th:each="designation: ${designationList}">
                         <option th:value="${designation}"
-                                th:text="${designation.title}"></option>
+                                th:text="${designation.title}"
+                                th:field="*{designation}"></option>
                       </div>
                     </select>
                   </div>
@@ -179,7 +200,8 @@
                   <div class="col-sm-10">
                     <input id ="contactPhone"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{contactInfo.phone}">
                   </div>
                 </div>
 
@@ -189,7 +211,8 @@
                   <div class="col-sm-10">
                     <input id ="contactMobile"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{contactInfo.mobileNumber}">
                   </div>
                 </div>
                 <!-- Present Address -->
@@ -202,7 +225,8 @@
                   <div class="col-sm-10">
                     <input id ="presentAddressRoad"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{presentAddress.road}">
                   </div>
                 </div>
 
@@ -212,7 +236,8 @@
                   <div class="col-sm-10">
                     <input id ="presentAddressThana"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{presentAddress.thana}">
                   </div>
                 </div>
 
@@ -222,7 +247,8 @@
                   <div class="col-sm-10">
                     <input id ="presentAddressCity"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{presentAddress.city}">
                   </div>
                 </div>
 
@@ -232,7 +258,8 @@
                   <div class="col-sm-10">
                     <input id ="presentAddressDistrict"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{presentAddress.district}">
                   </div>
                 </div>
 
@@ -242,7 +269,8 @@
                   <div class="col-sm-10">
                     <input id ="presentAddressCode"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{presentAddress.postalCode}">
                   </div>
                 </div>
 
@@ -252,16 +280,17 @@
                 <!-- Road, thana, City, District, postal code -->
                   <h6 class="card-title">Permanent Address Information</h6>
                   <div class="row mb-3">
-                      <div class="col-sm-6 form-check">
-                        <label class="col-form-label"
-                               for="flexCheckDefault">
-                          Same As Present Address
-                        </label>
-                        <input class="form-check-input"
-                               type="checkbox"
-                               value=""
-                               id="flexCheckDefault">
-                      </div>
+                    <div class="form-check">
+                      <label class="form-check-label"
+                             for="flexCheckDefault">
+                        Same as above
+                      </label>
+                      <input class="form-check-input"
+                             type="checkbox"
+                             value=""
+                             id="flexCheckDefault">
+
+                    </div>
                   </div>
 
                   <div class="row mb-3">
@@ -270,7 +299,8 @@
                     <div class="col-sm-10">
                       <input id ="permanentAddressRoad"
                              type="text"
-                             class="form-control">
+                             class="form-control"
+                             th:field="*{permanentAddress.road}">
                     </div>
                   </div>
 
@@ -280,7 +310,8 @@
                     <div class="col-sm-10">
                       <input id ="permanentAddressThana"
                              type="text"
-                             class="form-control">
+                             class="form-control"
+                             th:field="*{permanentAddress.thana}">
                     </div>
                   </div>
 
@@ -290,7 +321,8 @@
                     <div class="col-sm-10">
                       <input id ="permanentAddressCity"
                              type="text"
-                             class="form-control">
+                             class="form-control"
+                             th:field="*{permanentAddress.city}">
                     </div>
                   </div>
 
@@ -300,7 +332,8 @@
                     <div class="col-sm-10">
                       <input id ="permanentAddressDistrict"
                              type="text"
-                             class="form-control">
+                             class="form-control"
+                             th:field="*{permanentAddress.district}">
                     </div>
                   </div>
 
@@ -310,7 +343,8 @@
                     <div class="col-sm-10">
                       <input id ="permanentAddressCode"
                              type="text"
-                             class="form-control">
+                             class="form-control"
+                             th:field="*{permanentAddress.postalCode}">
                     </div>
                   </div>
                 <!-- End of Permanent Address -->
@@ -323,7 +357,8 @@
                   <div class="col-sm-10">
                     <input id ="emergencyContactName"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{emergencyContact.name}">
                   </div>
                 </div>
 
@@ -333,7 +368,8 @@
                   <div class="col-sm-10">
                     <input id ="emergencyContactPhone"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{emergencyContact.phone}">
                   </div>
                 </div>
 
@@ -343,7 +379,8 @@
                   <div class="col-sm-10">
                     <input id ="emergencyContactMobile"
                            type="text"
-                           class="form-control">
+                           class="form-control"
+                           th:field="*{emergencyContact.mobileNumber}">
                   </div>
                 </div>
 
@@ -355,13 +392,15 @@
                       <option selected>Please Select</option>
                       <div th:each="relationship: ${relationshipList}">
                         <option th:value="${relationship}"
+                                th:field="*{emergencyContact.relation}"
                                 th:text="${relationship}"></option>
                       </div>
                     </select>
                   </div>
                 </div>
+                <!-- End of Emergency Contact Information -->
 
-                <!--     Submit           -->
+                <!-- Submit -->
                 <div class="row mb-3">
                   <div class="col-sm-10">
                     <button type="submit" class="btn btn-primary">Submit Form</button>

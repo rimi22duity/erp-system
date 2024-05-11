@@ -18,7 +18,9 @@ import lombok.ToString;
 public class Address {
 
     @Id
-    @SequenceGenerator(name = "addressSeq", sequenceName = "addressSeq", allocationSize = 1)
+    @SequenceGenerator(name = "addressSeq",
+            sequenceName = "addressSeq",
+            allocationSize = 1)
     @GeneratedValue(generator = "addressSeq")
     private long id;
 
@@ -27,4 +29,7 @@ public class Address {
     private String city;
     private String district;
     private String postalCode;
+
+    @OneToOne
+    private User user;
 }
