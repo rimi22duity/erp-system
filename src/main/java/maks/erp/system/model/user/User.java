@@ -67,5 +67,5 @@ public class User {
     private EmergencyContactInfo emergencyContact;
 
     @OneToOne
-    private UserDocuments userDocuments;
+    private UserDocument userDocument;
 }

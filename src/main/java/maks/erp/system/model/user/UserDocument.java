@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
-
 /**
  * @author duity
  * @since 5/7/24
@@ -15,7 +13,7 @@ import java.util.Date;
 @Table
 @Getter
 @Setter
-public class UserDocuments {
+public class UserDocument {
 
     @Id
     @SequenceGenerator(name = "userDocSeq",
