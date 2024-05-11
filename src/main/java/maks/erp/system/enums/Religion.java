@@ -25,4 +25,14 @@ public enum Religion {
 
         return list;
     }
+
+    public static Religion getReligion( String religionString) {
+        switch (religionString) {
+            case "Islam": return Religion.ISLAM;
+            case "Hinduism": return Religion.HINDUISM;
+            case "Buddhism": return Religion.BUDDHISM;
+            case "Christianity": return Religion.CHRISTIANITY;
+            default: return null;
+        }
+    }
 }

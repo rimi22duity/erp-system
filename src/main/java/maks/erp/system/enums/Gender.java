@@ -28,4 +28,12 @@ public enum Gender {
         return genderList;
     }
 
+    public static Gender getGender( String genderString) {
+        switch (genderString) {
+            case "Male": return Gender.MALE;
+            case "Female": return Gender.FEMALE;
+            default: return Gender.Other;
+        }
+    }
+
 }

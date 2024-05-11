@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public enum Relationship {
-    PARENTS("Parents"), SPOUSE("Spouse"), CHILDREN("Children"), OTHER("Other");
+    PARENTS("Parents"),
+    SPOUSE("Spouse"),
+    CHILDREN("Children"),
+    OTHER("Other");
 
     private String relation;
 
@@ -19,5 +22,14 @@ public enum Relationship {
         }
 
         return relationshipList;
+    }
+
+    public static Relationship getRelationship( String relationShipString) {
+        switch (relationShipString) {
+            case "Parents": return Relationship.PARENTS;
+            case "Spouse": return Relationship.SPOUSE;
+            case "Children": return Relationship.CHILDREN;
+            default: return Relationship.OTHER;
+        }
     }
 }

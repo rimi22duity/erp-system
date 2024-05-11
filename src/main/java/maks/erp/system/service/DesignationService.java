@@ -20,4 +20,8 @@ public class DesignationService {
     public List<Designation> getDesignations() {
         return designationRepository.findAll();
     }
+
+    public Designation getDesignationByTitle(String title) {
+        return designationRepository.findDesignationByTitle(title);
+    }
 }

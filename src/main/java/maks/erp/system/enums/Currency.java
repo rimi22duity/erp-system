@@ -9,7 +9,8 @@ import java.util.List;
  */
 public enum Currency {
 
-    BDT("\u09F3 (BDT)"), US_DOLLAR("$ (USD)");
+    BDT("\u09F3 (BDT)"),
+    US_DOLLAR("$ (USD)");
 
     private String sign;
 
@@ -24,6 +25,13 @@ public enum Currency {
         }
 
         return currencyList;
+    }
+
+    public static Currency getCurrency( String currencyString) {
+        switch (currencyString) {
+            case "$ (USD)": return Currency.US_DOLLAR;
+            default: return Currency.BDT;
+        }
     }
 }
 

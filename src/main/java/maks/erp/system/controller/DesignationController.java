@@ -28,6 +28,8 @@ public class DesignationController {
     @GetMapping("/designation")
     public String addDesignations(ModelMap model) {
         model.put("designation", new Designation());
+        model.put("birthdate", "");
+        model.put("joiningDate", "");
 
         setupReferenceData(model);
 

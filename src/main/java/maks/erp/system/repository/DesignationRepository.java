@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DesignationRepository extends JpaRepository<Designation, Long> {
+    public Designation findDesignationByTitle(String title);
 }
