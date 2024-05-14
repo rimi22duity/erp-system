@@ -8,6 +8,7 @@ import lombok.NonNull;
 import lombok.Setter;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 
@@ -38,11 +39,19 @@ public class User {
     @NotBlank
     private String lastName;
 
+    @Temporal(TemporalType.TIMESTAMP)
     private Date created;
+
+    @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
+
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date joiningDate;
 
+    @Enumerated(EnumType.STRING)
     private Gender gender;
 
     @NotNull
