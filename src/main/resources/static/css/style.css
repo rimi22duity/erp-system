@@ -260,8 +260,17 @@ h6 {
   padding: 0 20px 20px 20px;
 }
 
-.icon-style {
-  padding: 10px;
+.plus-icon-container {
+  margin-top: 20px;
+}
+
+.plus-icon {
+  -webkit-text-stroke-width: 1px;
+  color: #012970;
+}
+
+.icon-20 {
+  font-size: 20px;
 }
 .list-card-body-custom {
   padding: 20px

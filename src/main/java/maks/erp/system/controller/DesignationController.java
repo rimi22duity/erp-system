@@ -7,9 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @author duity
@@ -36,7 +34,25 @@ public class DesignationController {
         return DESIGNATION_PAGE;
     }
 
-    @PostMapping("/designation")
+    @GetMapping("/edit/{id}")
+    public String editDesignation(@PathVariable(value = "id") long id,
+                                  ModelMap model) {
+        Designation designation = designationService.getDesignationById(id);
+        model.put("title", "Update Designation");
+        model.put("designation", designation);
+        return "designation_details";
+    }
+
+    @PostMapping("/edit/{id}")
+    public String editDesignation(@PathVariable(value="id") long id,
+                                  @ModelAttribute @Valid Designation designation,
+                                  BindingResult result,
+                                  ModelMap model) {
+        designationService.editDesignation(id, designation);
+        return "redirect:/" + DESIGNATION_PAGE;
+    }
+
+    @PostMapping("/save-designation")
     public String designation(@ModelAttribute @Valid Designation designation,
                               BindingResult result,
                               ModelMap model) {

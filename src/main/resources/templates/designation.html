@@ -1,130 +1,78 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+      <title th:text="#{label.designation.page.title}"/>
+      <meta content="" name="description">
+      <meta content="" name="keywords">
+    </head>
 
-  <title th:text="#{label.designation.page.title}"/>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <body>
+        <div th:replace="~{links}"></div>
+        <div th:replace="~{topbar}"></div>
+        <div th:replace="~{sidebar}"></div>
 
-
-</head>
-
-<body>
-<div th:replace="~{links}"></div>
-<div th:replace="~{topbar}"></div>
-<div th:replace="~{sidebar}"></div>
-
-<main id="main" class="main">
-  <section class="section">
-    <div class="row">
-        <!-- Designations -->
-        <div class="col-lg-6">
-          <div class="card">
-              <div class="card-body">
-                  <h5 class="card-title" th:text="#{label.designation}"></h5>
-
-                  <div th:each="des, iterStat: ${designationList}">
-                    <div id="designationCard"
-                         class="list-card"
-                         data-bs-toggle="modal"
-                         data-bs-target="#designationDetails">
-                        <div class="row mb-sm-1 list-card-body-custom">
-                            <div class="col-10 col-sm-10">
-                                <label th:text="${des.title}"
-                                         th:value="${iterStat.index}">
-                                </label>
-                            </div>
-                            <div class="col-2 col-sm-2">
-                                <i class=" icon-style bi bi-info-circle"></i>
-                            </div>
-                        </div>
-
-                    </div>
-
-                  </div>
-              </div>
-          </div>
-      </div>
-
-        <!-- Add Designations -->
-        <div class="col-lg-6">
-            <div class="card">
+        <main id="main" class="main">
+          <section class="section">
+              <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Add Designation Information</h5>
-
-                    <form action="#"
-                          th:action="@{/designation}"
-                          th:object="${designation}"
-                          method="post">
-                        <div class="row">
-                            <div class="col-sm-10">
-                                <div class="form-floating mb-3">
-                                    <input class="form-control" id="title"
-                                           th:field="*{title}"/>
-                                    <span th:if="${#fields.hasErrors('title')}"
-                                          th:errors="*{title}"
-                                          class="error"></span>
-                                    <label for="title">Title</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                        <textarea class="form-control"
-                                  id="description"
-                                  placeholder="Insert Job Description"
-                                  style="height: 100px;"
-                                  th:field="*{jobDescription}">
-
-                        </textarea>
-                                    <span th:if="${#fields.hasErrors('jobDescription')}"
-                                          th:errors="*{jobDescription}"
-                                          class="error"></span>
-                                    <label for="description">Job Description</label>
-                                </div>
-
-                                <!--Salary Range-->
-                                <div class="row">
-                                    <div class="col-sm-10">
-                                        <label class="form-label">Salary Range</label>
-                                    </div>
-                                    <div class="col-sm-2">
-                                        <label id="currentSalary"
-                                               class="form-label"></label>
-                                    </div>
-                                </div>
-                                <input type="range"
-                                       class="form-range"
-                                       id="salaryRange"
-                                       th:field="*{salaryRange}"
-                                       min="0"
-                                       max="100">
-                            </div>
+                    <div class="row mb-3">
+                        <div class="col-11">
+                            <h5 class="card-title"
+                                th:text="#{label.designation}"></h5>
                         </div>
 
-                        <div class="row mb-3">
-                            <div class="col-sm-10">
-                                <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="col-1">
+                            <div class="plus-icon-container">
+                                <i class="bi bi-plus-lg plus-icon icon-20"></i>
                             </div>
                         </div>
-                    </form>
+                    </div>
+                    <table class="table table-hover table-striped">
+                        <thead>
+                            <tr>
+                                <th scope="col" th:text="#{label.numbers}"></th>
+                                <th scope="col" th:text="#{label.title}"></th>
+                                <th scope="col" th:text="#{label.job.description}"></th>
+                                <th scope="col" th:text="#{label.salary.range}"></th>
+                                <th scope="col" th:text="#{label.action}"></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <form>
 
+                        </form>
+                            <tr th:each="des, iterStat: ${designationList}">
+                                <form th:action="@{'/edit/{id}'(id=${des.id})}">
+                                    <th scope="row" th:text="${iterStat.index + 1}"></th>
+                                    <td th:text="${des.title}"></td>
+                                    <td th:text="${des.jobDescription}"></td>
+                                    <td th:text="${des.salaryRange}"></td>
+                                    <td>
+                                        <button class="btn btn-primary"
+                                                type="submit">
+                                            Edit
+                                        </button>
+                                    </td>
+                                </form>
+
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        </div>
-    </div>
-  </section>
-</main>
+              </div>
+          </section>
+        </main>
 
-<div th:replace="~{footer}"></div>
-<div th:replace="designation_modal :: modalContent(${designation})"></div>
+        <div th:replace="~{footer}"></div>
 
-<a href="#"
-   class="back-to-top d-flex align-items-center justify-content-center">
-  <i class="bi bi-arrow-up-short"></i>
-</a>
+        <a href="#"
+           class="back-to-top d-flex align-items-center justify-content-center">
+          <i class="bi bi-arrow-up-short"></i>
+        </a>
 
-<script th:src="@{/js/salaryInput.js}"></script>
-<div th:replace="~{scripts}"></div>
-</body>
-
+        <script th:src="@{/js/salaryInput.js}"></script>
+        <div th:replace="~{scripts}"></div>
+    </body>
 </html>
