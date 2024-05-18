@@ -52,11 +52,10 @@ public class DesignationController {
         return "redirect:/" + DESIGNATION_PAGE;
     }
 
-    @PostMapping("/save-designation")
+    @PostMapping("/designation")
     public String designation(@ModelAttribute @Valid Designation designation,
                               BindingResult result,
                               ModelMap model) {
-
         if (result.hasErrors()) {
             setupReferenceData(model);
 
