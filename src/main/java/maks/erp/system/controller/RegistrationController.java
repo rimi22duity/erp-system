@@ -7,6 +7,7 @@ import maks.erp.system.enums.Currency;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Relationship;
 import maks.erp.system.enums.Religion;
+import maks.erp.system.model.dto.UserDto;
 import maks.erp.system.model.user.EmergencyContactInfo;
 import maks.erp.system.model.user.User;
 import maks.erp.system.service.DesignationService;
@@ -46,7 +47,7 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String register(ModelMap model) {
-        model.put("newUser", new User());
+        model.put("userDto", new UserDto());
 
         model.put("genderList", Gender.getGenderList());
         model.put("currencyList", Currency.getCurrencySigns());
@@ -58,13 +59,10 @@ public class RegistrationController {
     }
 
     @PostMapping("/addUser")
-    public String addNewUser(@ModelAttribute @Valid User user,
+    public String addNewUser(@ModelAttribute @Valid UserDto userDto,
                              BindingResult result,
-                             @RequestParam("file") MultipartFile file,
-//                             @RequestBody RegistrationDto registrationDto,
                              ModelMap model) throws IOException {
-
-        System.out.println("RegistrationDto birthDate: " + user.getBirthDate());
+        registrationService.saveNewUser(userDto);
 
         return "redirect:/" + REGISTRATION_PAGE;
     }

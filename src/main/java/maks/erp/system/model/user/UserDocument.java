@@ -3,6 +3,7 @@ package maks.erp.system.model.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * @author duity
@@ -22,11 +23,9 @@ public class UserDocument {
     @GeneratedValue(generator = "userDocSeq")
     private long id;
 
-    @Column(columnDefinition = "MEDIUMBLOB")
-    private String document;
+    private String fileName;
 
-//    private String nidNumber;
-//    private String birthCertNumber;
-//    private String passportNumber;
-//    private Date passportDateOfExpiry;
+    @Lob
+    @Column(length = 100000)
+    private byte[] document;
 }

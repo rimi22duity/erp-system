@@ -3,9 +3,7 @@ package maks.erp.system.model.user;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.NonNull;
-import lombok.Setter;
+import lombok.*;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,6 +19,9 @@ import java.util.Date;
 @Table
 @Getter
 @Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 
     @Id
