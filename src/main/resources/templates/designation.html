@@ -31,7 +31,8 @@
                             </div>
                         </div>
                     </div>
-                    <table class="table table-hover table-striped">
+                    <table class="table table-hover table-striped datatable"
+                           id="designationsTable">
                         <thead>
                             <tr>
                                 <th scope="col" th:text="#{label.numbers}"></th>
@@ -72,9 +73,10 @@
            class="back-to-top d-flex align-items-center justify-content-center">
           <i class="bi bi-arrow-up-short"></i>
         </a>
-        <script th:src="@{/js/salaryInput.js}"></script>
+
 
         <div th:replace="~{scripts}"></div>
+
 
         <!-- Add Designation Modal -->
         <div class="modal"
@@ -92,7 +94,7 @@
                                             <h5 class="card-title"
                                                 th:text="#{label.add.designation}"></h5>
                                         </div>
-                                        <div class="col-1">
+                                        <div class="col-1" id="closeModal">
                                             <div class="plus-icon-container">
                                                 <i class="bi bi-x-circle"
                                                    data-bs-dismiss="modal"></i>
@@ -106,10 +108,8 @@
 
                                         <script th:inline="javascript"
                                                 th:if="${#fields.hasErrors()}">
-                                            console.log("error");
                                             let myModal = new bootstrap.Modal(document.getElementById("AddDesignationModal"), {});
                                             myModal.show();
-
                                         </script>
 
                                         <div class="row">
@@ -164,17 +164,18 @@
                                             <div class="form-floating">
                                                 <div class="form-group row">
                                                     <div class="col-sm-6">
-                                                        <button type="submit"
-                                                                class="btn btn-primary">
-                                                            Submit
-                                                        </button>
+                                                        <input type="submit"
+                                                                class="btn btn-primary"
+                                                                name="action"
+                                                                value="submit"/>
                                                     </div>
 
                                                     <div class="col-sm-6">
-                                                        <button type="button"
+                                                        <input type="submit"
                                                                 class="btn btn-secondary"
-                                                                data-bs-dismiss="modal">Close
-                                                        </button>
+                                                                name="action"
+                                                                value="close"
+                                                                data-bs-dismiss="modal"/>
                                                     </div>
                                                 </div>
                                             </div>
@@ -189,5 +190,6 @@
         </div>
         <!-- End of Modal -->
 
+        <script th:src="@{/js/salaryInput.js}"></script>
     </body>
 </html>

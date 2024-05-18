@@ -53,18 +53,28 @@ public class DesignationController {
     }
 
     @PostMapping("/designation")
-    public String designation(@ModelAttribute @Valid Designation designation,
+    public String designation( @RequestParam("action") String action,
+                               @ModelAttribute @Valid Designation designation,
                               BindingResult result,
                               ModelMap model) {
-        if (result.hasErrors()) {
-            setupReferenceData(model);
+        if(!action.equals("close")) {
+            System.out.println("Action submit:" + action);
+            if (result.hasErrors()) {
+                setupReferenceData(model);
 
+                return DESIGNATION_PAGE;
+            }
+
+            designationService.save(designation);
+        } else {
+            System.out.println("Action close:" + action);
+            model.put("designation", new Designation());
+            setupReferenceData(model);
             return DESIGNATION_PAGE;
         }
 
-        designationService.save(designation);
-
         return "redirect:/" + DESIGNATION_PAGE;
+
     }
 
     public void setupReferenceData(ModelMap model) {
