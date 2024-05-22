@@ -1,26 +1,28 @@
 package maks.erp.system.service;
 
-import maks.erp.system.model.dto.UserDto;
+import maks.erp.system.dto.UserDto;
 import maks.erp.system.model.user.User;
 import maks.erp.system.model.user.UserDocument;
 import maks.erp.system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Base64;
-import java.util.Date;
+import java.util.Optional;
 
 @Service
 public class RegistrationService {
     @Autowired
-    UserRepository userRepository;
+    private UserRepository userRepository;
 
     @Autowired
-    UserDocumentService userDocumentService;
+    private UserDocumentService userDocumentService;
+
+    @Autowired
+    private DesignationService designationService;
+
+    @Autowired
+    private AddressService addressService;
 
     public void saveUser(User user) {
         userRepository.save(user);
@@ -43,6 +45,26 @@ public class RegistrationService {
                 .build();
 
         userDocumentService.save(userDocument);
+        designationService.save(userDto.getDesignationDto());
+        addressService.save(userDto.getPermanentAddress());
+        addressService.save(userDto.getPresentAddress());
+
         saveUser(user);
+    }
+
+    public Optional<User> getUserByUserName(String userName) {
+        return userRepository.getUserByUsername(userName);
+    }
+
+    public UserDto mapToUserDto(User user) {
+        return UserDto.builder()
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .birthDate(user.getBirthDate())
+                .joiningDate(user.getJoiningDate())
+                .username(user.getUsername())
+                .password(user.getPassword())
+                .salary(user.getSalary())
+                .build();
     }
 }

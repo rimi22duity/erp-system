@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+</head>
+
+<body>
+<div th:replace="~{links}"></div>
+
+<div th:replace="~{topbar}"></div>
+<div th:replace="~{sidebar}"></div>
+
+<main id="main" class="main">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg-10">
+                <div class="card">
+                    <div class="register-card-body">
+                        <h5 class="card-title">Leave Information</h5>
+
+                        <form th:action="@{/add-leave}"
+                              th:object="${leaveInfoDto}"
+                              method="post">
+                            <!-- Leave Type -->
+                            <div class="row mb-3">
+                              <label class="col-sm-3 col-form-label">Type</label>
+                              <div class="col-sm-6">
+                                <select class="form-select"
+                                        aria-label="Default select example">
+                                  <option selected>Please Select</option>
+                                  <div th:each="type: ${leaveTypeList}">
+                                    <option th:value="${type}"
+                                            th:name="leaveTypeTitle"
+                                            th:text="${type}"></option>
+                                  </div>
+<!--                                  <span th:if="${#fields.hasErrors('leaveType')}"-->
+<!--                                        th:errors="*{type}"-->
+<!--                                        class="error"></span>-->
+                                </select>
+                              </div>
+                            </div>
+                            <!-- Reason -->
+                            <div class="row mb-3">
+                                <div class="form-group">
+                                    <label for="exampleFormControlTextarea1">Reason</label>
+                                    <textarea class="form-control"
+                                              id="exampleFormControlTextarea1"
+                                              rows="3"
+                                              th:field="*{description}"></textarea>
+                                </div>
+                            </div>
+
+                            <!-- from Date-->
+                            <div class="row mb-3">
+                                <label for="fromDate"
+                                       class="col-sm-2 col-form-label">From</label>
+                                <div class="col-sm-10">
+                                    <input type="date"
+                                           id="fromDate"
+                                           class="form-control"
+                                           th:field="*{fromDate}">
+                                </div>
+                                <span th:if="${#fields.hasErrors('fromDate')}"
+                                      th:errors="*{fromDate}"
+                                      class="error"></span>
+                            </div>
+
+                            <!-- To Date-->
+                            <div class="row mb-3">
+                                <label for="toDate"
+                                       class="col-sm-2 col-form-label">To</label>
+                                <div class="col-sm-10">
+                                    <input type="date"
+                                           id="toDate"
+                                           class="form-control"
+                                           th:field="*{toDate}">
+                                </div>
+                                <span th:if="${#fields.hasErrors('toDate')}"
+                                      th:errors="*{toDate}"
+                                      class="error"></span>
+                            </div>
+
+                            <!-- Submit -->
+                            <div class="row mb-3">
+                                <div class="col-sm-10">
+                                    <button type="submit"
+                                            class="btn btn-primary">Submit</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<div th:replace="~{footer}"></div>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+<div th:replace="~{scripts}"></div>
+<script th:src="@{/js/addressResolver.js}"></script>
+
+</body>
+
+</html>

@@ -43,22 +43,21 @@
                             </tr>
                         </thead>
                         <tbody>
-                        <form>
-
-                        </form>
                             <tr th:each="des, iterStat: ${designationList}">
-                                <form th:action="@{'/edit/{id}'(id=${des.id})}">
                                     <th scope="row" th:text="${iterStat.index + 1}"></th>
                                     <td th:text="${des.title}"></td>
                                     <td th:text="${des.jobDescription}"></td>
                                     <td th:text="${des.salaryRange}"></td>
                                     <td>
-                                        <button class="btn btn-primary"
-                                                type="submit">
-                                            Edit
-                                        </button>
+                                        <form th:action="@{/edit}" method="get">
+                                            <input type="hidden"
+                                                   name="selectedDesignationId"
+                                                   th:value="${des.id}">
+                                            <input class="btn btn-primary"
+                                                    type="submit"
+                                                    th:value="Edit">
+                                        </form>
                                     </td>
-                                </form>
                             </tr>
                         </tbody>
                     </table>
@@ -67,16 +66,10 @@
           </section>
         </main>
 
-        <div th:replace="~{footer}"></div>
-
         <a href="#"
            class="back-to-top d-flex align-items-center justify-content-center">
           <i class="bi bi-arrow-up-short"></i>
         </a>
-
-
-        <div th:replace="~{scripts}"></div>
-
 
         <!-- Add Designation Modal -->
         <div class="modal"
@@ -103,7 +96,7 @@
                                     </div>
                                     <form action="#"
                                           th:action="@{/designation}"
-                                          th:object="${designation}"
+                                          th:object="${designationDto}"
                                           method="post">
 
                                         <script th:inline="javascript"
@@ -190,6 +183,8 @@
         </div>
         <!-- End of Modal -->
 
+        <div th:replace="~{footer}"></div>
+        <div th:replace="~{scripts}"></div>
         <script th:src="@{/js/salaryInput.js}"></script>
     </body>
 </html>

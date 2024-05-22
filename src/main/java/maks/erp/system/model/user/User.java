@@ -6,9 +6,11 @@ import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
+import maks.erp.system.model.LeaveInfo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author duity
@@ -29,15 +31,15 @@ public class User {
     @GeneratedValue(generator = "userSeq")
     private long id;
 
-    @NotBlank
+    @NotBlank(message = "This field should not be empty!")
     @Column(unique = true)
     private String username;
     private String password;
 
-    @NotBlank
+    @NotBlank(message = "This field should not be empty!")
     private String firstName;
 
-    @NotBlank
+    @NotBlank(message = "This field should not be empty!")
     private String lastName;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -58,8 +60,10 @@ public class User {
     @NotNull
     private double salary;
 
+    @Enumerated(EnumType.STRING)
     private Religion religion;
 
+    @NotNull
     @ManyToOne
     @JoinColumn(name = "designation_id")
     private Designation designation;
@@ -80,4 +84,8 @@ public class User {
 
     @OneToOne
     private UserDocument userDocument;
+
+    @OneToMany
+    @JoinColumn(name = "leave_info_id")
+    private List<LeaveInfo> leaveInfo;
 }

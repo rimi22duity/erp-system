@@ -1,6 +1,7 @@
 package maks.erp.system.controller;
 
 import jakarta.validation.Valid;
+import maks.erp.system.dto.DesignationDto;
 import maks.erp.system.model.user.Designation;
 import maks.erp.system.service.DesignationService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,7 @@ public class DesignationController {
 
     @GetMapping("/designation")
     public String addDesignations(ModelMap model) {
-        model.put("designation", new Designation());
+        model.put("designationDto", new DesignationDto());
         model.put("birthdate", "");
         model.put("joiningDate", "");
 
@@ -34,27 +35,32 @@ public class DesignationController {
         return DESIGNATION_PAGE;
     }
 
-    @GetMapping("/edit/{id}")
-    public String editDesignation(@PathVariable(value = "id") long id,
+    @GetMapping("/edit")
+    public String editDesignation(@RequestParam("selectedDesignationId") long id,
                                   ModelMap model) {
-        Designation designation = designationService.getDesignationById(id);
+        System.out.println("Yo I am here");
+        DesignationDto designationDto = designationService.mapToDesignationDto(
+                designationService.getDesignationById(id));
+
         model.put("title", "Update Designation");
-        model.put("designation", designation);
+        model.put("designationDto", designationDto);
+        model.put("designationId", id);
+        setupReferenceData(model);
         return "designation_details";
     }
 
-    @PostMapping("/edit/{id}")
-    public String editDesignation(@PathVariable(value="id") long id,
-                                  @ModelAttribute @Valid Designation designation,
+    @PostMapping("/edit")
+    public String editDesignation(@RequestParam("selectedDesignationId") long id,
+                                  @ModelAttribute @Valid DesignationDto designationDto,
                                   BindingResult result,
                                   ModelMap model) {
-        designationService.editDesignation(id, designation);
+        designationService.editDesignation(id, designationDto);
         return "redirect:/" + DESIGNATION_PAGE;
     }
 
     @PostMapping("/designation")
     public String designation( @RequestParam("action") String action,
-                               @ModelAttribute @Valid Designation designation,
+                               @ModelAttribute @Valid DesignationDto designationDto,
                               BindingResult result,
                               ModelMap model) {
         if(!action.equals("close")) {
@@ -65,7 +71,7 @@ public class DesignationController {
                 return DESIGNATION_PAGE;
             }
 
-            designationService.save(designation);
+            designationService.save(designationDto);
         } else {
             System.out.println("Action close:" + action);
             model.put("designation", new Designation());

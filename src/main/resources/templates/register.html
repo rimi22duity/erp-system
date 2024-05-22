@@ -12,7 +12,6 @@
 
 <body>
   <div th:replace="~{links}"></div>
-
   <div th:replace="~{topbar}"></div>
   <div th:replace="~{sidebar}"></div>
 
@@ -25,54 +24,92 @@
             <div class="register-card-body">
               <h5 class="card-title">General Information</h5>
 
-              <form th:action="@{/addUser}"
+              <form th:action="@{/register}"
                     th:object="${userDto}"
                     method="post"
                     enctype="multipart/form-data">
-                <div class="row mb-3">
-                  <label class="col-sm-2 col-form-label">Username</label>
-                  <div class="col-sm-10">
-                    <div class="input-group mb-3">
-                      <span class="input-group-text" id="basic-addon1">@</span>
-                      <input type="text"
-                             class="form-control"
-                             placeholder="Username"
-                             aria-label="Username"
-                             aria-describedby="basic-addon1"
-                             th:field="*{username}">
+
+                    <!-- Username-->
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Username</label>
+                      <div class="col-sm-10">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"
+                                id="basic-addon1">@</span>
+                          <input type="text"
+                                 class="form-control"
+                                 placeholder="Username"
+                                 aria-label="Username"
+                                 aria-describedby="basic-addon1"
+                                 th:field="*{username}">
+                        </div>
+                        <span th:if="${#fields.hasErrors('username')}"
+                              th:errors="*{username}"
+                              class="error">
+
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </div>
 
-                <div class="row mb-3">
-                  <label for="firstNameInput"
-                         class="col-sm-2 col-form-label">First Name</label>
-                  <div class="col-sm-10">
-                    <input id ="firstNameInput"
-                           type="text"
-                           class="form-control"
-                           th:field="*{firstName}">
-                  </div>
-                </div>
+                    <!-- Firstname-->
+                    <div class="row mb-3">
+                      <label for="firstNameInput"
+                             class="col-sm-2 col-form-label">First Name</label>
+                      <div class="col-sm-10">
+                        <input id ="firstNameInput"
+                               type="text"
+                               class="form-control"
+                               th:field="*{firstName}">
+                        <span th:if="${#fields.hasErrors('firstName')}"
+                              th:errors="*{firstName}"
+                              class="error"></span>
+                      </div>
 
-                <div class="row mb-3">
-                  <label for="lastNameInput"
-                         class="col-sm-2 col-form-label">Last Name</label>
-                  <div class="col-sm-10">
-                    <input id ="lastNameInput"
-                           type="text"
-                           class="form-control"
-                           th:field="*{lastName}" required>
-                  </div>
-                </div>
-<!--                <div class="row mb-3">-->
-<!--                  <label class="col-sm-2 col-form-label">Email</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input type="email"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{contactInfo.email}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                    </div>
+
+                    <!-- Lastname-->
+                    <div class="row mb-3">
+                      <label for="lastNameInput"
+                             class="col-sm-2 col-form-label">Last Name</label>
+                      <div class="col-sm-10">
+                        <input id ="lastNameInput"
+                               type="text"
+                               class="form-control"
+                               th:field="*{lastName}">
+                        <span th:if="${#fields.hasErrors('lastName')}"
+                              th:errors="*{lastName}"
+                              class="error"></span>
+                      </div>
+                    </div>
+
+                    <!--    Designation      -->
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Designation</label>
+                      <div class="col-sm-6">
+                        <select class="form-select"
+                                aria-label="Default select example"
+                                th:field="*{designationDto}">
+                          <option th:value="${null}" selected>Please Select</option>
+                          <div th:each="designation: ${designationList}">
+                            <option th:value="${designation}"
+                                    th:text="${designation.title}"
+                                    th:name="designationTitle"></option>
+                          </div>
+                          <span th:if="${#fields.hasErrors('designationDto')}"
+                                th:errors="*{designationDto}"
+                                class="error"></span>
+                        </select>
+                      </div>
+                    </div>
+
+                <!--                <div class="row mb-3">-->
+                <!--                  <label class="col-sm-2 col-form-label">Email</label>-->
+                <!--                  <div class="col-sm-10">-->
+                <!--                    <input type="email"-->
+                <!--                           class="form-control"-->
+                <!--                           th:field="*{contactInfo.email}">-->
+                <!--                  </div>-->
+                <!--                </div>-->
                 <div class="row mb-3">
                   <label class="col-sm-2 col-form-label">Password</label>
                   <div class="col-sm-10">
@@ -133,279 +170,264 @@
                 </fieldset>
 
                 <!-- Religion -->
-<!--                <div class="row mb-3">-->
-<!--                  <label class="col-sm-3 col-form-label">Religion</label>-->
-<!--                  <div class="col-sm-6">-->
-<!--                    <select class="form-select"-->
-<!--                            aria-label="Default select example">-->
-<!--                      <option selected>Please Select</option>-->
-<!--                      <div th:each="religion: ${religionList}">-->
-<!--                        <option th:value="${religion}"-->
-<!--                                th:name="religionTitle"-->
-<!--                                th:text="${religion}"></option>-->
-<!--                      </div>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                  <label class="col-sm-3 col-form-label">Religion</label>
+                  <div class="col-sm-6">
+                    <select class="form-select"
+                            aria-label="Default select example">
+                      <option selected>Please Select</option>
+                      <div th:each="religion: ${religionList}">
+                        <option th:value="${religion}"
+                                th:name="religionTitle"
+                                th:text="${religion}"></option>
+                      </div>
+                    </select>
+                  </div>
+                </div>
 
                 <!-- Currency -->
-<!--                <div class="row mb-3">-->
-<!--                  <label class="col-sm-2 col-form-label">Salary Currency</label>-->
-<!--                  <div class="col-sm-4">-->
-<!--                    <select class="form-select"-->
-<!--                            aria-label="Default select example">-->
-<!--                      <option selected>Please Select</option>-->
-<!--                      <div th:each="currency: ${currencyList}">-->
-<!--                        <option th:value="${currency}"-->
-<!--                                th:text="${currency}"></option>-->
-<!--                      </div>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                  <label class="col-sm-2 col-form-label">Salary Currency</label>
+                  <div class="col-sm-4">
+                    <select class="form-select"
+                            aria-label="Default select example">
+                      <option selected>Please Select</option>
+                      <div th:each="currency: ${currencyList}">
+                        <option th:value="${currency}"
+                                th:text="${currency}"></option>
+                      </div>
+                    </select>
+                  </div>
+                </div>
 
                 <!-- Salary -->
-<!--                <div class="row mb-3">-->
-<!--                  <label class="col-sm-2 col-form-label">Salary</label>-->
-<!--                  <div class="col-sm-6">-->
-<!--                    <div class="input-group mb-3">-->
-<!--                      <span class="input-group-text">৳</span>-->
-<!--                      <input type="text" class="form-control"-->
-<!--                             aria-label="Amount (to the nearest dollar)"-->
-<!--                             th:field="*{salary}">-->
-<!--                      <span class="input-group-text">.00</span>-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                </div>-->
-
-                <!--    Designation      -->
-<!--                <div class="row mb-3">-->
-<!--                  <label class="col-sm-3 col-form-label">Designation</label>-->
-<!--                  <div class="col-sm-6">-->
-<!--                    <select class="form-select"-->
-<!--                            aria-label="Default select example">-->
-<!--                      <option selected>Please Select</option>-->
-<!--                      <div th:each="designation: ${designationList}">-->
-<!--                        <option th:value="${designation}"-->
-<!--                                th:text="${designation.title}"-->
-<!--                                th:name="designationTitle"></option>-->
-<!--                      </div>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                </div>-->
+                <!--                <div class="row mb-3">-->
+                <!--                  <label class="col-sm-2 col-form-label">Salary</label>-->
+                <!--                  <div class="col-sm-6">-->
+                <!--                    <div class="input-group mb-3">-->
+                <!--                      <span class="input-group-text">৳</span>-->
+                <!--                      <input type="text" class="form-control"-->
+                <!--                             aria-label="Amount (to the nearest dollar)"-->
+                <!--                             th:field="*{salary}">-->
+                <!--                      <span class="input-group-text">.00</span>-->
+                <!--                    </div>-->
+                <!--                  </div>-->
+                <!--                </div>-->
 
                 <!-- Contact Information -->
-<!--                <h5 class="card-title">Contact Information</h5>-->
-<!--                <div class="row mb-3">-->
-<!--                  <label for="contactPhone"-->
-<!--                         class="col-sm-2 col-form-label">Phone</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="contactPhone"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{contactInfo.phone}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <!--                <h5 class="card-title">Contact Information</h5>-->
+                <!--                <div class="row mb-3">-->
+                <!--                  <label for="contactPhone"-->
+                <!--                         class="col-sm-2 col-form-label">Phone</label>-->
+                <!--                  <div class="col-sm-10">-->
+                <!--                    <input id ="contactPhone"-->
+                <!--                           type="text"-->
+                <!--                           class="form-control"-->
+                <!--                           th:field="*{contactInfo.phone}">-->
+                <!--                  </div>-->
+                <!--                </div>-->
 
-<!--                <div class="row mb-3">-->
-<!--                  <label for="contactMobile"-->
-<!--                         class="col-sm-2 col-form-label">Mobile</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="contactMobile"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{contactInfo.mobileNumber}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <!--                <div class="row mb-3">-->
+                <!--                  <label for="contactMobile"-->
+                <!--                         class="col-sm-2 col-form-label">Mobile</label>-->
+                <!--                  <div class="col-sm-10">-->
+                <!--                    <input id ="contactMobile"-->
+                <!--                           type="text"-->
+                <!--                           class="form-control"-->
+                <!--                           th:field="*{contactInfo.mobileNumber}">-->
+                <!--                  </div>-->
+                <!--                </div>-->
                 <!-- Present Address -->
                 <!-- Road, thana, City, District, postal code -->
-<!--                <h6 class="card-title">Present Address Information</h6>-->
+                <h6 class="card-title">Present Address Information</h6>
 
-<!--                <div class="row mb-3">-->
-<!--                  <label for="presentAddressRoad"-->
-<!--                         class="col-sm-2 col-form-label">Road</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="presentAddressRoad"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{presentAddress.road}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                  <label for="presentAddressRoad"
+                         class="col-sm-2 col-form-label">Road</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressRoad"
+                           type="text"
+                           class="form-control"
+                           th:field="*{presentAddress.road}">
+                  </div>
+                </div>
 
-<!--                <div class="row mb-3">-->
-<!--                  <label for="presentAddressThana"-->
-<!--                         class="col-sm-2 col-form-label">Thana</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="presentAddressThana"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{presentAddress.thana}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                  <label for="presentAddressThana"
+                         class="col-sm-2 col-form-label">Thana</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressThana"
+                           type="text"
+                           class="form-control"
+                           th:field="*{presentAddress.thana}">
+                  </div>
+                </div>
 
-<!--                <div class="row mb-3">-->
-<!--                  <label for="presentAddressCity"-->
-<!--                         class="col-sm-2 col-form-label">City</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="presentAddressCity"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{presentAddress.city}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                  <label for="presentAddressCity"
+                         class="col-sm-2 col-form-label">City</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressCity"
+                           type="text"
+                           class="form-control"
+                           th:field="*{presentAddress.city}">
+                  </div>
+                </div>
 
-<!--                <div class="row mb-3">-->
-<!--                  <label for="presentAddressDistrict"-->
-<!--                         class="col-sm-2 col-form-label">District</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="presentAddressDistrict"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{presentAddress.district}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                  <label for="presentAddressDistrict"
+                         class="col-sm-2 col-form-label">District</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressDistrict"
+                           type="text"
+                           class="form-control"
+                           th:field="*{presentAddress.district}">
+                  </div>
+                </div>
 
-<!--                <div class="row mb-3">-->
-<!--                  <label for="presentAddressCode"-->
-<!--                         class="col-sm-2 col-form-label">Postal Code</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="presentAddressCode"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{presentAddress.postalCode}">-->
-<!--                  </div>-->
-<!--                </div>-->
+                <div class="row mb-3">
+                  <label for="presentAddressCode"
+                         class="col-sm-2 col-form-label">Postal Code</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressCode"
+                           type="text"
+                           class="form-control"
+                           th:field="*{presentAddress.postalCode}">
+                  </div>
+                </div>
 
                 <!-- End of Present Address -->
 
                 <!-- Permanent Address -->
                 <!-- Road, thana, City, District, postal code -->
-<!--                  <h6 class="card-title">Permanent Address Information</h6>-->
-<!--                  <div class="row mb-3">-->
-<!--                    <div class="form-check">-->
-<!--                      <label class="form-check-label"-->
-<!--                             for="sameAddressCheckBox">-->
-<!--                        Same as above-->
-<!--                      </label>-->
-<!--                      <input class="form-check-input"-->
-<!--                             type="checkbox"-->
-<!--                             value=""-->
-<!--                             id="sameAddressCheckBox">-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  <div class="row mb-3">-->
-<!--                    <label for="permanentAddressRoad"-->
-<!--                           class="col-sm-2 col-form-label">Road</label>-->
-<!--                    <div class="col-sm-10">-->
-<!--                      <input id ="permanentAddressRoad"-->
-<!--                             type="text"-->
-<!--                             class="form-control"-->
-<!--                             th:field="*{permanentAddress.road}">-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  <div class="row mb-3">-->
-<!--                    <label for="permanentAddressThana"-->
-<!--                           class="col-sm-2 col-form-label">Thana</label>-->
-<!--                    <div class="col-sm-10">-->
-<!--                      <input id ="permanentAddressThana"-->
-<!--                             type="text"-->
-<!--                             class="form-control"-->
-<!--                             th:field="*{permanentAddress.thana}">-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  <div class="row mb-3">-->
-<!--                    <label for="permanentAddressCity"-->
-<!--                           class="col-sm-2 col-form-label">City</label>-->
-<!--                    <div class="col-sm-10">-->
-<!--                      <input id ="permanentAddressCity"-->
-<!--                             type="text"-->
-<!--                             class="form-control"-->
-<!--                             th:field="*{permanentAddress.city}">-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  <div class="row mb-3">-->
-<!--                    <label for="permanentAddressDistrict"-->
-<!--                           class="col-sm-2 col-form-label">District</label>-->
-<!--                    <div class="col-sm-10">-->
-<!--                      <input id ="permanentAddressDistrict"-->
-<!--                             type="text"-->
-<!--                             class="form-control"-->
-<!--                             th:field="*{permanentAddress.district}">-->
-<!--                    </div>-->
-<!--                  </div>-->
-
-<!--                  <div class="row mb-3">-->
-<!--                    <label for="permanentAddressCode"-->
-<!--                           class="col-sm-2 col-form-label">Postal Code</label>-->
-<!--                    <div class="col-sm-10">-->
-<!--                      <input id ="permanentAddressCode"-->
-<!--                             type="text"-->
-<!--                             class="form-control"-->
-<!--                             th:field="*{permanentAddress.postalCode}">-->
-<!--                    </div>-->
-<!--                  </div>-->
-<!--                &lt;!&ndash; End of Permanent Address &ndash;&gt;-->
-
-<!--                &lt;!&ndash; Emergency Contact Information &ndash;&gt;-->
-<!--                <h5 class="card-title">Emergency Contact Information</h5>-->
-<!--                <div class="row mb-3">-->
-<!--                  <label for="emergencyContactName"-->
-<!--                         class="col-sm-2 col-form-label">Name</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="emergencyContactName"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{emergencyContact.name}">-->
-<!--                  </div>-->
-<!--                </div>-->
-
-<!--                <div class="row mb-3">-->
-<!--                  <label for="emergencyContactPhone"-->
-<!--                         class="col-sm-2 col-form-label">Phone</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="emergencyContactPhone"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{emergencyContact.phone}">-->
-<!--                  </div>-->
-<!--                </div>-->
-
-<!--                <div class="row mb-3">-->
-<!--                  <label for="emergencyContactMobile"-->
-<!--                         class="col-sm-2 col-form-label">Mobile</label>-->
-<!--                  <div class="col-sm-10">-->
-<!--                    <input id ="emergencyContactMobile"-->
-<!--                           type="text"-->
-<!--                           class="form-control"-->
-<!--                           th:field="*{emergencyContact.mobileNumber}">-->
-<!--                  </div>-->
-<!--                </div>-->
-
-<!--                <div class="row mb-3">-->
-<!--                  <label class="col-sm-2 col-form-label">Relation</label>-->
-<!--                  <div class="col-sm-6">-->
-<!--                    <select class="form-select"-->
-<!--                            aria-label="Default select example">-->
-<!--                      <option selected>Please Select</option>-->
-<!--                      <div th:each="relationship: ${relationshipList}">-->
-<!--                        <option th:value="${relationship}"-->
-<!--                                th:name="relationshipTitle"-->
-<!--                                th:text="${relationship}"></option>-->
-<!--                      </div>-->
-<!--                    </select>-->
-<!--                  </div>-->
-<!--                </div>-->
-                <!-- End of Emergency Contact Information -->
-
-                <!-- Submit -->
+                <h6 class="card-title">Permanent Address Information</h6>
                 <div class="row mb-3">
-                  <div class="col-sm-10">
-                    <button type="submit" class="btn btn-primary">Submit Form</button>
+                  <div class="form-check">
+                    <label class="form-check-label"
+                           for="sameAddressCheckBox">
+                      Same as above
+                    </label>
+                    <input class="form-check-input"
+                           type="checkbox"
+                           value=""
+                           id="sameAddressCheckBox">
                   </div>
                 </div>
+
+                <div class="row mb-3">
+                  <label for="permanentAddressRoad"
+                         class="col-sm-2 col-form-label">Road</label>
+                  <div class="col-sm-10">
+                    <input id ="permanentAddressRoad"
+                           type="text"
+                           class="form-control"
+                           th:field="*{permanentAddress.road}">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="permanentAddressThana"
+                         class="col-sm-2 col-form-label">Thana</label>
+                  <div class="col-sm-10">
+                    <input id ="permanentAddressThana"
+                           type="text"
+                           class="form-control"
+                           th:field="*{permanentAddress.thana}">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="permanentAddressCity"
+                         class="col-sm-2 col-form-label">City</label>
+                  <div class="col-sm-10">
+                    <input id ="permanentAddressCity"
+                           type="text"
+                           class="form-control"
+                           th:field="*{permanentAddress.city}">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="permanentAddressDistrict"
+                         class="col-sm-2 col-form-label">District</label>
+                  <div class="col-sm-10">
+                    <input id ="permanentAddressDistrict"
+                           type="text"
+                           class="form-control"
+                           th:field="*{permanentAddress.district}">
+                  </div>
+                </div>
+
+                <div class="row mb-3">
+                  <label for="permanentAddressCode"
+                         class="col-sm-2 col-form-label">Postal Code</label>
+                  <div class="col-sm-10">
+                    <input id ="permanentAddressCode"
+                           type="text"
+                           class="form-control"
+                           th:field="*{permanentAddress.postalCode}">
+                  </div>
+                </div>
+                <!-- End of Permanent Address &ndash;&gt;-->
+
+                <!--                &lt;!&ndash; Emergency Contact Information &ndash;&gt;-->
+                <!--                <h5 class="card-title">Emergency Contact Information</h5>-->
+                <!--                <div class="row mb-3">-->
+                <!--                  <label for="emergencyContactName"-->
+                <!--                         class="col-sm-2 col-form-label">Name</label>-->
+                <!--                  <div class="col-sm-10">-->
+                <!--                    <input id ="emergencyContactName"-->
+                <!--                           type="text"-->
+                <!--                           class="form-control"-->
+                <!--                           th:field="*{emergencyContact.name}">-->
+                <!--                  </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="row mb-3">-->
+                <!--                  <label for="emergencyContactPhone"-->
+                <!--                         class="col-sm-2 col-form-label">Phone</label>-->
+                <!--                  <div class="col-sm-10">-->
+                <!--                    <input id ="emergencyContactPhone"-->
+                <!--                           type="text"-->
+                <!--                           class="form-control"-->
+                <!--                           th:field="*{emergencyContact.phone}">-->
+                <!--                  </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="row mb-3">-->
+                <!--                  <label for="emergencyContactMobile"-->
+                <!--                         class="col-sm-2 col-form-label">Mobile</label>-->
+                <!--                  <div class="col-sm-10">-->
+                <!--                    <input id ="emergencyContactMobile"-->
+                <!--                           type="text"-->
+                <!--                           class="form-control"-->
+                <!--                           th:field="*{emergencyContact.mobileNumber}">-->
+                <!--                  </div>-->
+                <!--                </div>-->
+
+                <!--                <div class="row mb-3">-->
+                <!--                  <label class="col-sm-2 col-form-label">Relation</label>-->
+                <!--                  <div class="col-sm-6">-->
+                <!--                    <select class="form-select"-->
+                <!--                            aria-label="Default select example">-->
+                <!--                      <option selected>Please Select</option>-->
+                <!--                      <div th:each="relationship: ${relationshipList}">-->
+                <!--                        <option th:value="${relationship}"-->
+                <!--                                th:name="relationshipTitle"-->
+                <!--                                th:text="${relationship}"></option>-->
+                <!--                      </div>-->
+                <!--                    </select>-->
+                <!--                  </div>-->
+                <!--                </div>-->
+                <!-- End of Emergency Contact Information -->
+
+
+                    <!-- Submit -->
+                    <div class="row mb-3">
+                      <div class="col-sm-10">
+                        <input type="submit" class="btn btn-primary" value="Submit Form">
+                      </div>
+                    </div>
               </form>
             </div>
           </div>
@@ -417,9 +439,9 @@
 
   <div th:replace="~{footer}"></div>
 
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-    <i class="bi bi-arrow-up-short"></i>
-  </a>
+<!--  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">-->
+<!--    <i class="bi bi-arrow-up-short"></i>-->
+<!--  </a>-->
   <div th:replace="~{scripts}"></div>
   <script th:src="@{/js/addressResolver.js}"></script>
 

@@ -1,14 +1,11 @@
 package maks.erp.system.controller;
 
 import jakarta.validation.Valid;
-import lombok.extern.java.Log;
-import maks.erp.system.dto.RegistrationDto;
 import maks.erp.system.enums.Currency;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Relationship;
 import maks.erp.system.enums.Religion;
-import maks.erp.system.model.dto.UserDto;
-import maks.erp.system.model.user.EmergencyContactInfo;
+import maks.erp.system.dto.UserDto;
 import maks.erp.system.model.user.User;
 import maks.erp.system.service.DesignationService;
 import maks.erp.system.service.RegistrationService;
@@ -19,12 +16,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.Date;
+import java.util.Optional;
 
 /**
  * @author duity
@@ -47,6 +43,8 @@ public class RegistrationController {
 
     @GetMapping("/register")
     public String register(ModelMap model) {
+
+        log.info("hello There!");
         model.put("userDto", new UserDto());
 
         model.put("genderList", Gender.getGenderList());
@@ -58,11 +56,28 @@ public class RegistrationController {
         return REGISTRATION_PAGE;
     }
 
-    @PostMapping("/addUser")
-    public String addNewUser(@ModelAttribute @Valid UserDto userDto,
+    @PostMapping("/register")
+    public String addNewUser(@Valid @ModelAttribute UserDto userDto,
                              BindingResult result,
                              ModelMap model) throws IOException {
+        log.info("hello there from post");
+        Optional<User> existingUser = registrationService.getUserByUserName(userDto.getUsername());
+        if(existingUser.isPresent()) {
+            result.rejectValue(
+                    "username",
+                    null,
+                    "There is already an account registered with the same username");
+
+        }
+        if(result.hasErrors()) {
+
+            log.error("error");
+            model.put("userDto", userDto);
+            return REGISTRATION_PAGE;
+        }
         registrationService.saveNewUser(userDto);
+        log.info("User: " + userDto.getFirstName());
+        model.put("message", "Registration successful!");
 
         return "redirect:/" + REGISTRATION_PAGE;
     }

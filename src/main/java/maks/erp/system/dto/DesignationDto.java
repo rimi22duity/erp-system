@@ -1,30 +1,19 @@
-package maks.erp.system.model.user;
+package maks.erp.system.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.web.servlet.tags.form.TextareaTag;
+import maks.erp.system.model.user.User;
 
 import java.util.List;
 
-/**
- * @author duity
- * @since 5/4/24
- */
-
-@Entity
-@Table
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Designation {
-
-    @Id
-    @SequenceGenerator(name = "designationSeq", sequenceName = "designationSeq", allocationSize = 1)
-    @GeneratedValue(generator = "designationSeq")
+public class DesignationDto {
     private long id;
 
     @NotBlank
@@ -32,11 +21,9 @@ public class Designation {
     private String title;
 
     @NotBlank
-    @Column(columnDefinition = "TEXT")
     private String jobDescription;
 
     private String salaryRange;
 
-    @OneToMany
     private List<User> users;
 }
