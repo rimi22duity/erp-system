@@ -9,6 +9,7 @@ import maks.erp.system.dto.UserDto;
 import maks.erp.system.model.user.User;
 import maks.erp.system.service.DesignationService;
 import maks.erp.system.service.RegistrationService;
+import maks.erp.system.service.UserService;
 import maks.erp.system.utils.DateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,7 @@ public class RegistrationController {
 
     Logger log = LoggerFactory.getLogger(RegistrationController.class);
     private final String REGISTRATION_PAGE = "register";
+    private final String USERS_PAGE = "user_list";
     @Autowired
     private DesignationService designationService;
 
@@ -40,6 +42,10 @@ public class RegistrationController {
 
     @Autowired
     private DateConverter dateConverter;
+
+    @Autowired
+    private UserService userService;
+
 
     @GetMapping("/register")
     public String register(ModelMap model) {
@@ -80,5 +86,23 @@ public class RegistrationController {
         model.put("message", "Registration successful!");
 
         return "redirect:/" + REGISTRATION_PAGE;
+    }
+
+    @GetMapping("/users")
+    public String getAllUsers(ModelMap model) {
+        model.put("users", userService.getUserList());
+        model.put("title", "Users");
+
+        return USERS_PAGE;
+    }
+
+    @GetMapping("/editUser")
+    public String editUser(@RequestParam("selectedUserId") long id, ModelMap model) {
+        UserDto userDto = userService.findUserById(id);
+
+        model.put("title", "Update Information");
+        model.put("userDetails", userDto);
+
+        return REGISTRATION_PAGE;
     }
 }

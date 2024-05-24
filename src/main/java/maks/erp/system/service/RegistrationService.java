@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -54,17 +56,5 @@ public class RegistrationService {
 
     public Optional<User> getUserByUserName(String userName) {
         return userRepository.getUserByUsername(userName);
-    }
-
-    public UserDto mapToUserDto(User user) {
-        return UserDto.builder()
-                .firstName(user.getFirstName())
-                .lastName(user.getLastName())
-                .birthDate(user.getBirthDate())
-                .joiningDate(user.getJoiningDate())
-                .username(user.getUsername())
-                .password(user.getPassword())
-                .salary(user.getSalary())
-                .build();
     }
 }

@@ -38,7 +38,6 @@ public class DesignationController {
     @GetMapping("/edit")
     public String editDesignation(@RequestParam("selectedDesignationId") long id,
                                   ModelMap model) {
-        System.out.println("Yo I am here");
         DesignationDto designationDto = designationService.mapToDesignationDto(
                 designationService.getDesignationById(id));
 

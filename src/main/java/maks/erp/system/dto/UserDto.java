@@ -24,6 +24,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
+    private long id;
 
     @NotEmpty(message = "This field should not be empty!")
     private String username;

@@ -1,0 +1,74 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title th:text="#{label.designation.page.title}"/>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+</head>
+
+<body>
+<div th:replace="~{links}"></div>
+<div th:replace="~{topbar}"></div>
+<div th:replace="~{sidebar}"></div>
+
+<main id="main" class="main">
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-11">
+                        <h5 class="card-title"
+                            th:text="${title}"></h5>
+                    </div>
+
+                    <div class="col-1">
+                        <div class="plus-icon-container"
+                             data-bs-toggle="modal"
+                             data-bs-target="#AddDesignationModal">
+                            <i class="bi bi-plus-lg plus-icon icon-20"></i>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover table-striped datatable"
+                       id="designationsTable">
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="#{label.numbers}"></th>
+                        <th scope="col" th:text="#{label.title}"></th>
+                        <th scope="col" th:text="#{label.action}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="user, iterStat: ${users}">
+                        <th scope="row" th:text="${iterStat.index + 1}"></th>
+                        <td th:text="${user.firstName}"></td>
+                        <td>
+                            <form th:action="@{/editUser}" method="get">
+                                <input type="hidden"
+                                       name="selectedUserId"
+                                       th:value="${user.id}">
+                                <input class="btn btn-primary"
+                                       type="submit"
+                                       th:value="Edit">
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<a href="#"
+   class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+
+<div th:replace="~{footer}"></div>
+<div th:replace="~{scripts}"></div>
+<script th:src="@{/js/salaryInput.js}"></script>
+</body>
+</html>
