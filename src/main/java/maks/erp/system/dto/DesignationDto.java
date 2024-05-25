@@ -14,7 +14,6 @@ import java.util.List;
 @NoArgsConstructor
 @Builder
 public class DesignationDto {
-    private long id;
 
     @NotBlank
     @Size(max = 50)
@@ -24,6 +23,4 @@ public class DesignationDto {
     private String jobDescription;
 
     private String salaryRange;
-
-    private List<User> users;
 }

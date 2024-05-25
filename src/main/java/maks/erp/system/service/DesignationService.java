@@ -1,5 +1,6 @@
 package maks.erp.system.service;
 
+import lombok.extern.slf4j.Slf4j;
 import maks.erp.system.dto.DesignationDto;
 import maks.erp.system.model.user.Designation;
 import maks.erp.system.repository.DesignationRepository;
@@ -12,42 +13,28 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+@Slf4j
 @Service
 public class DesignationService {
 
-    Logger logger = LoggerFactory.getLogger(DesignationService.class);
-
     @Autowired
     DesignationRepository designationRepository;
+
     public Designation getDesignationById(long id) {
-        Optional<Designation> optional = designationRepository.findById(id);
-
-        Designation designation = null;
-        if(optional.isPresent()){
-            designation = optional.get();
-        } else {
-            logger.error(" Designation not found for the id" + id);
-        }
-
-        return designation;
+        return Optional.of(designationRepository.findById(id)).get().orElse(null);
     }
+
     public void save(DesignationDto designationDto) {
         Designation designation = Designation.builder()
-                        .title(designationDto.getTitle())
-                        .jobDescription((designationDto.getJobDescription()))
+                .title(designationDto.getTitle())
+                .jobDescription((designationDto.getJobDescription()))
                 .salaryRange(designationDto.getSalaryRange())
                 .build();
         designationRepository.save(designation);
     }
 
-    public List<DesignationDto> getDesignations() {
-        List<Designation> designations = designationRepository.findAll();
-        List<DesignationDto> designationDtos = new ArrayList<>();
-        designations.forEach(designation -> {
-            designationDtos.add(mapToDesignationDto(designation));
-        });
-
-        return designationDtos;
+    public List<Designation> getDesignations() {
+        return designationRepository.findAll();
     }
 
     public void editDesignation(Long id, DesignationDto designationDto) {
@@ -66,11 +53,9 @@ public class DesignationService {
 
     public DesignationDto mapToDesignationDto(Designation designation) {
         return DesignationDto.builder()
-                .id(designation.getId())
                 .title(designation.getTitle())
                 .jobDescription(designation.getJobDescription())
                 .salaryRange(designation.getSalaryRange())
-                .users(designation.getUsers())
                 .build();
     }
 }

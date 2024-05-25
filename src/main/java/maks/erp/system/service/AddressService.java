@@ -8,17 +8,21 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class AddressService {
+
     @Autowired
     private AddressRepository addressRepository;
 
-    public void save(AddressDto addressDto) {
-        Address newAddress = Address.builder()
+    public void save(Address address) {
+        addressRepository.save(address);
+    }
+
+    public Address mapToAddress(AddressDto addressDto) {
+        return Address.builder()
                 .road(addressDto.getRoad())
                 .thana(addressDto.getThana())
                 .city(addressDto.getCity())
                 .district(addressDto.getDistrict())
                 .postalCode(addressDto.getPostalCode())
                 .build();
-        addressRepository.save(newAddress);
     }
 }

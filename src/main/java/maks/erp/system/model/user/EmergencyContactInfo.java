@@ -1,13 +1,7 @@
 package maks.erp.system.model.user;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import jakarta.persistence.*;
+import lombok.*;
 import maks.erp.system.enums.Relationship;
 
 @Entity
@@ -15,6 +9,7 @@ import maks.erp.system.enums.Relationship;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class EmergencyContactInfo {
 
     @Id
@@ -24,6 +19,7 @@ public class EmergencyContactInfo {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private Relationship relation;
 
     private String phone;

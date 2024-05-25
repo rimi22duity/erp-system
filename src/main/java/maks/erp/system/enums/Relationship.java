@@ -11,6 +11,10 @@ public enum Relationship {
 
     private String relation;
 
+    public String getRelation() {
+        return relation;
+    }
+
     Relationship(String relation) {
         this.relation = relation;
     }

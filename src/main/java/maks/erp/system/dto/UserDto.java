@@ -1,13 +1,14 @@
 package maks.erp.system.dto;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.*;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
+import maks.erp.system.model.user.ContactInfo;
+import maks.erp.system.model.user.EmergencyContactInfo;
+import maks.erp.system.model.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,7 +25,6 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    private long id;
 
     @NotEmpty(message = "This field should not be empty!")
     private String username;
@@ -40,14 +40,8 @@ public class UserDto {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date joiningDate;
-
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
-    @NotNull
-    private double salary;
 
     @NotNull
     private MultipartFile document;
@@ -55,17 +49,14 @@ public class UserDto {
     @Enumerated(EnumType.STRING)
     private Religion religion;
 
-    @NotNull
-    private DesignationDto designationDto;
-//
-//    private ContactInfo contactInfo;
-//
+    private ContactInfo contactInfo;
+
+    private EmergencyContactInfo emergencyContact;
+
     private AddressDto presentAddress;
 
     private AddressDto permanentAddress;
-//
-//    private EmergencyContactInfo emergencyContact;
-//
-//    private UserDocument userDocument;
+
 //    private List<LeaveInfoDto> leaveInfo;
+
 }

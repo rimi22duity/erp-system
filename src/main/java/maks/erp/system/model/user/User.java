@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import maks.erp.system.dto.AddressDto;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
 import maks.erp.system.model.LeaveInfo;
@@ -18,7 +19,11 @@ import java.util.List;
  */
 
 @Entity
-@Table
+@Table (
+        uniqueConstraints = {
+                @UniqueConstraint(columnNames = {"username"})
+        }
+)
 @Getter
 @Setter
 @Builder
@@ -32,7 +37,6 @@ public class User {
     private long id;
 
     @NotBlank(message = "This field should not be empty!")
-    @Column(unique = true)
     private String username;
     private String password;
 
@@ -51,41 +55,38 @@ public class User {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date joiningDate;
-
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @NotNull
-    private double salary;
-
     @Enumerated(EnumType.STRING)
     private Religion religion;
-
-    @NotNull
-    @ManyToOne
-    @JoinColumn(name = "designation_id")
-    private Designation designation;
 
     @OneToOne
     private ContactInfo contactInfo;
 
     @OneToOne
-    @JoinColumn(name = "present_address_id")
+    private EmergencyContactInfo emergencyContact;
+
+    @OneToOne
     private Address presentAddress;
 
     @OneToOne
-    @JoinColumn(name = "permanent_address_id")
     private Address permanentAddress;
-
-    @OneToOne
-    private EmergencyContactInfo emergencyContact;
 
     @OneToOne
     private UserDocument userDocument;
 
+    @OneToOne
+    private UserJobDetails userJobDetails;
+
     @OneToMany
     @JoinColumn(name = "leave_info_id")
     private List<LeaveInfo> leaveInfo;
+
+    @Transient
+    private String fullName;
+
+    public String getFullName() {
+        return this.firstName + " " + this.lastName;
+    }
 }

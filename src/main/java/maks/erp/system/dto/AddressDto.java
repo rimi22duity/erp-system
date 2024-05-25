@@ -17,7 +17,4 @@ public class AddressDto {
     private String city;
     private String district;
     private String postalCode;
-
-    private User user;
-
 }

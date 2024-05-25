@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+</head>
+
+<body>
+  <div th:replace="~{links}"></div>
+  <div th:replace="~{topbar}"></div>
+  <div th:replace="~{sidebar}"></div>
+
+  <main id="main" class="main">
+    <section class="section">
+      <div class="row">
+        <div class="col-lg-10">
+
+          <div class="card">
+            <div class="register-card-body">
+              <h5 class="card-title">General Information</h5>
+
+              <div th:if="${successMessage}"
+                   th:text="${successMessage}"
+                   class="alert alert-success">
+              </div>
+
+              <form th:action="@{/createUser}"
+                    th:object="${userDto}"
+                    method="post"
+                    enctype="multipart/form-data">
+
+                    <!-- Username-->
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Username</label>
+                      <div class="col-sm-10" th:if="*{username}">
+                          <label class="col-sm-2 col-form-label" th:text="*{username}"></label>
+                      </div>
+                      <div class="col-sm-10" th:unless="*{username}">
+                        <div class="input-group mb-3">
+                          <span class="input-group-text"
+                                id="basic-addon1">@</span>
+                          <input type="text"
+                                 class="form-control"
+                                 placeholder="Username"
+                                 aria-label="Username"
+                                 aria-describedby="basic-addon1"
+                                 th:field="*{username}">
+                        </div>
+                        <span th:if="${#fields.hasErrors('username')}"
+                              th:errors="*{username}"
+                              class="error">
+
+                        </span>
+                      </div>
+                    </div>
+
+                    <!-- Firstname-->
+                    <div class="row mb-3">
+                      <label for="firstNameInput"
+                             class="col-sm-2 col-form-label">First Name</label>
+                      <div class="col-sm-10">
+                        <input id ="firstNameInput"
+                               type="text"
+                               class="form-control"
+                               th:field="*{firstName}">
+                        <span th:if="${#fields.hasErrors('firstName')}"
+                              th:errors="*{firstName}"
+                              class="error"></span>
+                      </div>
+
+                    </div>
+
+                    <!-- Lastname-->
+                    <div class="row mb-3">
+                      <label for="lastNameInput"
+                             class="col-sm-2 col-form-label">Last Name</label>
+                      <div class="col-sm-10">
+                        <input id ="lastNameInput"
+                               type="text"
+                               class="form-control"
+                               th:field="*{lastName}">
+                        <span th:if="${#fields.hasErrors('lastName')}"
+                              th:errors="*{lastName}"
+                              class="error"></span>
+                      </div>
+                    </div>
+
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Password</label>
+                      <div class="col-sm-10">
+                        <input type="password"
+                               class="form-control"
+                               th:field="*{password}">
+                      </div>
+                    </div>
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Documents Upload</label>
+                      <div class="col-sm-10">
+                        <input class="form-control"
+                               type="file"
+                               id="formFile"
+                               th:field="*{document}"
+                               accept="image/*,video/*,.pdf">
+                      </div>
+                    </div>
+
+                    <!-- Birth Date-->
+                    <div class="row mb-3">
+                      <label for="birthDate"
+                             class="col-sm-2 col-form-label">Date of Birth</label>
+                      <div class="col-sm-10">
+                        <input type="date"
+                               id="birthDate"
+                               class="form-control"
+                               th:field="*{birthDate}">
+                      </div>
+                    </div>
+
+                    <!-- Gender -->
+                    <fieldset class="row mb-3">
+                      <legend class="col-form-label col-sm-2 pt-0">Gender</legend>
+                      <div class="col-sm-10">
+                        <div th:each = "gen: ${T(maks.erp.system.enums.Gender).values()}">
+                          <div class="form-check">
+                            <input class="form-check-input"
+                                   type="radio"
+                                   th:value="${gen}"
+                                   th:field= "*{gender}">
+                            <label class="form-check-label"
+                                   th:text = "${gen.fullString}">
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                    </fieldset>
+
+                    <!-- Religion -->
+                    <div class="row mb-3">
+                      <label class="col-sm-3 col-form-label">Religion</label>
+                      <div class="col-sm-6">
+                        <select class="form-select"
+                                aria-label="Default select example"
+                                th:field="*{religion}">
+                          <div th:each="reli: ${T(maks.erp.system.enums.Religion).values()}">
+                            <option th:value="${reli}"
+                                    th:text="${reli.fullString}"></option>
+                          </div>
+                        </select>
+                      </div>
+                    </div>
+
+                    <!--  Contact Information -->
+                    <h5 class="card-title">Contact Information</h5>
+                    <div class="row mb-3">
+                      <label for="contactPhone"
+                             class="col-sm-2 col-form-label">Phone</label>
+                      <div class="col-sm-10">
+                        <input id ="contactPhone"
+                               type="text"
+                               class="form-control"
+                               th:field="*{contactInfo.phone}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="contactMobile"
+                             class="col-sm-2 col-form-label">Mobile</label>
+                      <div class="col-sm-10">
+                        <input id ="contactMobile"
+                               type="text"
+                               class="form-control"
+                               th:field="*{contactInfo.mobileNumber}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Email</label>
+                      <div class="col-sm-10">
+                        <input type="email"
+                               class="form-control"
+                               th:field="*{contactInfo.email}">
+                      </div>
+                    </div>
+
+                    <!-- Emergency Contact Information-->
+                    <h5 class="card-title">Emergency Contact Information</h5>
+                    <div class="row mb-3">
+                      <label for="emergencyContactName"
+                             class="col-sm-2 col-form-label">Name</label>
+                      <div class="col-sm-10">
+                        <input id ="emergencyContactName"
+                               type="text"
+                               class="form-control"
+                               th:field="*{emergencyContact.name}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="emergencyContactPhone"
+                             class="col-sm-2 col-form-label">Phone</label>
+                      <div class="col-sm-10">
+                        <input id ="emergencyContactPhone"
+                               type="text"
+                               class="form-control"
+                               th:field="*{emergencyContact.phone}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="emergencyContactMobile"
+                             class="col-sm-2 col-form-label">Mobile</label>
+                      <div class="col-sm-10">
+                        <input id ="emergencyContactMobile"
+                               type="text"
+                               class="form-control"
+                               th:field="*{emergencyContact.mobileNumber}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label class="col-sm-2 col-form-label">Relation</label>
+                      <div class="col-sm-6">
+                        <select class="form-select"
+                                aria-label="Default select example"
+                                th:field="*{emergencyContact.relation}">
+                          <div th:each="rela: ${T(maks.erp.system.enums.Relationship).values()}">
+                            <option th:value="${rela}"
+                                    th:text="${rela.relation}"></option>
+                          </div>
+                        </select>
+                      </div>
+                    </div>
+                <!-- End of Emergency Contact Information -->
+
+                    <!-- Present Address -->
+                    <!-- Road, thana, City, District, postal code -->
+                    <h6 class="card-title">Present Address Information</h6>
+
+                    <div class="row mb-3">
+                  <label for="presentAddressRoad"
+                         class="col-sm-2 col-form-label">Road</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressRoad"
+                           type="text"
+                           class="form-control"
+                           th:field="*{presentAddress.road}">
+                  </div>
+                </div>
+
+                    <div class="row mb-3">
+                  <label for="presentAddressThana"
+                         class="col-sm-2 col-form-label">Thana</label>
+                  <div class="col-sm-10">
+                    <input id ="presentAddressThana"
+                           type="text"
+                           class="form-control"
+                           th:field="*{presentAddress.thana}">
+                  </div>
+                </div>
+
+                    <div class="row mb-3">
+                        <label for="presentAddressCity"
+                               class="col-sm-2 col-form-label">City</label>
+                        <div class="col-sm-10">
+                        <input id ="presentAddressCity"
+                               type="text"
+                               class="form-control"
+                               th:field="*{presentAddress.city}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="presentAddressDistrict"
+                             class="col-sm-2 col-form-label">District</label>
+                      <div class="col-sm-10">
+                        <input id ="presentAddressDistrict"
+                               type="text"
+                               class="form-control"
+                               th:field="*{presentAddress.district}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="presentAddressCode"
+                             class="col-sm-2 col-form-label">Postal Code</label>
+                      <div class="col-sm-10">
+                        <input id ="presentAddressCode"
+                               type="text"
+                               class="form-control"
+                               th:field="*{presentAddress.postalCode}">
+                      </div>
+                    </div>
+
+                    <!-- Permanent Address -->
+                    <!-- Road, thana, City, District, postal code -->
+                    <h6 class="card-title">Permanent Address Information</h6>
+                    <div class="row mb-3">
+                      <div class="form-check">
+                        <label class="form-check-label"
+                               for="sameAddressCheckBox">
+                          Same as above
+                        </label>
+                        <input class="form-check-input"
+                               type="checkbox"
+                               value=""
+                               id="sameAddressCheckBox">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="permanentAddressRoad"
+                             class="col-sm-2 col-form-label">Road</label>
+                      <div class="col-sm-10">
+                        <input id ="permanentAddressRoad"
+                               type="text"
+                               class="form-control"
+                               th:field="*{permanentAddress.road}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="permanentAddressThana"
+                             class="col-sm-2 col-form-label">Thana</label>
+                      <div class="col-sm-10">
+                        <input id ="permanentAddressThana"
+                               type="text"
+                               class="form-control"
+                               th:field="*{permanentAddress.thana}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="permanentAddressCity"
+                             class="col-sm-2 col-form-label">City</label>
+                      <div class="col-sm-10">
+                        <input id ="permanentAddressCity"
+                               type="text"
+                               class="form-control"
+                               th:field="*{permanentAddress.city}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                      <label for="permanentAddressDistrict"
+                             class="col-sm-2 col-form-label">District</label>
+                      <div class="col-sm-10">
+                        <input id ="permanentAddressDistrict"
+                               type="text"
+                               class="form-control"
+                               th:field="*{permanentAddress.district}">
+                      </div>
+                    </div>
+
+                    <div class="row mb-3">
+                  <label for="permanentAddressCode"
+                         class="col-sm-2 col-form-label">Postal Code</label>
+                  <div class="col-sm-10">
+                    <input id ="permanentAddressCode"
+                           type="text"
+                           class="form-control"
+                           th:field="*{permanentAddress.postalCode}">
+                  </div>
+                </div>
+
+
+                    <!-- Submit -->
+                    <div class="row mb-3">
+                      <div class="col-sm-10">
+                        <input type="submit" class="btn btn-primary" value="Submit Form">
+                      </div>
+                    </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main><!-- End #main -->
+
+  <div th:replace="~{footer}"></div>
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+  <div th:replace="~{scripts}"></div>
+  <script th:src="@{/js/addressResolver.js}"></script>
+
+</body>
+
+</html>

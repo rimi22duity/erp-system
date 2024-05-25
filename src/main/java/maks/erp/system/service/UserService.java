@@ -17,32 +17,22 @@ public class UserService {
 
     public UserDto mapToUserDto(User user) {
         return UserDto.builder()
-                .id(user.getId())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
                 .birthDate(user.getBirthDate())
-                .joiningDate(user.getJoiningDate())
                 .username(user.getUsername())
                 .password(user.getPassword())
-                .salary(user.getSalary())
                 .build();
     }
 
-    public List<UserDto> getUserList() {
-        List<User> users = userRepository.findAll();
-        List<UserDto> userDtos = new ArrayList<>();
-        users.stream().forEach((user) -> {
-            userDtos.add(mapToUserDto(user));
-        });
-
-        return userDtos;
+    public List<User> getUserList() {
+       return userRepository.findAll();
     }
 
-    public UserDto findUserById(long id) {
+    public User findUserById(long id) {
         Optional<User> optional = userRepository.findById(id);
         if(optional.isPresent()) {
-            User dbUser = optional.get();
-            return mapToUserDto(dbUser);
+            return optional.get();
         }
 
         return null;

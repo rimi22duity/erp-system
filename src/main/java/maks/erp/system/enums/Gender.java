@@ -15,6 +15,10 @@ public enum Gender {
 
     private String fullString;
 
+    public String getFullString() {
+        return fullString;
+    }
+
     Gender(String fullString) {
         this.fullString = fullString;
     }

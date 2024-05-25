@@ -24,7 +24,7 @@ public class DesignationController {
     @Autowired
     private DesignationService designationService;
 
-    @GetMapping("/designation")
+    @GetMapping("/designations")
     public String addDesignations(ModelMap model) {
         model.put("designationDto", new DesignationDto());
         model.put("birthdate", "");

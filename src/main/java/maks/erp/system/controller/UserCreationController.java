@@ -1,6 +1,7 @@
 package maks.erp.system.controller;
 
 import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import maks.erp.system.enums.Currency;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Relationship;
@@ -17,8 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.Optional;
@@ -28,64 +29,53 @@ import java.util.Optional;
  * @since 5/7/24
  */
 
+@Slf4j
 @Controller
-public class RegistrationController {
-
-    Logger log = LoggerFactory.getLogger(RegistrationController.class);
-    private final String REGISTRATION_PAGE = "register";
+public class UserCreationController {
+    private final String CREATE_USER_PAGE = "create_user";
     private final String USERS_PAGE = "user_list";
-    @Autowired
-    private DesignationService designationService;
 
     @Autowired
     private RegistrationService registrationService;
 
     @Autowired
-    private DateConverter dateConverter;
-
-    @Autowired
     private UserService userService;
 
 
-    @GetMapping("/register")
+    @GetMapping("/createUser")
     public String register(ModelMap model) {
-
-        log.info("hello There!");
         model.put("userDto", new UserDto());
 
-        model.put("genderList", Gender.getGenderList());
-        model.put("currencyList", Currency.getCurrencySigns());
-        model.put("designationList", designationService.getDesignations());
-        model.put("relationshipList", Relationship.getRelationshipList());
-        model.put("religionList", Religion.getReligionList());
-
-        return REGISTRATION_PAGE;
+        return CREATE_USER_PAGE;
     }
 
-    @PostMapping("/register")
+    @PostMapping("/createUser")
     public String addNewUser(@Valid @ModelAttribute UserDto userDto,
                              BindingResult result,
-                             ModelMap model) throws IOException {
-        log.info("hello there from post");
+                             ModelMap model,
+                             RedirectAttributes redirectAttributes) throws IOException {
         Optional<User> existingUser = registrationService.getUserByUserName(userDto.getUsername());
+
+        log.info("Emergency Contact Relationship: {}", userDto.getEmergencyContact().getRelation());
         if(existingUser.isPresent()) {
+            log.error("Username already exist");
             result.rejectValue(
                     "username",
                     null,
                     "There is already an account registered with the same username");
-
         }
+
         if(result.hasErrors()) {
-
-            log.error("error");
             model.put("userDto", userDto);
-            return REGISTRATION_PAGE;
-        }
-        registrationService.saveNewUser(userDto);
-        log.info("User: " + userDto.getFirstName());
-        model.put("message", "Registration successful!");
 
-        return "redirect:/" + REGISTRATION_PAGE;
+            return CREATE_USER_PAGE;
+        }
+
+        registrationService.saveUser(userDto);
+
+        redirectAttributes.addFlashAttribute("successMessage",
+                "user saved successfully");
+        return "redirect:/createUser";
     }
 
     @GetMapping("/users")
@@ -97,12 +87,14 @@ public class RegistrationController {
     }
 
     @GetMapping("/editUser")
-    public String editUser(@RequestParam("selectedUserId") long id, ModelMap model) {
-        UserDto userDto = userService.findUserById(id);
+    public String editUser(@RequestParam("selectedUserId") long id,
+                           ModelMap model) {
+        User user = userService.findUserById(id);
+        UserDto userDto = userService.mapToUserDto(user);
 
         model.put("title", "Update Information");
-        model.put("userDetails", userDto);
+        model.put("userDto", userDto);
 
-        return REGISTRATION_PAGE;
+        return CREATE_USER_PAGE;
     }
 }

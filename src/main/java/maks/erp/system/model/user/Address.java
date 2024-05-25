@@ -30,7 +30,4 @@ public class Address {
     private String city;
     private String district;
     private String postalCode;
-
-    @OneToOne
-    private User user;
 }

@@ -36,23 +36,112 @@
                     <thead>
                     <tr>
                         <th scope="col" th:text="#{label.numbers}"></th>
-                        <th scope="col" th:text="#{label.title}"></th>
-                        <th scope="col" th:text="#{label.action}"></th>
+                        <th scope="col" th:text="#{label.username}"></th>
+                        <th scope="col-sm-10" th:text="#{label.title}"></th>
+                        <th scope="col" th:text="#{label.view.details}"></th>
+                        <th scope="col" th:text="#{label.company.profile}"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="user, iterStat: ${users}">
                         <th scope="row" th:text="${iterStat.index + 1}"></th>
-                        <td th:text="${user.firstName}"></td>
+                        <td th:text="${user.fullName}"></td>
+                        <td th:text="${user.username}"></td>
                         <td>
-                            <form th:action="@{/editUser}" method="get">
-                                <input type="hidden"
-                                       name="selectedUserId"
-                                       th:value="${user.id}">
-                                <input class="btn btn-primary"
-                                       type="submit"
-                                       th:value="Edit">
-                            </form>
+                            <button class="btn btn-outline-dark"
+                                    data-bs-toggle="modal"
+                                    th:attr="data-bs-target=${'#ViewUserDetailsModal' + user.id}"
+                                    data-th-rows="${user}"
+                                    type="submit">
+                                <i class="bi bi-info-circle-fill"></i>
+                            </button>
+
+                            <!-- Add Details View Modal -->
+
+                            <div class="modal"
+                             tabindex="-1" th:attr="id=${'ViewUserDetailsModal' + user.id}">
+
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-body">
+                                        <section class="section">
+                                            <div class="card">
+                                                <div class="card-body">
+                                                    <div class="row mb-3">
+                                                        <div class="col-11">
+                                                            <h5 class="card-title"
+                                                                th:text="#{label.view.details}"></h5>
+                                                        </div>
+                                                        <div class="col-1" id="closeModal">
+                                                            <div class="plus-icon-container">
+                                                                <i class="bi bi-x-circle"
+                                                                   data-bs-dismiss="modal"></i>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <strong>Username</strong>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label th:text="${user.username}"></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <strong>First Name</strong>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label th:text="${user.firstName}"></label>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <strong>Last Name</strong>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <label th:text="${user.lastName}"></label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </section>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                            <!-- End of Modal -->
+
+                        </td>
+                        <td>
+                            <div th:if="${user.userJobDetails}">
+                                <form th:action="@{/viewCompanyProfile}" method="get">
+                                    <input type="hidden"
+                                           name="selectedUserId"
+                                           th:value="${user.id}">
+
+                                    <button class="btn btn-outline-warning"
+                                           type="submit">
+                                        <i class="bi bi-briefcase-fill"></i>
+                                    </button>
+                                </form>
+                            </div>
+
+                            <div th:unless="${user.userJobDetails}">
+                                <form th:action="@{/createCompanyProfile}" method="get">
+                                    <input type="hidden"
+                                           name="selectedUserId"
+                                           th:value="${user.id}">
+                                    <button class="btn btn-outline-dark"
+                                            type="submit">
+                                        <i class="bi bi-window-plus"></i>
+                                    </button>
+                                </form>
+                            </div>
                         </td>
                     </tr>
                     </tbody>

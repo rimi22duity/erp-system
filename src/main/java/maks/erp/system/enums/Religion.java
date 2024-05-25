@@ -16,6 +16,10 @@ public enum Religion {
         this.fullString = fullString;
     }
 
+    public String getFullString() {
+        return fullString;
+    }
+
     public static List<String> getReligionList() {
         List<String> list = new ArrayList<>();
 

@@ -1,8 +1,8 @@
 package maks.erp.system.service;
 
 import maks.erp.system.dto.UserDto;
-import maks.erp.system.model.user.User;
-import maks.erp.system.model.user.UserDocument;
+import maks.erp.system.model.Salary;
+import maks.erp.system.model.user.*;
 import maks.erp.system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,30 +26,53 @@ public class RegistrationService {
     @Autowired
     private AddressService addressService;
 
+    @Autowired
+    private SalaryService salaryService;
+
+    @Autowired
+    private EmergencyContactInfoService emergencyContactInfoService;
+
+    @Autowired
+    private ContactInfoService contactInfoService;
+
     public void saveUser(User user) {
         userRepository.save(user);
     }
 
-    public void saveNewUser(UserDto userDto) throws IOException {
+    public void saveUser(UserDto userDto) throws IOException {
         UserDocument userDocument = new UserDocument();
         userDocument.setDocument(userDto.getDocument().getBytes());
         userDocument.setFileName(userDto.getDocument().getOriginalFilename());
+
+        EmergencyContactInfo emergencyContactInfo = EmergencyContactInfo.builder()
+                .mobileNumber(userDto.getEmergencyContact().getMobileNumber())
+                .phone(userDto.getEmergencyContact().getPhone())
+                .relation(userDto.getEmergencyContact().getRelation())
+                .build();
+
+        Address permanentAddress = addressService.mapToAddress(userDto.getPermanentAddress());
+        Address presentAddress = addressService.mapToAddress(userDto.getPresentAddress());
 
         User user = User.builder()
                 .firstName(userDto.getFirstName())
                 .lastName(userDto.getLastName())
                 .birthDate(userDto.getBirthDate())
-                .joiningDate(userDto.getJoiningDate())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
-                .salary(userDto.getSalary())
                 .userDocument(userDocument)
+                .gender(userDto.getGender())
+                .religion(userDto.getReligion())
+                .emergencyContact(userDto.getEmergencyContact())
+                .permanentAddress(permanentAddress)
+                .presentAddress(presentAddress)
+                .contactInfo(userDto.getContactInfo())
                 .build();
 
+        emergencyContactInfoService.save(emergencyContactInfo);
+        addressService.save(permanentAddress);
+        addressService.save(presentAddress);
         userDocumentService.save(userDocument);
-        designationService.save(userDto.getDesignationDto());
-        addressService.save(userDto.getPermanentAddress());
-        addressService.save(userDto.getPresentAddress());
+        contactInfoService.save(userDto.getContactInfo());
 
         saveUser(user);
     }

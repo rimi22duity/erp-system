@@ -1,8 +1,7 @@
 package maks.erp.system.model;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import maks.erp.system.enums.Currency;
 
 /**
@@ -14,6 +13,9 @@ import maks.erp.system.enums.Currency;
 @Table
 @Getter
 @Setter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 public class Salary {
 
     @Id
