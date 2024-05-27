@@ -1,5 +1,6 @@
 package maks.erp.system.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -12,6 +13,7 @@ import maks.erp.system.model.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 /**
@@ -37,7 +39,6 @@ public class UserDto {
     @NotEmpty(message = "This field should not be empty!")
     private String lastName;
 
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @Enumerated(EnumType.STRING)

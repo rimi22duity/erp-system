@@ -79,7 +79,7 @@
                                                             </div>
                                                         </div>
                                                     </div>
-
+                                                    <!-- Username -->
                                                     <div class="row mb-3">
                                                         <div class="col-sm-3">
                                                             <strong>Username</strong>
@@ -88,7 +88,7 @@
                                                             <label th:text="${user.username}"></label>
                                                         </div>
                                                     </div>
-
+                                                    <!-- First Name -->
                                                     <div class="row mb-3">
                                                         <div class="col-sm-3">
                                                             <strong>First Name</strong>
@@ -97,13 +97,40 @@
                                                             <label th:text="${user.firstName}"></label>
                                                         </div>
                                                     </div>
-
+                                                    <!-- last Name -->
                                                     <div class="row mb-3">
                                                         <div class="col-sm-3">
                                                             <strong>Last Name</strong>
                                                         </div>
                                                         <div class="col-sm-3">
                                                             <label th:text="${user.lastName}"></label>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Gender -->
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <strong>Gender</strong>
+                                                        </div>
+                                                        <div th:if="${user.gender != null}" class="col-sm-3">
+                                                            <label th:text="${user.gender.getFullString()}"></label>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Religion -->
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <strong>Religion</strong>
+                                                        </div>
+                                                        <div th:if="${user.religion != null}" class="col-sm-3">
+                                                            <label th:text="${user.religion.getFullString()}"></label>
+                                                        </div>
+                                                    </div>
+                                                    <!-- DoB -->
+                                                    <div class="row mb-3">
+                                                        <div class="col-sm-3">
+                                                            <strong>Date of Birth</strong>
+                                                        </div>
+                                                        <div th:if="${user.birthDate != null}" class="col-sm-3">
+                                                            <label th:text="${user.birthDate}"></label>
                                                         </div>
                                                     </div>
                                                 </div>
