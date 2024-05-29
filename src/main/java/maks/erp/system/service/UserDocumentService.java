@@ -1,5 +1,6 @@
 package maks.erp.system.service;
 
+import maks.erp.system.model.user.User;
 import maks.erp.system.model.user.UserDocument;
 import maks.erp.system.repository.UserDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,7 +11,7 @@ public class UserDocumentService {
     @Autowired
     private UserDocumentRepository userDocumentRepository;
 
-    public void save(UserDocument userDocument) {
-        userDocumentRepository.save(userDocument);
+    public UserDocument save(UserDocument userDocument) {
+        return userDocumentRepository.save(userDocument);
     }
 }

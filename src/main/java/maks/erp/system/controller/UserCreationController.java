@@ -66,13 +66,15 @@ public class UserCreationController {
         }
 
         if(result.hasErrors()) {
+            log.error("error occurred ");
+            result.getFieldErrors().forEach(fieldError -> System.out.println(fieldError.toString()));
             model.put("userDto", userDto);
 
             return CREATE_USER_PAGE;
         }
 
         registrationService.saveUser(userDto);
-
+        log.info("In create user post mapping");
         redirectAttributes.addFlashAttribute("successMessage",
                 "user saved successfully");
         return "redirect:/createUser";

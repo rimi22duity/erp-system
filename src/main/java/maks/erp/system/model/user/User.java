@@ -2,11 +2,10 @@ package maks.erp.system.model.user;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import maks.erp.system.dto.AddressDto;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
+import maks.erp.system.model.JobInformation;
 import maks.erp.system.model.LeaveInfo;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -77,7 +76,7 @@ public class User {
     private UserDocument userDocument;
 
     @OneToOne
-    private UserJobDetails userJobDetails;
+    private JobInformation jobInformation;
 
     @OneToMany
     @JoinColumn(name = "leave_info_id")

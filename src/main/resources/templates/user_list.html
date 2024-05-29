@@ -37,9 +37,9 @@
                     <tr>
                         <th scope="col" th:text="#{label.numbers}"></th>
                         <th scope="col" th:text="#{label.username}"></th>
-                        <th scope="col-sm-10" th:text="#{label.title}"></th>
-                        <th scope="col" th:text="#{label.view.details}"></th>
-                        <th scope="col" th:text="#{label.company.profile}"></th>
+                        <th scope="col" th:text="#{label.title}"></th>
+                        <th class="action-col" scope="col" th:text="#{label.view.details}"></th>
+                        <th class="action-col" scope="col" th:text="#{label.company.profile}"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -145,20 +145,27 @@
 
                         </td>
                         <td>
-                            <div th:if="${user.userJobDetails}">
-                                <form th:action="@{/viewCompanyProfile}" method="get">
+                            <div th:if="${user.jobInformation}">
+                                <form th:action="@{/viewCompanyProfile}"
+                                      method="get">
                                     <input type="hidden"
                                            name="selectedUserId"
                                            th:value="${user.id}">
-
                                     <button class="btn btn-outline-warning"
-                                           type="submit">
+                                            data-bs-toggle="modal"
+                                            th:attr="data-bs-target=${'#ViewCompanyProfile' + user.id}"
+                                            data-th-rows="${user}"
+                                            type="submit">
                                         <i class="bi bi-briefcase-fill"></i>
                                     </button>
+<!--                                    <button class="btn btn-outline-warning"-->
+<!--                                           type="submit">-->
+<!--                                        <i class="bi bi-briefcase-fill"></i>-->
+<!--                                    </button>-->
                                 </form>
                             </div>
 
-                            <div th:unless="${user.userJobDetails}">
+                            <div th:unless="${user.jobInformation}">
                                 <form th:action="@{/createCompanyProfile}" method="get">
                                     <input type="hidden"
                                            name="selectedUserId"
@@ -169,6 +176,105 @@
                                     </button>
                                 </form>
                             </div>
+
+                            <!-- View Company profile modal -->
+
+                            <div class="modal"
+                                 tabindex="-1" th:attr="id=${'ViewCompanyProfile' + user.id}">
+
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-body">
+                                            <section class="section">
+                                                <div class="card">
+                                                    <div class="card-body">
+                                                        <div class="row mb-3">
+                                                            <div class="col-11">
+                                                                <h5 class="card-title"
+                                                                    th:text="#{label.company.profile}"></h5>
+                                                            </div>
+                                                            <div class="col-1">
+                                                                <div class="plus-icon-container">
+                                                                    <i class="bi bi-x-circle"
+                                                                       data-bs-dismiss="modal"></i>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Joining Date -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-sm-3">
+                                                                <strong>Joining Date</strong>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label th:text="${user.jobInformation.getJoiningDateString()}"></label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Designation -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-sm-3">
+                                                                <strong>Designation</strong>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label th:text="${user.jobInformation.designation}"></label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Basic Salary -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-sm-3">
+                                                                <strong>Basic Salary</strong>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label th:text="${user.jobInformation.getBasicSalaryString()}"></label>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Conveyance Allowance -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-sm-3">
+                                                                <strong>Conveyance Allowance</strong>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label th:text="${user.jobInformation.getConveyanceAllowanceString()}"></label>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- Medical allowance -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-sm-3">
+                                                                <strong>Conveyance Allowance</strong>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label th:text="${user.jobInformation.getMedicalReimbursementString()}"></label>
+                                                            </div>
+                                                        </div>
+
+                                                        <!-- House Rent -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-sm-3">
+                                                                <strong>House Rent</strong>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label th:text="${user.jobInformation.getHouseRentString()}"></label>
+                                                            </div>
+                                                        </div>
+                                                        <!-- Action -->
+                                                        <div class="row mb-3">
+                                                            <div class="col-sm-3">
+                                                                <strong>House Rent</strong>
+                                                            </div>
+                                                            <div class="col-sm-3">
+                                                                <label th:text="${user.jobInformation.getHouseRentString()}"></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </section>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- End of Modal -->
                         </td>
                     </tr>
                     </tbody>

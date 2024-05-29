@@ -44,14 +44,11 @@ public class RegistrationService {
         userDocument.setDocument(userDto.getDocument().getBytes());
         userDocument.setFileName(userDto.getDocument().getOriginalFilename());
 
-        EmergencyContactInfo emergencyContactInfo = EmergencyContactInfo.builder()
-                .mobileNumber(userDto.getEmergencyContact().getMobileNumber())
-                .phone(userDto.getEmergencyContact().getPhone())
-                .relation(userDto.getEmergencyContact().getRelation())
-                .build();
-
-        Address permanentAddress = addressService.mapToAddress(userDto.getPermanentAddress());
-        Address presentAddress = addressService.mapToAddress(userDto.getPresentAddress());
+        EmergencyContactInfo emergencyContactInfo = emergencyContactInfoService.save(userDto.getEmergencyContact());
+        Address permanentAddress = addressService.save(addressService.mapToAddress(userDto.getPermanentAddress()));
+        Address presentAddress = addressService.save(addressService.mapToAddress(userDto.getPresentAddress()));
+        UserDocument userDocument1 = userDocumentService.save(userDocument);
+        ContactInfo contactInfo = contactInfoService.save(userDto.getContactInfo());
 
         User user = User.builder()
                 .firstName(userDto.getFirstName())
@@ -59,20 +56,14 @@ public class RegistrationService {
                 .birthDate(userDto.getBirthDate())
                 .username(userDto.getUsername())
                 .password(userDto.getPassword())
-                .userDocument(userDocument)
+                .userDocument(userDocument1)
                 .gender(userDto.getGender())
                 .religion(userDto.getReligion())
-                .emergencyContact(userDto.getEmergencyContact())
+                .emergencyContact(emergencyContactInfo)
                 .permanentAddress(permanentAddress)
                 .presentAddress(presentAddress)
-                .contactInfo(userDto.getContactInfo())
+                .contactInfo(contactInfo)
                 .build();
-
-        emergencyContactInfoService.save(emergencyContactInfo);
-        addressService.save(permanentAddress);
-        addressService.save(presentAddress);
-        userDocumentService.save(userDocument);
-        contactInfoService.save(userDto.getContactInfo());
 
         saveUser(user);
     }

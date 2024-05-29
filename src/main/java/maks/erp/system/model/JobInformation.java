@@ -1,4 +1,4 @@
-package maks.erp.system.dto;
+package maks.erp.system.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
@@ -7,8 +7,10 @@ import lombok.*;
 import maks.erp.system.enums.Currency;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.model.user.Designation;
+import maks.erp.system.model.user.User;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Table
@@ -35,6 +37,7 @@ public class JobInformation {
     private double basic;
 
     @NotBlank
+    @Enumerated(EnumType.STRING)
     private Currency currency;
 
     private double conveyanceAllowance;
@@ -44,4 +47,36 @@ public class JobInformation {
     @NotBlank
     @OneToOne
     private Designation designation;
+
+    @OneToOne
+    private User user;
+
+    @Transient
+    private String joinningDateString;
+
+    public String getJoiningDateString() {
+        SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+        return format.format(joinningDateString);
+    }
+
+    private String getFormattedAllowance(double amount) {
+        return this.getCurrency().toString() + amount;
+    }
+
+    public String getBasicSalaryString() {
+        return getFormattedAllowance(this.basic);
+    }
+
+    public String getConveyanceAllowanceString() {
+        return getFormattedAllowance(this.conveyanceAllowance);
+    }
+
+
+    public String getMedicalReimbursementString() {
+        return getFormattedAllowance(this.medicalReimbursement);
+    }
+
+    public String getHouseRentString() {
+        return getFormattedAllowance(this.houseRent);
+    }
 }

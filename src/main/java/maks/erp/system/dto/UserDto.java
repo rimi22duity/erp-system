@@ -39,6 +39,7 @@ public class UserDto {
     @NotEmpty(message = "This field should not be empty!")
     private String lastName;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
 
     @Enumerated(EnumType.STRING)

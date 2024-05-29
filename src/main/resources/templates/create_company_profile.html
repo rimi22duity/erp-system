@@ -22,85 +22,83 @@
 
                 <div class="card">
                     <div class="register-card-body">
-                        <h5 class="card-title">Job Details</h5>
+                        <h5 class="card-title">Company profile</h5>
 
-                        <form th:action="@{/jobInformation}"
+                        <div th:if="${successMessage}"
+                             th:text="${successMessage}"
+                             class="alert alert-success">
+                        </div>
+
+                        <form th:action="@{/createUser}"
                               th:object="${jobInfoDto}"
-                              method="post">
+                              method="post"
+                              enctype="multipart/form-data">
 
-                            <!--    Designation      -->
+                            <!-- Joining Date-->
                             <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">Designation</label>
-                                <div class="col-sm-6">
+                                <label for="JoiningDate"
+                                       class="col-sm-2 col-form-label">Joining Date</label>
+                                <div class="col-sm-10">
+                                    <input type="date"
+                                           id="JoiningDate"
+                                           class="form-control"
+                                           th:field="*{joiningDate}">
+                                </div>
+                            </div>
+
+                            <!-- Designation -->
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Designation</label>
+                                <div class="col-sm-10">
                                     <select class="form-select"
                                             aria-label="Default select example"
                                             th:field="*{designation}">
                                         <option th:value="${null}" selected>Please Select</option>
                                         <div th:each="designation: ${designationList}">
                                             <option th:value="${designation}"
-                                                    th:text="${designation.title}"
-                                                    th:name="designationTitle">
-                                            </option>
+                                                    th:text="${designation.getTitle()}"></option>
                                         </div>
-                                        <span th:if="${#fields.hasErrors('designationDto')}"
-                                              th:errors="*{designation}"
-                                              class="error"></span>
                                     </select>
-                                </div>
-                            </div>
-                            <!-- Joining Date-->
-                            <div class="row mb-3">
-                                <label for="joiningDate"
-                                       class="col-sm-2 col-form-label">Joining Date</label>
-                                <div class="col-sm-6">
-                                    <input type="date"
-                                           id="joiningDate"
-                                           class="form-control"
-                                           th:field="*{joiningDate}">
-                                    <span th:if="${#fields.hasErrors('joiningDate')}"
-                                          th:errors="*{joiningDate}"
-                                          class="error"></span>
                                 </div>
                             </div>
 
                             <!-- Currency -->
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Salary Currency</label>
-                                <div class="col-sm-4">
+                                <div class="col-sm-10">
                                     <select class="form-select"
-                                            aria-label="Default select example">
-                                        <option selected>Please Select</option>
+                                            aria-label="Default select example"
+                                            id="CurrencyDropdownMenu"
+                                            th:field="*{currency}">
+                                        <option th:value="${null}" selected>Please Select</option>
                                         <div th:each="currency: ${currencyList}">
                                             <option th:value="${currency}"
-                                                    th:text="${currency}">
-                                            </option>
+                                                    th:text="${currency}"></option>
                                         </div>
-                                        <span th:if="${#fields.hasErrors('joiningDate')}"
-                                              th:errors="*{currency}"
-                                              class="error"></span>
                                     </select>
                                 </div>
                             </div>
 
-                            <!-- Salary -->
+                            <!-- Basic Salary -->
                             <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Basic</label>
-                                    <div class="col-sm-6">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text">৳</span>
-                                            <input type="text" class="form-control"
-                                                   aria-label="Amount (to the nearest dollar)"
-                                                   th:field="*{basic}">
-                                            <span class="input-group-text">.00</span>
-                                        </div>
+                                <label class="col-sm-2 col-form-label">Basic Salary</label>
+                                <div class="col-sm-10">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text currencySign">৳</span>
+                                        <input type="text" class="form-control"
+                                               aria-label="Amount (to the nearest dollar)"
+                                               th:field="*{basic}">
+                                        <span class="input-group-text">.00</span>
                                     </div>
                                 </div>
+                            </div>
 
+                            <!-- Conveyance allowance -->
                             <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Conveyance Allowance</label>
-                                <div class="col-sm-6">
+                                <label class="col-sm-2 col-form-label">Conveyance allowance</label>
+                                <div class="col-sm-10">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text">৳</span>
+                                        <span class="input-group-text currencySign">৳</span>
                                         <input type="text" class="form-control"
                                                aria-label="Amount (to the nearest dollar)"
                                                th:field="*{conveyanceAllowance}">
@@ -108,11 +106,13 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- Medical Reimbursement -->
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Medical Reimbursement</label>
-                                <div class="col-sm-6">
+                                <div class="col-sm-10">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text">৳</span>
+                                        <span class="input-group-text currencySign">৳</span>
                                         <input type="text" class="form-control"
                                                aria-label="Amount (to the nearest dollar)"
                                                th:field="*{medicalReimbursement}">
@@ -121,11 +121,12 @@
                                 </div>
                             </div>
 
+                            <!-- House Rent -->
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">House Rent</label>
-                                <div class="col-sm-6">
+                                <div class="col-sm-10">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text">৳</span>
+                                        <span class="input-group-text currencySign">৳</span>
                                         <input type="text" class="form-control"
                                                aria-label="Amount (to the nearest dollar)"
                                                th:field="*{houseRent}">
@@ -133,12 +134,9 @@
                                     </div>
                                 </div>
                             </div>
+
                             <!-- Submit -->
-                            <div class="row mb-3">
-                                <div class="col-sm-10">
-                                    <input type="submit" class="btn btn-primary" value="Submit Form">
-                                </div>
-                            </div>
+                            <div th:replace="~{submit_button}"></div>
                         </form>
                     </div>
                 </div>
@@ -149,8 +147,12 @@
 </main><!-- End #main -->
 
 <div th:replace="~{footer}"></div>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
 <div th:replace="~{scripts}"></div>
-<script th:src="@{/js/addressResolver.js}"></script>
+<script th:src="@{/js/currency_input.js}"></script>
 
 </body>
 

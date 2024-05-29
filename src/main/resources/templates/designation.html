@@ -1,190 +1,190 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-    <head>
-      <meta charset="utf-8">
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-      <title th:text="#{label.designation.page.title}"/>
-      <meta content="" name="description">
-      <meta content="" name="keywords">
-    </head>
+    <title th:text="#{label.designation.page.title}"/>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+</head>
 
-    <body>
-        <div th:replace="~{links}"></div>
-        <div th:replace="~{topbar}"></div>
-        <div th:replace="~{sidebar}"></div>
+<body>
+<div th:replace="~{links}"></div>
+<div th:replace="~{topbar}"></div>
+<div th:replace="~{sidebar}"></div>
 
-        <main id="main" class="main">
-          <section class="section">
-              <div class="card">
-                <div class="card-body">
-                    <div class="row mb-3">
-                        <div class="col-11">
-                            <h5 class="card-title"
-                                th:text="#{label.designation}"></h5>
-                        </div>
+<main id="main" class="main">
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-11">
+                        <h5 class="card-title"
+                            th:text="#{label.designation}"></h5>
+                    </div>
 
-                        <div class="col-1">
-                            <div class="plus-icon-container"
-                                 data-bs-toggle="modal"
-                                 data-bs-target="#AddDesignationModal">
-                                <i class="bi bi-plus-lg plus-icon icon-20"></i>
-                            </div>
+                    <div class="col-1">
+                        <div class="plus-icon-container"
+                             data-bs-toggle="modal"
+                             data-bs-target="#AddDesignationModal">
+                            <i class="bi bi-plus-lg plus-icon icon-20"></i>
                         </div>
                     </div>
-                    <table class="table table-hover table-striped datatable"
-                           id="designationsTable">
-                        <thead>
-                            <tr>
-                                <th scope="col" th:text="#{label.numbers}"></th>
-                                <th scope="col" th:text="#{label.title}"></th>
-                                <th scope="col" th:text="#{label.job.description}"></th>
-                                <th scope="col" th:text="#{label.salary.range}"></th>
-                                <th scope="col" th:text="#{label.action}"></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr th:each="des, iterStat: ${designationList}">
-                                    <th scope="row" th:text="${iterStat.index + 1}"></th>
-                                    <td th:text="${des.title}"></td>
-                                    <td th:text="${des.jobDescription}"></td>
-                                    <td th:text="${des.salaryRange}"></td>
-                                    <td>
-                                        <form th:action="@{/edit}" method="get">
-                                            <input type="hidden"
-                                                   name="selectedDesignationId"
-                                                   th:value="${des.id}">
-                                            <input class="btn btn-primary"
-                                                    type="submit"
-                                                    th:value="Edit">
-                                        </form>
-                                    </td>
-                            </tr>
-                        </tbody>
-                    </table>
                 </div>
-              </div>
-          </section>
-        </main>
+                <table class="table table-hover table-striped datatable"
+                       id="designationsTable">
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="#{label.numbers}"></th>
+                        <th scope="col" th:text="#{label.title}"></th>
+                        <th scope="col" th:text="#{label.job.description}"></th>
+                        <th scope="col" th:text="#{label.salary.range}"></th>
+                        <th scope="col" th:text="#{label.action}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="des, iterStat: ${designationList}">
+                        <th scope="row" th:text="${iterStat.index + 1}"></th>
+                        <td th:text="${des.title}"></td>
+                        <td th:text="${des.jobDescription}"></td>
+                        <td th:text="${des.salaryRange}"></td>
+                        <td>
+                            <form th:action="@{/edit}" method="get">
+                                <input type="hidden"
+                                       name="selectedDesignationId"
+                                       th:value="${des.id}">
+                                <input class="btn btn-primary"
+                                       type="submit"
+                                       th:value="Edit">
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
 
-        <a href="#"
-           class="back-to-top d-flex align-items-center justify-content-center">
-          <i class="bi bi-arrow-up-short"></i>
-        </a>
+<a href="#"
+   class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
 
-        <!-- Add Designation Modal -->
-        <div class="modal"
-             tabindex="-1"
-             th:id='AddDesignationModal'>
+<!-- Add Designation Modal -->
+<div class="modal"
+     tabindex="-1"
+     th:id='AddDesignationModal'>
 
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-body">
-                        <section class="section">
-                            <div class="card">
-                                <div class="card-body">
-                                    <div class="row mb-3">
-                                        <div class="col-11">
-                                            <h5 class="card-title"
-                                                th:text="#{label.add.designation}"></h5>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <section class="section">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row mb-3">
+                                <div class="col-11">
+                                    <h5 class="card-title"
+                                        th:text="#{label.add.designation}"></h5>
+                                </div>
+                                <div class="col-1" id="closeModal">
+                                    <div class="plus-icon-container">
+                                        <i class="bi bi-x-circle"
+                                           data-bs-dismiss="modal"></i>
+                                    </div>
+                                </div>
+                            </div>
+                            <form action="#"
+                                  th:action="@{/designation}"
+                                  th:object="${designationDto}"
+                                  method="post">
+
+                                <script th:inline="javascript"
+                                        th:if="${#fields.hasErrors()}">
+                                    let myModal = new bootstrap.Modal(document.getElementById("AddDesignationModal"), {});
+                                    myModal.show();
+                                </script>
+
+                                <div class="row">
+                                    <div class="form-floating mb-3">
+                                        <div class="form-group">
+                                            <label> Title </label>
+                                            <input type="text"
+                                                   class="form-control"
+                                                   id="exampleFormControlInput1"
+                                                   placeholder="Title"
+                                                   th:field="*{title}">
+                                            <span th:if="${#fields.hasErrors('title')}"
+                                                  th:errors="*{title}"
+                                                  class="error"></span>
                                         </div>
-                                        <div class="col-1" id="closeModal">
-                                            <div class="plus-icon-container">
-                                                <i class="bi bi-x-circle"
-                                                   data-bs-dismiss="modal"></i>
+                                    </div>
+                                    <div class="form-floating mb-3">
+                                        <div class="form-group">
+                                            <label for="exampleFormControlTextarea1">Job Description</label>
+                                            <textarea class="form-control"
+                                                      id="exampleFormControlTextarea1"
+                                                      rows="3"
+                                                      th:field="*{jobDescription}"></textarea>
+                                            <span th:if="${#fields.hasErrors('jobDescription')}"
+                                                  th:errors="*{jobDescription}"
+                                                  class="error"></span>
+                                        </div>
+                                    </div>
+
+                                    <!--Salary Range-->
+                                    <div class="form-floating">
+                                        <div class="form-group row mb-3">
+                                            <div class="col-10">
+                                                <label class="form-label">Salary Range</label>
+                                            </div>
+                                            <div class="col-2">
+                                                <label id="currentSalary"
+                                                       class="form-label"></label>
                                             </div>
                                         </div>
                                     </div>
-                                    <form action="#"
-                                          th:action="@{/designation}"
-                                          th:object="${designationDto}"
-                                          method="post">
-
-                                        <script th:inline="javascript"
-                                                th:if="${#fields.hasErrors()}">
-                                            let myModal = new bootstrap.Modal(document.getElementById("AddDesignationModal"), {});
-                                            myModal.show();
-                                        </script>
-
-                                        <div class="row">
-                                            <div class="form-floating mb-3">
-                                                <div class="form-group">
-                                                    <label> Title </label>
-                                                    <input type="text"
-                                                           class="form-control"
-                                                           id="exampleFormControlInput1"
-                                                           placeholder="Title"
-                                                           th:field="*{title}">
-                                                    <span th:if="${#fields.hasErrors('title')}"
-                                                          th:errors="*{title}"
-                                                          class="error"></span>
-                                                </div>
-                                            </div>
-                                            <div class="form-floating mb-3">
-                                                <div class="form-group">
-                                                    <label for="exampleFormControlTextarea1">Job Description</label>
-                                                    <textarea class="form-control"
-                                                              id="exampleFormControlTextarea1"
-                                                              rows="3"
-                                                              th:field="*{jobDescription}"></textarea>
-                                                    <span th:if="${#fields.hasErrors('jobDescription')}"
-                                                          th:errors="*{jobDescription}"
-                                                          class="error"></span>
-                                                </div>
+                                    <div class="form-floating">
+                                        <div class="form-group">
+                                            <input type="range"
+                                                   class="form-range"
+                                                   id="salaryRange"
+                                                   th:field="*{salaryRange}"
+                                                   min="0"
+                                                   max="100">
+                                        </div>
+                                    </div>
+                                    <div class="form-floating">
+                                        <div class="form-group row">
+                                            <div class="col-sm-6">
+                                                <input type="submit"
+                                                       class="btn btn-primary"
+                                                       name="action"
+                                                       value="submit"/>
                                             </div>
 
-                                            <!--Salary Range-->
-                                            <div class="form-floating">
-                                                <div class="form-group row mb-3">
-                                                    <div class="col-10">
-                                                        <label class="form-label">Salary Range</label>
-                                                    </div>
-                                                    <div class="col-2">
-                                                        <label id="currentSalary"
-                                                               class="form-label"></label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="form-floating">
-                                                <div class="form-group">
-                                                    <input type="range"
-                                                           class="form-range"
-                                                           id="salaryRange"
-                                                           th:field="*{salaryRange}"
-                                                           min="0"
-                                                           max="100">
-                                                </div>
-                                            </div>
-                                            <div class="form-floating">
-                                                <div class="form-group row">
-                                                    <div class="col-sm-6">
-                                                        <input type="submit"
-                                                                class="btn btn-primary"
-                                                                name="action"
-                                                                value="submit"/>
-                                                    </div>
-
-                                                    <div class="col-sm-6">
-                                                        <input type="submit"
-                                                                class="btn btn-secondary"
-                                                                name="action"
-                                                                value="close"
-                                                                data-bs-dismiss="modal"/>
-                                                    </div>
-                                                </div>
+                                            <div class="col-sm-6">
+                                                <input type="submit"
+                                                       class="btn btn-secondary"
+                                                       name="action"
+                                                       value="close"
+                                                       data-bs-dismiss="modal"/>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
                                 </div>
-                            </div>
-                        </section>
+                            </form>
+                        </div>
                     </div>
-                </div>
+                </section>
             </div>
         </div>
-        <!-- End of Modal -->
+    </div>
+</div>
+<!-- End of Modal -->
 
-        <div th:replace="~{footer}"></div>
-        <div th:replace="~{scripts}"></div>
-        <script th:src="@{/js/salaryInput.js}"></script>
-    </body>
+<div th:replace="~{footer}"></div>
+<div th:replace="~{scripts}"></div>
+<script th:src="@{/js/salaryInput.js}"></script>
+</body>
 </html>
