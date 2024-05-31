@@ -73,7 +73,7 @@ public class UserCreationController {
             return CREATE_USER_PAGE;
         }
 
-        registrationService.saveUser(userDto);
+        registrationService.createUser(userDto);
         log.info("In create user post mapping");
         redirectAttributes.addFlashAttribute("successMessage",
                 "user saved successfully");

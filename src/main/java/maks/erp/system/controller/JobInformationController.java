@@ -1,9 +1,11 @@
 package maks.erp.system.controller;
 
+import jakarta.validation.Valid;
 import maks.erp.system.dto.JobInformationDto;
 import maks.erp.system.enums.Currency;
 import maks.erp.system.model.user.User;
 import maks.erp.system.service.DesignationService;
+import maks.erp.system.service.JobInformationService;
 import maks.erp.system.service.UserService;
 import maks.erp.system.service.userJobDetailsService;
 import org.slf4j.Logger;
@@ -28,6 +30,9 @@ public class JobInformationController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JobInformationService jobInformationService;
 
     Logger log = LoggerFactory.getLogger(JobInformationController.class);
 
@@ -66,8 +71,11 @@ public class JobInformationController {
     @GetMapping("/createCompanyProfile")
     public String getCreateCompanyProfile(@RequestParam("selectedUserId") long id,
                                      ModelMap model) {
-        model.put("jobInfoDto", new JobInformationDto());
-        model.put("currencyList", Currency.getCurrencySigns());
+        User user = userService.findUserById(id);
+        JobInformationDto jobInformationDto = new JobInformationDto();
+        jobInformationDto.setUser(user);
+
+        model.put("jobInformationDto", jobInformationDto);
         model.put("designationList", designationService.getDesignations());
 
         model.put("selectedUserId", id);
@@ -76,19 +84,21 @@ public class JobInformationController {
     }
 
     @PostMapping("/createCompanyProfile")
-    public String createCompanyProfile(@RequestParam("selectedUserId") long id,
-                                       @ModelAttribute JobInformationDto jobInformationDto,
+    public String createCompanyProfile(@Valid @ModelAttribute JobInformationDto jobInformationDto,
                                        BindingResult result,
                                        RedirectAttributes redirectAttributes,
                                        ModelMap model) {
         if(result.hasErrors()) {
-            model.put("jobInfoDto", jobInformationDto);
             log.error("errors in result");
+            log.info("User ID: {}", jobInformationDto.getUser().getId());
+
+            model.put("jobInformationDto", jobInformationDto);
+            model.put("designationList", designationService.getDesignations());
 
             return CREATE_COMPANY_PROFILE_PAGE;
         }
 
-        userService.saveUserCompanyProfile(jobInformationDto, id);
+        jobInformationService.saveUserCompanyProfile(jobInformationDto, jobInformationDto.getUser().getId());
         redirectAttributes.addFlashAttribute("successMessage",
                 "Company Profile Saved Successfully");
 

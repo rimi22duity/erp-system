@@ -1,5 +1,7 @@
 package maks.erp.system.enums;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,6 +9,8 @@ import java.util.List;
  * @author duity
  * @since 5/4/24
  */
+
+@Getter
 public enum Currency {
 
     BDT("\u09F3 (BDT)"),

@@ -37,6 +37,11 @@ public class DesignationService {
         return designationRepository.findAll();
     }
 
+    public Designation findById(long id) {
+        return designationRepository.findById(id).get();
+    }
+
+
     public void editDesignation(Long id, DesignationDto designationDto) {
         Designation prevDesignation = getDesignationById(id);
 

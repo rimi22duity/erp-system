@@ -1,15 +1,12 @@
 package maks.erp.system.service;
 
 import maks.erp.system.dto.UserDto;
-import maks.erp.system.model.Salary;
 import maks.erp.system.model.user.*;
 import maks.erp.system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -35,11 +32,9 @@ public class RegistrationService {
     @Autowired
     private ContactInfoService contactInfoService;
 
-    public void saveUser(User user) {
-        userRepository.save(user);
-    }
-
-    public void saveUser(UserDto userDto) throws IOException {
+    @Autowired
+    private UserService userService;
+    public void createUser(UserDto userDto) throws IOException {
         UserDocument userDocument = new UserDocument();
         userDocument.setDocument(userDto.getDocument().getBytes());
         userDocument.setFileName(userDto.getDocument().getOriginalFilename());
@@ -65,7 +60,7 @@ public class RegistrationService {
                 .contactInfo(contactInfo)
                 .build();
 
-        saveUser(user);
+        userService.save(user);
     }
 
     public Optional<User> getUserByUserName(String userName) {

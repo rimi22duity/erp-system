@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
  * @author duity
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 public class DesignationController {
 
     public final String DESIGNATION_PAGE = "designation";
+    public final String DESIGNATION_DETAILS_PAGE = "designation_details";
 
     @Autowired
     private DesignationService designationService;
@@ -45,16 +47,14 @@ public class DesignationController {
         model.put("designationDto", designationDto);
         model.put("designationId", id);
         setupReferenceData(model);
-        return "designation_details";
+        return DESIGNATION_DETAILS_PAGE;
     }
 
     @PostMapping("/edit")
     public String editDesignation(@RequestParam("selectedDesignationId") long id,
-                                  @ModelAttribute @Valid DesignationDto designationDto,
-                                  BindingResult result,
-                                  ModelMap model) {
+                                  @ModelAttribute @Valid DesignationDto designationDto) {
         designationService.editDesignation(id, designationDto);
-        return "redirect:/" + DESIGNATION_PAGE;
+        return "redirect:/designations";
     }
 
     @PostMapping("/designation")
@@ -79,8 +79,8 @@ public class DesignationController {
             return DESIGNATION_PAGE;
         }
 
-        return "redirect:/" + DESIGNATION_PAGE;
-
+        setupReferenceData(model);
+        return DESIGNATION_PAGE;
     }
 
     public void setupReferenceData(ModelMap model) {

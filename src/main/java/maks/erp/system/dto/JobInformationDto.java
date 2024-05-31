@@ -2,6 +2,7 @@ package maks.erp.system.dto;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import maks.erp.system.enums.Currency;
@@ -20,22 +21,21 @@ import java.util.Date;
 @AllArgsConstructor
 public class JobInformationDto {
 
-    @NotBlank
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date joiningDate;
 
-    @NotBlank
+    @NotNull
     private double basic;
 
-    @NotBlank
+    @NotNull
     private Currency currency;
 
     private double conveyanceAllowance;
     private double medicalReimbursement;
     private double houseRent;
 
-    @NotBlank
-    @OneToOne
+    @NotNull
     private Designation designation;
 
     private User user;

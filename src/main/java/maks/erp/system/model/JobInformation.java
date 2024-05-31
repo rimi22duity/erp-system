@@ -29,14 +29,14 @@ public class JobInformation {
     @GeneratedValue(generator = "jobInfoSeq")
     private long id;
 
-    @NotBlank
+    @NotNull
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date joiningDate;
 
-    @NotBlank
+    @NotNull
     private double basic;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     private Currency currency;
 
@@ -44,8 +44,9 @@ public class JobInformation {
     private double medicalReimbursement;
     private double houseRent;
 
-    @NotBlank
+    @NotNull
     @OneToOne
+    @JoinColumn(name = "designation_id")
     private Designation designation;
 
     @OneToOne

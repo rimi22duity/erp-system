@@ -29,11 +29,14 @@
                         </div>
 
                         <form th:action="@{/createCompanyProfile}"
-                              th:object="${jobInfoDto}"
+                              th:object="${jobInformationDto}"
                               method="post">
                             <input type="hidden"
                                    name="selectedUserId"
                                    th:value="${selectedUserId}" >
+
+                            <input type="hidden"
+                                   th:field="*{user}" >
 
                             <!-- Joining Date-->
                             <div class="row mb-3">
@@ -46,7 +49,9 @@
                                            th:field="*{joiningDate}">
                                     <span th:if="${#fields.hasErrors('joiningDate')}"
                                           th:errors="*{joiningDate}"
-                                          class="error"></span>
+                                          class="error">
+                                        something
+                                    </span>
                                 </div>
                             </div>
 
@@ -60,7 +65,7 @@
                                         <option th:value="${null}" selected>Please Select</option>
                                         <div th:each="designation: ${designationList}">
                                             <option th:value="${designation}"
-                                                    th:text="${designation.getTitle()}"></option>
+                                                    th:text="${designation.title}"></option>
                                         </div>
                                     </select>
                                     <span th:if="${#fields.hasErrors('designation')}"
@@ -78,9 +83,9 @@
                                             id="CurrencyDropdownMenu"
                                             th:field="*{currency}">
                                         <option th:value="${null}" selected>Please Select</option>
-                                        <div th:each="currency: ${currencyList}">
+                                        <div th:each="currency: ${T(maks.erp.system.enums.Currency).values()}">
                                             <option th:value="${currency}"
-                                                    th:text="${currency}"></option>
+                                                    th:text="${currency.sign}"></option>
                                         </div>
                                     </select>
                                     <span th:if="${#fields.hasErrors('currency')}"

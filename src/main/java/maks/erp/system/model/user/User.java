@@ -61,21 +61,27 @@ public class User {
     private Religion religion;
 
     @OneToOne
+    @JoinColumn(name = "contact_info_id")
     private ContactInfo contactInfo;
 
     @OneToOne
+    @JoinColumn(name = "emergency_contact_info_id")
     private EmergencyContactInfo emergencyContact;
 
     @OneToOne
+    @JoinColumn(name = "present_address_id")
     private Address presentAddress;
 
     @OneToOne
+    @JoinColumn(name = "permanent_address_id")
     private Address permanentAddress;
 
     @OneToOne
+    @JoinColumn(name = "user_document_id")
     private UserDocument userDocument;
 
     @OneToOne
+    @JoinColumn(name = "job_info_id")
     private JobInformation jobInformation;
 
     @OneToMany
