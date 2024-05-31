@@ -65,6 +65,7 @@ public class DesignationController {
         if(!action.equals("close")) {
             System.out.println("Action submit:" + action);
             if (result.hasErrors()) {
+                model.put("designation", designationDto);
                 setupReferenceData(model);
 
                 return DESIGNATION_PAGE;

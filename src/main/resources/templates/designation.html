@@ -98,10 +98,12 @@
                                   th:action="@{/designation}"
                                   th:object="${designationDto}"
                                   method="post">
-
-                                <script th:inline="javascript"
+                                <!-- `type=module` is specified to address `bootstrap is not defined` issue -->
+                                <script type="module"
+                                        th:inline="javascript"
                                         th:if="${#fields.hasErrors()}">
                                     let myModal = new bootstrap.Modal(document.getElementById("AddDesignationModal"), {});
+                                    console.log("Error occured")
                                     myModal.show();
                                 </script>
 
@@ -154,6 +156,7 @@
                                                    max="100">
                                         </div>
                                     </div>
+                                    <!-- Actions -->
                                     <div class="form-floating">
                                         <div class="form-group row">
                                             <div class="col-sm-6">

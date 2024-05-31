@@ -1,6 +1,8 @@
 package maks.erp.system.service;
 
+import maks.erp.system.dto.JobInformationDto;
 import maks.erp.system.dto.UserDto;
+import maks.erp.system.model.JobInformation;
 import maks.erp.system.model.user.User;
 import maks.erp.system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,9 @@ import java.util.Optional;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private JobInformationService jobInformationService;
 
     public UserDto mapToUserDto(User user) {
         return UserDto.builder()
@@ -36,5 +41,20 @@ public class UserService {
         }
 
         return null;
+    }
+
+    public void saveUserCompanyProfile(JobInformationDto jobInformationDto, long selectedUserId) {
+        User user = findUserById(selectedUserId);
+        JobInformation jobInformation = JobInformation.builder()
+                .basic(jobInformationDto.getBasic())
+                .designation(jobInformationDto.getDesignation())
+                .conveyanceAllowance(jobInformationDto.getConveyanceAllowance())
+                .medicalReimbursement(jobInformationDto.getMedicalReimbursement())
+                .houseRent(jobInformationDto.getHouseRent())
+                .build();
+
+        jobInformationService.save(jobInformation);
+        user.setJobInformation(jobInformation);
+
     }
 }

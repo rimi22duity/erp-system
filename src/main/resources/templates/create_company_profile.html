@@ -23,16 +23,17 @@
                 <div class="card">
                     <div class="register-card-body">
                         <h5 class="card-title">Company profile</h5>
-
                         <div th:if="${successMessage}"
                              th:text="${successMessage}"
                              class="alert alert-success">
                         </div>
 
-                        <form th:action="@{/createUser}"
+                        <form th:action="@{/createCompanyProfile}"
                               th:object="${jobInfoDto}"
-                              method="post"
-                              enctype="multipart/form-data">
+                              method="post">
+                            <input type="hidden"
+                                   name="selectedUserId"
+                                   th:value="${selectedUserId}" >
 
                             <!-- Joining Date-->
                             <div class="row mb-3">
@@ -43,6 +44,9 @@
                                            id="JoiningDate"
                                            class="form-control"
                                            th:field="*{joiningDate}">
+                                    <span th:if="${#fields.hasErrors('joiningDate')}"
+                                          th:errors="*{joiningDate}"
+                                          class="error"></span>
                                 </div>
                             </div>
 
@@ -59,6 +63,9 @@
                                                     th:text="${designation.getTitle()}"></option>
                                         </div>
                                     </select>
+                                    <span th:if="${#fields.hasErrors('designation')}"
+                                          th:errors="*{designation}"
+                                          class="error"></span>
                                 </div>
                             </div>
 
@@ -76,6 +83,9 @@
                                                     th:text="${currency}"></option>
                                         </div>
                                     </select>
+                                    <span th:if="${#fields.hasErrors('currency')}"
+                                          th:errors="*{currency}"
+                                          class="error"></span>
                                 </div>
                             </div>
 
@@ -90,6 +100,9 @@
                                                th:field="*{basic}">
                                         <span class="input-group-text">.00</span>
                                     </div>
+                                    <span th:if="${#fields.hasErrors('currency')}"
+                                          th:errors="*{currency}"
+                                          class="error"></span>
                                 </div>
                             </div>
 
