@@ -36,7 +36,13 @@ public class JobInformationDto {
     private double houseRent;
 
     @NotNull
-    private Designation designation;
+    private long designationId;
 
     private User user;
+
+    public String getFormattedJoiningDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        System.out.println(this.joiningDate);
+        return dateFormat.format(this.joiningDate);
+    }
 }

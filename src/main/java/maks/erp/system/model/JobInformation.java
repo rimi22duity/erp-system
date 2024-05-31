@@ -57,7 +57,7 @@ public class JobInformation {
 
     public String getJoiningDateString() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
-        return format.format(joinningDateString);
+        return format.format(joiningDate);
     }
 
     private String getFormattedAllowance(double amount) {

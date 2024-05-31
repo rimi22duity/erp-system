@@ -2,12 +2,10 @@ package maks.erp.system.controller;
 
 import jakarta.validation.Valid;
 import maks.erp.system.dto.JobInformationDto;
-import maks.erp.system.enums.Currency;
 import maks.erp.system.model.user.User;
 import maks.erp.system.service.DesignationService;
 import maks.erp.system.service.JobInformationService;
 import maks.erp.system.service.UserService;
-import maks.erp.system.service.userJobDetailsService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-public class JobInformationController {
+public class JobInformationCreationController {
     private final String JOBINFORMATION_PAGE = "jobInformation";
     private final String CREATE_COMPANY_PROFILE_PAGE = "create_company_profile";
 
@@ -34,39 +32,8 @@ public class JobInformationController {
     @Autowired
     private JobInformationService jobInformationService;
 
-    Logger log = LoggerFactory.getLogger(JobInformationController.class);
+    Logger log = LoggerFactory.getLogger(JobInformationCreationController.class);
 
-    @GetMapping("/jobInformation")
-    public String getJobInformationForm(ModelMap model) {
-
-        model.put("jobInfoDto", new JobInformationDto());
-        model.put("currencyList", Currency.getCurrencySigns());
-        model.put("designationList", designationService.getDesignations());
-
-        return "jobInformation";
-    }
-
-    @PostMapping("/jobInformation")
-    public String saveJobInformation(@ModelAttribute JobInformationDto jobInformationDto,
-                                      BindingResult result,
-                                      ModelMap model) {
-        if(result.hasErrors()) {
-            model.put("jobInfoDto", jobInformationDto);
-            return JOBINFORMATION_PAGE;
-        }
-
-//        userJobDetailsService.save(userJobDetailsDto);
-        return "redirect:/" + JOBINFORMATION_PAGE;
-    }
-
-    @GetMapping("/viewCompanyProfile")
-    public String viewCompanyProfile(@RequestParam("selectedUserId") long id,
-                                     ModelMap model) {
-        User user = userService.findUserById(id);
-        model.put("jobInfo", user.getJobInformation());
-
-        return "job-info";
-    }
 
     @GetMapping("/createCompanyProfile")
     public String getCreateCompanyProfile(@RequestParam("selectedUserId") long id,
@@ -97,11 +64,13 @@ public class JobInformationController {
 
             return CREATE_COMPANY_PROFILE_PAGE;
         }
+        log.info("Job info joining date: {}", jobInformationDto.getJoiningDate());
+        log.info("Job info currency: {}", jobInformationDto.getCurrency());
 
-        jobInformationService.saveUserCompanyProfile(jobInformationDto, jobInformationDto.getUser().getId());
+        jobInformationService.saveUserCompanyProfile(jobInformationDto);
         redirectAttributes.addFlashAttribute("successMessage",
                 "Company Profile Saved Successfully");
 
-        return "redirect:/" + CREATE_COMPANY_PROFILE_PAGE;
+        return "redirect:/users";
     }
 }
