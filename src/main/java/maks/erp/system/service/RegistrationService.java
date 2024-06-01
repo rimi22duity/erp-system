@@ -4,6 +4,7 @@ import maks.erp.system.dto.UserDto;
 import maks.erp.system.model.user.*;
 import maks.erp.system.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -33,6 +34,9 @@ public class RegistrationService {
     private ContactInfoService contactInfoService;
 
     @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @Autowired
     private UserService userService;
     public void createUser(UserDto userDto) throws IOException {
         UserDocument userDocument = new UserDocument();
@@ -50,7 +54,7 @@ public class RegistrationService {
                 .lastName(userDto.getLastName())
                 .birthDate(userDto.getBirthDate())
                 .username(userDto.getUsername())
-                .password(userDto.getPassword())
+                .password(passwordEncoder.encode(userDto.getPassword()))
                 .userDocument(userDocument1)
                 .gender(userDto.getGender())
                 .religion(userDto.getReligion())
