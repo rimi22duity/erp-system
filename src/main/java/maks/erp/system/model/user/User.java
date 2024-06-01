@@ -37,7 +37,10 @@ public class User {
 
     @NotBlank(message = "This field should not be empty!")
     private String username;
+
     private String password;
+
+
 
     @NotBlank(message = "This field should not be empty!")
     private String firstName;
