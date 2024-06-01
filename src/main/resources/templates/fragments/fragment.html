@@ -1,0 +1,206 @@
+<div th:fragment="view_user_details_modal (user)">
+    <!-- View User Details Modal -->
+
+    <div class="modal"
+         tabindex="-1" th:attr="id=${'ViewUserDetailsModal' + user.id}">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-11">
+                                        <h5 class="card-title"
+                                            th:text="#{label.view.details}"></h5>
+                                    </div>
+                                    <div class="col-1" id="closeModal">
+                                        <div class="plus-icon-container">
+                                            <i class="bi bi-x-circle"
+                                               data-bs-dismiss="modal"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Username -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Username</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label th:text="${user.username}"></label>
+                                    </div>
+                                </div>
+                                <!-- First Name -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>First Name</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label th:text="${user.firstName}"></label>
+                                    </div>
+                                </div>
+                                <!-- last Name -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Last Name</strong>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <label th:text="${user.lastName}"></label>
+                                    </div>
+                                </div>
+                                <!-- Gender -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Gender</strong>
+                                    </div>
+                                    <div th:if="${user.gender != null}" class="col-sm-6">
+                                        <label th:text="${user.gender.getFullString()}"></label>
+                                    </div>
+                                </div>
+                                <!-- Religion -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Religion</strong>
+                                    </div>
+                                    <div th:if="${user.religion != null}" class="col-sm-6">
+                                        <label th:text="${user.religion.getFullString()}"></label>
+                                    </div>
+                                </div>
+                                <!-- DoB -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Date of Birth</strong>
+                                    </div>
+                                    <div th:if="${user.birthDate != null}" class="col-sm-6">
+                                        <label th:text="${user.birthDate}"></label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of Modal -->
+</div>
+
+
+<div th:fragment="view_company_profile_modal(user)">
+    <!-- View Company profile modal -->
+
+    <div class="modal"
+         tabindex="-1" th:attr="id=${'ViewCompanyProfile' + user.id}">
+
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <section class="section">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="row mb-3">
+                                    <div class="col-11">
+                                        <h5 class="card-title"
+                                            th:text="#{label.company.profile}"></h5>
+                                    </div>
+                                    <div class="col-1">
+                                        <div class="plus-icon-container">
+                                            <i class="bi bi-x-circle"
+                                               data-bs-dismiss="modal"></i>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Joining Date -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Joining Date</strong>
+                                    </div>
+                                    <div class="col-sm-6" th:if="${user.jobInformation != null}">
+                                        <label th:text="${user.jobInformation.joiningDateString}"></label>
+                                    </div>
+                                </div>
+                                <!-- Designation -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Designation</strong>
+                                    </div>
+                                    <div class="col-sm-6" th:if="${user.jobInformation != null}">
+                                        <label th:text="${user.jobInformation.designation.title}"></label>
+                                    </div>
+                                </div>
+                                <!-- Basic Salary -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Basic Salary</strong>
+                                    </div>
+                                    <div class="col-sm-6" th:if="${user.jobInformation != null}">
+                                        <label th:text="${user.jobInformation.getBasicSalaryString()}"></label>
+                                    </div>
+                                </div>
+
+                                <!-- Conveyance Allowance -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Conveyance Allowance</strong>
+                                    </div>
+                                    <div class="col-sm-6" th:if="${user.jobInformation != null}">
+                                        <label th:text="${user.jobInformation.conveyanceAllowanceString}"></label>
+                                    </div>
+                                </div>
+
+                                <!-- Medical allowance -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>Conveyance Allowance</strong>
+                                    </div>
+                                    <div class="col-sm-6" th:if="${user.jobInformation != null}">
+                                        <label th:text="${user.jobInformation.medicalReimbursementString}"></label>
+                                    </div>
+                                </div>
+
+                                <!-- House Rent -->
+                                <div class="row mb-3">
+                                    <div class="col-sm-6">
+                                        <strong>House Rent</strong>
+                                    </div>
+                                    <div class="col-sm-6" th:if="${user.jobInformation != null}">
+                                        <label th:text="${user.jobInformation.houseRentString}"></label>
+                                    </div>
+                                </div>
+                                <!-- Action -->
+                                <div class="form-floating">
+                                    <div class="form-group row">
+                                        <div class="col-sm-6">
+                                            <form th:action="@{/editCompanyProfile}"
+                                                  method="get">
+                                                <input type="hidden"
+                                                       name="selectedUserId"
+                                                       th:value="${user.id}">
+                                                <input type="submit"
+                                                       class="btn btn-primary"
+                                                       name="action"
+                                                       value="Edit"/>
+                                            </form>
+                                        </div>
+
+                                        <div class="col-sm-6">
+                                            <input type="submit"
+                                                   class="btn btn-secondary"
+                                                   name="action"
+                                                   value="close"
+                                                   data-bs-dismiss="modal"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of Modal -->
+</div>

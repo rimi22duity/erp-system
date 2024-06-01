@@ -34,8 +34,6 @@
                             <input type="hidden"
                                    th:field="*{user}">
 
-
-
                             <input type="hidden"
                                    th:field="*{currency}">
 
@@ -55,16 +53,15 @@
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Designation</label>
                                 <div class="col-sm-10">
-                                    <div th:replace="fragment :: dropdown(*{designationId}, 0, ${designationList})"></div>
-<!--                                    <select class="form-select"-->
-<!--                                            aria-label="Default select example"-->
-<!--                                            th:field="*{designationId}">-->
-<!--                                        <option th:value="${0}" selected>Please Select</option>-->
-<!--                                        <div th:each="designation: ${designationList}">-->
-<!--                                            <option th:value="${designation.id}"-->
-<!--                                                    th:text="${designation.title}"></option>-->
-<!--                                        </div>-->
-<!--                                    </select>-->
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            th:field="*{designationId}">
+                                        <option th:value="${0}" selected>Please Select</option>
+                                        <div th:each="designation: ${designationList}">
+                                            <option th:value="${designation.id}"
+                                                    th:text="${designation.title}"></option>
+                                        </div>
+                                    </select>
                                     <span th:if="${#fields.hasErrors('designationId')}"
                                           th:errors="*{designationId}"
                                           class="error"></span>

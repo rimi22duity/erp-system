@@ -53,8 +53,9 @@ public class JobInformationUpdateController {
 
             return "edit_Company_profile";
         }
-
+        System.out.println("Job information designation Id (from controller): "+ jobInformationDto.getDesignationId());
         jobInformationService.updateCompanyProfile(jobInformationDto);
+
 
         return "redirect:/users";
 

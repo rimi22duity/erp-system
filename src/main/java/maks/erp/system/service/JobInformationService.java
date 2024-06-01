@@ -59,6 +59,7 @@ public class JobInformationService {
 
     public void updateCompanyProfile(JobInformationDto jobInformationDto) {
         User user = userService.findUserById(jobInformationDto.getUser().getId());
+        System.out.println("User job information ID (before): " + user.getJobInformation().getId());
         JobInformation jobInformation = updatedJobInformation(user.getJobInformation().getId(), jobInformationDto);
 
         save(jobInformation);
