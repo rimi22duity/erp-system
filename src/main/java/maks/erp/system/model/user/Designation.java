@@ -4,9 +4,11 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
-import org.springframework.web.servlet.tags.form.TextareaTag;
+import maks.erp.system.model.JobInformation;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author duity
@@ -18,7 +20,6 @@ import java.util.List;
 @Getter
 @Setter
 @AllArgsConstructor
-@NoArgsConstructor
 @Builder
 public class Designation {
 
@@ -39,4 +40,11 @@ public class Designation {
 
     @OneToMany
     private List<User> users;
+
+    @OneToMany(mappedBy = "designation")
+    private Set<JobInformation> jobInformations;
+
+    public Designation() {
+        jobInformations  = new HashSet<>();
+    }
 }

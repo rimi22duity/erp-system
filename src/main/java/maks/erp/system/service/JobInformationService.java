@@ -3,6 +3,7 @@ package maks.erp.system.service;
 import maks.erp.system.dto.JobInformationDto;
 import maks.erp.system.dto.UserDto;
 import maks.erp.system.model.JobInformation;
+import maks.erp.system.model.user.Designation;
 import maks.erp.system.model.user.User;
 import maks.erp.system.repository.JobInformationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,10 +70,11 @@ public class JobInformationService {
 
     public JobInformation updatedJobInformation(long id, JobInformationDto jobInformationDto) {
         JobInformation jobInformation = findById(id);
+        Designation designation = designationService.getDesignationById(jobInformationDto.getDesignationId());
 
         System.out.println("Joining Date: " + jobInformationDto.getJoiningDate());
         jobInformation.setJoiningDate(jobInformationDto.getJoiningDate());
-        jobInformation.setDesignation(designationService.getDesignationById(jobInformationDto.getDesignationId()));
+        jobInformation.setDesignation(designation);
         jobInformation.setBasic(jobInformationDto.getBasic());
         jobInformation.setConveyanceAllowance(jobInformationDto.getConveyanceAllowance());
         jobInformation.setMedicalReimbursement(jobInformationDto.getMedicalReimbursement());
