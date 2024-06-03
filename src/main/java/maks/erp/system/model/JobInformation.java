@@ -45,7 +45,7 @@ public class JobInformation {
     private double houseRent;
 
     @NotNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "designation_id")
     private Designation designation;
 
