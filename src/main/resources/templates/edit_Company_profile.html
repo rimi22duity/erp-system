@@ -68,90 +68,10 @@
                                 </div>
                             </div>
 
-                            <!-- Currency -->
-
-<!--                            <div class="row mb-3">-->
-<!--                                <label class="col-sm-2 col-form-label">Salary Currency</label>-->
-<!--                                <div class="col-sm-10">-->
-<!--                                    <label></label>-->
-<!--&lt;!&ndash;                                    <select class="form-select"&ndash;&gt;-->
-<!--&lt;!&ndash;                                            aria-label="Default select example"&ndash;&gt;-->
-<!--&lt;!&ndash;                                            id="CurrencyDropdownMenu"&ndash;&gt;-->
-<!--&lt;!&ndash;                                            th:field="*{currency}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <option th:value="${null}" selected>Please Select</option>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        <div th:each="currency: ${T(maks.erp.system.enums.Currency).values()}">&ndash;&gt;-->
-<!--&lt;!&ndash;                                            <option th:value="${currency}"&ndash;&gt;-->
-<!--&lt;!&ndash;                                                    th:text="${currency.sign}"></option>&ndash;&gt;-->
-<!--&lt;!&ndash;                                        </div>&ndash;&gt;-->
-<!--&lt;!&ndash;                                    </select>&ndash;&gt;-->
-<!--                                    <span th:if="${#fields.hasErrors('currency')}"-->
-<!--                                          th:errors="*{currency}"-->
-<!--                                          class="error"></span>-->
-<!--                                </div>-->
-<!--                            </div>-->
-
-                            <!-- Basic Salary -->
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Basic Salary</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text currencySign"
-                                              th:text="*{currency.sign}"></span>
-                                        <input type="text" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)"
-                                               th:field="*{basic}">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
-                                    <span th:if="${#fields.hasErrors('basic')}"
-                                          th:errors="*{basic}"
-                                          class="error"></span>
-                                </div>
-                            </div>
-
-                            <!-- Conveyance allowance -->
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Conveyance allowance</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text currencySign"
-                                              th:text="*{currency.sign}"></span>
-                                        <input type="text" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)"
-                                               th:field="*{conveyanceAllowance}">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Medical Reimbursement -->
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Medical Reimbursement</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text currencySign"
-                                              th:text="*{currency.sign}"></span>
-                                        <input type="text" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)"
-                                               th:field="*{medicalReimbursement}">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- House Rent -->
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">House Rent</label>
-                                <div class="col-sm-10">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text currencySign"
-                                              th:text="*{currency.sign}"></span>
-                                        <input type="text" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)"
-                                               th:field="*{houseRent}">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
-                                </div>
-                            </div>
+                            <div th:include="fragments/edit_job_info_fragments :: input_field(currency=*{currency.sign}, fieldName='basic', title='Basic Salary')"></div>
+                            <div th:include="fragments/edit_job_info_fragments :: input_field(currency= *{currency.sign}, fieldName = 'conveyanceAllowance', title='Conveyance Allowance')"></div>
+                            <div th:include="fragments/edit_job_info_fragments :: input_field(currency= *{currency.sign}, fieldName = 'medicalReimbursement', title='Medical Reimbursement')"></div>
+                            <div th:include="fragments/edit_job_info_fragments :: input_field(currency= *{currency.sign}, fieldName = 'houseRent', title='House Rent')"></div>
 
                             <!-- Submit -->
                             <div th:replace="~{submit_button}"></div>
