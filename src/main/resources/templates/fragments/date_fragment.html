@@ -1,0 +1,17 @@
+<div th:fragment="calender_input(fieldName, title)">
+  <div class="row mb-3">
+    <label for="JoiningDate"
+           class="col-sm-2 col-form-label"
+           th:text="${title}"></label>
+    <div class="col-sm-10">
+      <input type="date"
+             id="JoiningDate"
+             class="form-control"
+             th:field="*{__${fieldName}__}">
+      <span th:if="${#fields.hasErrors(fieldName)}"
+            th:errors="*{__${fieldName}__}"
+            class="error">
+    </span>
+    </div>
+  </div>
+</div>

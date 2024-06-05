@@ -1,0 +1,17 @@
+<div th:fragment="input_field(fieldName, title)">
+  <div class="row mb-3">
+    <label class="col-sm-2 col-form-label" th:text="${title}"></label>
+    <div class="col-sm-10">
+      <div class="input-group mb-3">
+        <span class="input-group-text currencySign"></span>
+        <input type="text" class="form-control"
+               aria-label="Amount (to the nearest dollar)"
+               th:field="*{__${fieldName}__}">
+        <span class="input-group-text">.00</span>
+      </div>
+      <span th:if="${#fields.hasErrors(fieldName)}"
+            th:errors="*{__${fieldName}__}"
+            class="error"></span>
+    </div>
+  </div>
+</div>
