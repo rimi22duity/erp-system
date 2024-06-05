@@ -115,16 +115,7 @@
                             </div>
 
                             <!-- Birth Date-->
-                            <div class="row mb-3">
-                                <label for="birthDate"
-                                       class="col-sm-2 col-form-label">Date of Birth</label>
-                                <div class="col-sm-10">
-                                    <input type="date"
-                                           id="birthDate"
-                                           class="form-control"
-                                           th:field="*{birthDate}">
-                                </div>
-                            </div>
+                            <div th:include="fragments/date_fragment :: calender_input(fieldName='birthDate', title='Date of Birth')"></div>
 
                             <!-- Gender -->
                             <fieldset class="row mb-3">

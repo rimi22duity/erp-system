@@ -23,12 +23,16 @@
                             th:text="${title}"></h5>
                     </div>
 
-                    <div class="col-1">
-                        <div class="plus-icon-container"
-                             data-bs-toggle="modal"
-                             data-bs-target="#AddDesignationModal">
-                            <i class="bi bi-plus-lg plus-icon icon-20"></i>
-                        </div>
+                    <div class="col-2">
+                        <form th:action="@{/createUser}"
+                              method="get">
+                            <div class="plus-icon-container">
+                                <button class="btn btn-link"
+                                        type="submit">
+                                    <i class="bi bi-plus-lg plus-icon icon-20"></i>
+                                </button>
+                            </div>
+                        </form>
                     </div>
                 </div>
                 <table class="table table-hover table-striped datatable"
@@ -56,7 +60,7 @@
                                 <i class="bi bi-info-circle-fill"></i>
                             </button>
 
-                            <div th:replace="fragments/fragment :: view_user_details_modal (${user})"></div>
+                            <div th:replace="fragments/user_list_fragment :: view_user_details_modal (${user})"></div>
 
                         </td>
                         <td>
@@ -84,7 +88,7 @@
                                     </button>
                                 </form>
                             </div>
-                            <div th:replace="fragments/fragment :: view_company_profile_modal(${user})"></div>
+                            <div th:replace="fragments/user_list_fragment :: view_company_profile_modal(${user})"></div>
                         </td>
                     </tr>
                     </tbody>
