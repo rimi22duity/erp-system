@@ -57,37 +57,8 @@
                                     </span>
                                 </div>
                             </div>
-
-                            <!-- Firstname-->
-                            <div class="row mb-3">
-                                <label for="firstNameInput"
-                                       class="col-sm-2 col-form-label">First Name</label>
-                                <div class="col-sm-10">
-                                    <input id ="firstNameInput"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{firstName}">
-                                    <span th:if="${#fields.hasErrors('firstName')}"
-                                          th:errors="*{firstName}"
-                                          class="error"></span>
-                                </div>
-
-                            </div>
-
-                            <!-- Lastname-->
-                            <div class="row mb-3">
-                                <label for="lastNameInput"
-                                       class="col-sm-2 col-form-label">Last Name</label>
-                                <div class="col-sm-10">
-                                    <input id ="lastNameInput"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{lastName}">
-                                    <span th:if="${#fields.hasErrors('lastName')}"
-                                          th:errors="*{lastName}"
-                                          class="error"></span>
-                                </div>
-                            </div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='firstName', title='First Name')"></div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='lastName', title='Last Name')"></div>
 
                             <!-- Password -->
                             <div class="row mb-3">
@@ -152,71 +123,15 @@
 
                             <!--  Contact Information -->
                             <h5 class="card-title">Contact Information</h5>
-                            <div class="row mb-3">
-                                <label for="contactPhone"
-                                       class="col-sm-2 col-form-label">Phone</label>
-                                <div class="col-sm-10">
-                                    <input id ="contactPhone"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{contactInfo.phone}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="contactMobile"
-                                       class="col-sm-2 col-form-label">Mobile</label>
-                                <div class="col-sm-10">
-                                    <input id ="contactMobile"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{contactInfo.mobileNumber}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Email</label>
-                                <div class="col-sm-10">
-                                    <input type="email"
-                                           class="form-control"
-                                           th:field="*{contactInfo.email}">
-                                </div>
-                            </div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='contactInfo.phone', title='Phone')"></div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='contactInfo.mobileNumber', title='Mobile')"></div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='contactInfo.email', title='Email')"></div>
 
                             <!-- Emergency Contact Information-->
                             <h5 class="card-title">Emergency Contact Information</h5>
-                            <div class="row mb-3">
-                                <label for="emergencyContactName"
-                                       class="col-sm-2 col-form-label">Name</label>
-                                <div class="col-sm-10">
-                                    <input id ="emergencyContactName"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{emergencyContact.name}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="emergencyContactPhone"
-                                       class="col-sm-2 col-form-label">Phone</label>
-                                <div class="col-sm-10">
-                                    <input id ="emergencyContactPhone"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{emergencyContact.phone}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="emergencyContactMobile"
-                                       class="col-sm-2 col-form-label">Mobile</label>
-                                <div class="col-sm-10">
-                                    <input id ="emergencyContactMobile"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{emergencyContact.mobileNumber}">
-                                </div>
-                            </div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='emergencyContact.name', title='Name')"></div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='emergencyContact.phone', title='Phone')"></div>
+                            <div th:include="fragments/general_input :: input_field(fieldName='emergencyContact.mobileNumber', title='Mobile')"></div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Relation</label>
@@ -234,66 +149,14 @@
                             <!-- End of Emergency Contact Information -->
 
                             <!-- Present Address -->
-                            <!-- Road, thana, City, District, postal code -->
                             <h6 class="card-title">Present Address Information</h6>
-
-                            <div class="row mb-3">
-                                <label for="presentAddressRoad"
-                                       class="col-sm-2 col-form-label">Road</label>
-                                <div class="col-sm-10">
-                                    <input id ="presentAddressRoad"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{presentAddress.road}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="presentAddressThana"
-                                       class="col-sm-2 col-form-label">Thana</label>
-                                <div class="col-sm-10">
-                                    <input id ="presentAddressThana"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{presentAddress.thana}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="presentAddressCity"
-                                       class="col-sm-2 col-form-label">City</label>
-                                <div class="col-sm-10">
-                                    <input id ="presentAddressCity"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{presentAddress.city}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="presentAddressDistrict"
-                                       class="col-sm-2 col-form-label">District</label>
-                                <div class="col-sm-10">
-                                    <input id ="presentAddressDistrict"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{presentAddress.district}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="presentAddressCode"
-                                       class="col-sm-2 col-form-label">Postal Code</label>
-                                <div class="col-sm-10">
-                                    <input id ="presentAddressCode"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{presentAddress.postalCode}">
-                                </div>
-                            </div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressRoad', fieldName='presentAddress.road', title='Road')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressThana', fieldName='presentAddress.thana', title='Thana')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressCity',fieldName='presentAddress.city', title='City')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressDistrict',fieldName='presentAddress.district', title='District')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressCode',fieldName='presentAddress.postalCode', title='Postal Code')"></div>
 
                             <!-- Permanent Address -->
-                            <!-- Road, thana, City, District, postal code -->
                             <h6 class="card-title">Permanent Address Information</h6>
                             <div class="row mb-3">
                                 <div class="form-check">
@@ -308,61 +171,11 @@
                                 </div>
                             </div>
 
-                            <div class="row mb-3">
-                                <label for="permanentAddressRoad"
-                                       class="col-sm-2 col-form-label">Road</label>
-                                <div class="col-sm-10">
-                                    <input id ="permanentAddressRoad"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{permanentAddress.road}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="permanentAddressThana"
-                                       class="col-sm-2 col-form-label">Thana</label>
-                                <div class="col-sm-10">
-                                    <input id ="permanentAddressThana"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{permanentAddress.thana}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="permanentAddressCity"
-                                       class="col-sm-2 col-form-label">City</label>
-                                <div class="col-sm-10">
-                                    <input id ="permanentAddressCity"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{permanentAddress.city}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="permanentAddressDistrict"
-                                       class="col-sm-2 col-form-label">District</label>
-                                <div class="col-sm-10">
-                                    <input id ="permanentAddressDistrict"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{permanentAddress.district}">
-                                </div>
-                            </div>
-
-                            <div class="row mb-3">
-                                <label for="permanentAddressCode"
-                                       class="col-sm-2 col-form-label">Postal Code</label>
-                                <div class="col-sm-10">
-                                    <input id ="permanentAddressCode"
-                                           type="text"
-                                           class="form-control"
-                                           th:field="*{permanentAddress.postalCode}">
-                                </div>
-                            </div>
-
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressRoad', fieldName='permanentAddress.road', title='Road')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressThana', fieldName='permanentAddress.thana', title='Thana')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressCity',fieldName='permanentAddress.city', title='City')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressDistrict',fieldName='permanentAddress.district', title='District')"></div>
+                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressCode',fieldName='permanentAddress.postalCode', title='Postal Code')"></div>
                             <!-- Submit -->
                             <div th:replace="~{submit_button}"></div>
                         </form>
