@@ -56,7 +56,6 @@ public class UserCreationController {
                              RedirectAttributes redirectAttributes) throws IOException {
         Optional<User> existingUser = registrationService.getUserByUserName(userDto.getUsername());
 
-        //log.info("Emergency Contact Relationship: {}", userDto.getEmergencyContact().getRelation());
         if(existingUser.isPresent()) {
             log.error("Username already exist");
             result.rejectValue(
@@ -67,7 +66,8 @@ public class UserCreationController {
 
         if(result.hasErrors()) {
             log.error("error occurred ");
-            result.getFieldErrors().forEach(fieldError -> System.out.println(fieldError.toString()));
+            result.getFieldErrors().forEach(fieldError ->
+                    System.out.println(fieldError.toString()));
             model.put("userDto", userDto);
 
             return CREATE_USER_PAGE;

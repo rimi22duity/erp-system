@@ -8,6 +8,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.Optional;
 
 @Service
@@ -39,14 +40,14 @@ public class RegistrationService {
     @Autowired
     private UserService userService;
     public void createUser(UserDto userDto) throws IOException {
-        UserDocument userDocument = new UserDocument();
-        userDocument.setDocument(userDto.getDocument().getBytes());
-        userDocument.setFileName(userDto.getDocument().getOriginalFilename());
+        UserDocument document = new UserDocument();
+        document.setDocument(userDto.getDocument().getBytes());
+        document.setFileName(userDto.getDocument().getOriginalFilename());
 
         EmergencyContactInfo emergencyContactInfo = emergencyContactInfoService.save(userDto.getEmergencyContact());
         Address permanentAddress = addressService.save(addressService.mapToAddress(userDto.getPermanentAddress()));
         Address presentAddress = addressService.save(addressService.mapToAddress(userDto.getPresentAddress()));
-        UserDocument userDocument1 = userDocumentService.save(userDocument);
+        UserDocument userDocument1 = userDocumentService.save(document);
         ContactInfo contactInfo = contactInfoService.save(userDto.getContactInfo());
 
         User user = User.builder()
@@ -55,13 +56,15 @@ public class RegistrationService {
                 .birthDate(userDto.getBirthDate())
                 .username(userDto.getUsername())
                 .password(passwordEncoder.encode(userDto.getPassword()))
-                .userDocument(userDocument1)
+                .document(userDocument1)
                 .gender(userDto.getGender())
                 .religion(userDto.getReligion())
                 .emergencyContact(emergencyContactInfo)
                 .permanentAddress(permanentAddress)
                 .presentAddress(presentAddress)
                 .contactInfo(contactInfo)
+                .created(new Date())
+                .updated(new Date())
                 .build();
 
         userService.save(user);

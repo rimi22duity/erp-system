@@ -1,25 +1,20 @@
-package maks.erp.system.model.user;
+package maks.erp.system.model.product;
 
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-/**
- * @author duity
- * @since 5/7/24
- */
-
 @Entity
 @Table
 @Getter
 @Setter
-public class UserDocument {
+public class ProductImage {
 
     @Id
-    @SequenceGenerator(name = "userDocSeq",
-            sequenceName = "userDocSeq",
+    @SequenceGenerator(name = "productImageSeq",
+            sequenceName = "productImageSeq",
             allocationSize = 1)
-    @GeneratedValue(generator = "userDocSeq")
+    @GeneratedValue(generator = "productImageSeq")
     private long id;
 
     private String fileName;

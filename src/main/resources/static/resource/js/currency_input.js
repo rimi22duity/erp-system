@@ -5,6 +5,16 @@ selectedCurrency.addEventListener('change', () => {
     let selectedIndex = selectedCurrency.selectedIndex;
     console.log(selectedIndex)
     for(let i = 0; i<elements.length; i++) {
-        elements[i].innerHTML = selectedCurrency.options[selectedIndex].value;
+        var selectedCurrencyString = "";
+        switch (selectedCurrency.options[selectedIndex].value) {
+            case "BDT" :
+                selectedCurrencyString = "৳";
+                break;
+            case "US_DOLLAR":
+                selectedCurrencyString = "$";
+                break;
+        }
+
+        elements[i].innerHTML = selectedCurrencyString;
     }
 })

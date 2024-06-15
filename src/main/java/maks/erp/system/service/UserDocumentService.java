@@ -1,6 +1,5 @@
 package maks.erp.system.service;
 
-import maks.erp.system.model.user.User;
 import maks.erp.system.model.user.UserDocument;
 import maks.erp.system.repository.UserDocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;

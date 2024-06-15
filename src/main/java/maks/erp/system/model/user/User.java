@@ -40,8 +40,6 @@ public class User {
 
     private String password;
 
-
-
     @NotBlank(message = "This field should not be empty!")
     private String firstName;
 
@@ -81,7 +79,7 @@ public class User {
 
     @OneToOne
     @JoinColumn(name = "user_document_id")
-    private UserDocument userDocument;
+    private UserDocument document;
 
     @OneToOne
     @JoinColumn(name = "job_info_id")

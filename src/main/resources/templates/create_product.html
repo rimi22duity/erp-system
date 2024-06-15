@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+</head>
+
+<body>
+<div th:replace="~{links}"></div>
+<div th:replace="~{topbar}"></div>
+<div th:replace="~{sidebar}"></div>
+
+<main id="main" class="main">
+    <section class="section">
+        <div class="row">
+            <div class="col-lg">
+
+                <div class="card">
+                    <div class="register-card-body">
+                        <h5 class="card-title">General Information</h5>
+
+                        <div th:if="${successMessage}"
+                             th:text="${successMessage}"
+                             class="alert alert-success">
+                        </div>
+
+                        <form th:action="@{/createProduct}"
+                              th:object="${productDto}"
+                              method="post"
+                              enctype="multipart/form-data">
+
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='title', title='Product Title')}"></div>
+                            <div th:insert="~{fragments/general_input :: input_text_Area(fieldName='description', title='Product Description')}"></div>
+
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Quantity</label>
+                                <div class="col-sm-4">
+                                    <input type="text"
+                                           class="form-control"
+                                           th:field="*{quantity}">
+                                    <span th:if="${#fields.hasErrors('quantity')}"
+                                          th:errors="*{quantity}"
+                                          class="error"></span>
+                                </div>
+                            </div>
+                            <!-- Currency -->
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Select Currency</label>
+                                <div class="col-sm-4">
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            id="CurrencyDropdownMenu"
+                                            th:field="*{currency}">
+                                        <option th:value="${null}" selected>Please Select</option>
+                                        <div th:each="currency: ${T(maks.erp.system.enums.Currency).values()}">
+                                            <option th:value="${currency}"
+                                                    th:text="${currency.sign}"></option>
+                                        </div>
+                                    </select>
+                                    <span th:if="${#fields.hasErrors('currency')}"
+                                          th:errors="*{currency}"
+                                          class="error"></span>
+                                </div>
+
+                                <!-- Price -->
+                                <label class="col-sm-2 col-form-label">Price</label>
+                                <div class="col-sm-4">
+                                    <div class="input-group mb-3">
+                                        <span class="input-group-text currencySign"></span>
+                                        <input type="text"
+                                               class="form-control"
+                                               aria-label="Amount (to the nearest dollar)"
+                                               th:field="*{price}">
+                                        <span class="input-group-text">.00</span>
+                                    </div>
+                                    <span th:if="${#fields.hasErrors('price')}"
+                                          th:errors="*{price}"
+                                          class="error"></span>
+                                </div>
+                            </div>
+
+                            <!-- Image upload -->
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Documents Upload</label>
+                                <div class="col-sm-10">
+                                    <input class="form-control"
+                                           type="file"
+                                           id="formFile"
+                                           th:field="*{image}"
+                                           accept="image/*,video/*,.pdf">
+                                    <span th:if="${#fields.hasErrors('image')}"
+                                          th:errors="*{image}"
+                                          class="error"></span>
+                                </div>
+                            </div>
+
+                            <!-- Submit -->
+                            <div th:replace="~{submit_button}"></div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main><!-- End #main -->
+
+<div th:replace="~{footer}"></div>
+
+<a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+</a>
+<div th:replace="~{scripts}"></div>
+<script th:src="@{/resource/js/currency_input.js}"></script>
+
+</body>
+
+</html>

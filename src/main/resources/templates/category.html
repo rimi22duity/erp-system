@@ -1,0 +1,175 @@
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title th:text="#{label.product.category.page.title}"/>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+</head>
+
+<body>
+<div th:replace="~{links}"></div>
+<div th:replace="~{topbar}"></div>
+<div th:replace="~{sidebar}"></div>
+
+<main id="main" class="main">
+  <section class="section">
+    <div class="card">
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-11">
+            <h5 class="card-title"
+                th:text="#{label.product.category}"></h5>
+          </div>
+
+          <div class="col-1">
+            <div class="plus-icon-container"
+                 data-bs-toggle="modal"
+                 data-bs-target="#AddCategoryModal">
+              <i class="bi bi-plus-lg plus-icon icon-20"></i>
+            </div>
+          </div>
+        </div>
+        <table class="table table-hover table-striped datatable"
+               id="categoriesTable">
+          <thead>
+          <tr>
+            <th scope="col" th:text="#{label.numbers}"></th>
+            <th scope="col" th:text="#{label.title}"></th>
+            <th class="action-col" scope="col" th:text="#{label.action}"></th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr th:each="category, iterStat: ${categories}">
+            <th scope="row" th:text="${iterStat.index + 1}"></th>
+            <td th:text="${category.title}"></td>
+            <td>
+              <div class="p-0 m-0 gap-2 d-flex">
+                <form th:action="@{/editCategory}"
+                      method="get">
+                  <input type="hidden"
+                         name="selectedCategoryId"
+                         th:value="${category.id}">
+                  <input class="btn btn-primary"
+                         type="submit"
+                         th:value="Edit">
+                </form>
+
+                <form th:action="@{/viewCategory}" method="get">
+                  <input type="hidden"
+                         name="selectedCategoryId"
+                         th:value="${category.id}">
+                  <input class="btn btn-primary"
+                         type="submit"
+                         th:value="View">
+                </form>
+              </div>
+
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div th:replace="~{go_up}"></div>
+
+<!-- Add Designation Modal -->
+<div class="modal"
+     tabindex="-1"
+     th:id='AddCategoryModal'>
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-body">
+        <section class="section">
+          <div class="card">
+            <div class="card-body">
+              <div class="row mb-3">
+                <div class="col-11">
+                  <h5 class="card-title"
+                      th:text="#{label.product.add.category}"></h5>
+                </div>
+                <div class="col-1" id="closeModal">
+                  <div class="plus-icon-container">
+                    <i class="bi bi-x-circle"
+                       data-bs-dismiss="modal"></i>
+                  </div>
+                </div>
+              </div>
+              <form action="#"
+                    th:action="@{/addCategory}"
+                    th:object="${categoryDto}"
+                    method="post">
+                <!-- `type=module` is specified to address `bootstrap is not defined` issue -->
+                <script type="module"
+                        th:inline="javascript"
+                        th:if="${#fields.hasErrors()}">
+                  let myModal = new bootstrap.Modal(userDocument.getElementById("AddCategoryModal"), {});
+                  myModal.show();
+                </script>
+
+                <div class="row">
+                  <div class="form-floating mb-3">
+                    <div class="form-group">
+                      <label> Title </label>
+                      <input type="text"
+                             class="form-control"
+                             id="exampleFormControlInput1"
+                             placeholder="Title"
+                             th:field="*{title}">
+                      <span th:if="${#fields.hasErrors('title')}"
+                            th:errors="*{title}"
+                            class="error"></span>
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <div class="form-group">
+                      <label for="exampleFormControlTextarea1">Description</label>
+                      <textarea class="form-control"
+                                id="exampleFormControlTextarea1"
+                                rows="3"
+                                th:field="*{description}"></textarea>
+                      <span th:if="${#fields.hasErrors('description')}"
+                            th:errors="*{description}"
+                            class="error"></span>
+                    </div>
+                  </div>
+                  <!-- Actions -->
+                  <div class="form-floating">
+                    <div class="form-group row">
+                      <div class="col-sm-6">
+                        <input type="submit"
+                               class="btn btn-primary"
+                               name="action"
+                               value="submit"/>
+                      </div>
+
+                      <div class="col-sm-6">
+                        <input type="submit"
+                               class="btn btn-secondary"
+                               name="action"
+                               value="close"
+                               data-bs-dismiss="modal"/>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End of Modal -->
+
+<div th:replace="~{footer}"></div>
+<div th:replace="~{scripts}"></div>
+<script th:src="@{/resource/js/salaryInput.js}"></script>
+</body>
+</html>

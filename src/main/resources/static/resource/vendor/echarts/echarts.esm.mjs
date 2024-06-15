@@ -80,7 +80,7 @@ if (typeof wx === 'object' && typeof wx.getSystemInfoSync === 'function') {
     env.wxa = true;
     env.touchEventsSupported = true;
 }
-else if (typeof document === 'undefined' && typeof self !== 'undefined') {
+else if (typeof userDocument === 'undefined' && typeof self !== 'undefined') {
     env.worker = true;
 }
 else if (typeof navigator === 'undefined'
@@ -118,8 +118,8 @@ function detect(ua, env) {
     env.touchEventsSupported = 'ontouchstart' in window && !browser.ie && !browser.edge;
     env.pointerEventsSupported = 'onpointerdown' in window
         && (browser.edge || (browser.ie && +browser.version >= 11));
-    env.domSupported = typeof document !== 'undefined';
-    var style = document.documentElement.style;
+    env.domSupported = typeof userDocument !== 'undefined';
+    var style = userDocument.documentElement.style;
     env.transform3dSupported = ((browser.ie && 'transition' in style)
         || browser.edge
         || (('WebKitCSSMatrix' in window) && ('m11' in new WebKitCSSMatrix()))
@@ -150,8 +150,8 @@ function getTextWidthMap(mapStr) {
 var DEFAULT_TEXT_WIDTH_MAP = getTextWidthMap(defaultWidthMapStr);
 var platformApi = {
     createCanvas: function () {
-        return typeof document !== 'undefined'
-            && document.createElement('canvas');
+        return typeof userDocument !== 'undefined'
+            && userDocument.createElement('canvas');
     },
     measureText: (function () {
         var _ctx;
@@ -1253,7 +1253,7 @@ function prepareCoordMarkers(el, saved) {
     var propLR = ['left', 'right'];
     var propTB = ['top', 'bottom'];
     for (var i = 0; i < 4; i++) {
-        var marker = document.createElement('div');
+        var marker = userDocument.createElement('div');
         var stl = marker.style;
         var idxLR = i % 2;
         var idxTB = (i >> 1) % 2;
@@ -5385,7 +5385,7 @@ var HandlerDomProxy = (function (_super) {
         _this.painterRoot = painterRoot;
         _this._localHandlerScope = new DOMHandlerScope(dom, localDOMHandlers);
         if (globalEventSupported) {
-            _this._globalHandlerScope = new DOMHandlerScope(document, globalDOMHandlers);
+            _this._globalHandlerScope = new DOMHandlerScope(userDocument, globalDOMHandlers);
         }
         mountLocalDOMEventListeners(_this, _this._localHandlerScope);
         return _this;
@@ -8561,7 +8561,7 @@ function getAttribute(dom, key) {
 }
 function getTooltipRenderMode(renderModeOption) {
   if (renderModeOption === 'auto') {
-    // Using html when `document` exists, use richText otherwise
+    // Using html when `userDocument` exists, use richText otherwise
     return env.domSupported ? 'html' : 'richText';
   } else {
     return renderModeOption || 'html';
@@ -16139,7 +16139,7 @@ var localeStorage = {};
 var localeModels = {};
 var SYSTEM_LANG = !env.domSupported ? DEFAULT_LOCALE : function () {
   var langStr = ( /* eslint-disable-next-line */
-  document.documentElement.lang || navigator.language || navigator.browserLanguage || DEFAULT_LOCALE).toUpperCase();
+  userDocument.documentElement.lang || navigator.language || navigator.browserLanguage || DEFAULT_LOCALE).toUpperCase();
   return langStr.indexOf(LOCALE_ZH) > -1 ? LOCALE_ZH : DEFAULT_LOCALE;
 }();
 function registerLocale(locale, localeObj) {
@@ -25275,7 +25275,7 @@ function getSize(root, whIdx, opts) {
     if (opts[wh] != null && opts[wh] !== 'auto') {
         return parseFloat(opts[wh]);
     }
-    var stl = document.defaultView.getComputedStyle(root);
+    var stl = userDocument.defaultView.getComputedStyle(root);
     return ((root[cwh] || parseInt10(stl[wh]) || parseInt10(root.style[wh]))
         - (parseInt10(stl[plt]) || 0)
         - (parseInt10(stl[prb]) || 0)) | 0;
@@ -28336,7 +28336,7 @@ function registerLoading(name, loadingFx) {
 /**
  * ZRender need a canvas context to do measureText.
  * But in node environment canvas may be created by node-canvas.
- * So we need to specify how to create a canvas instead of using document.createElement('canvas')
+ * So we need to specify how to create a canvas instead of using userDocument.createElement('canvas')
  *
  *
  * @deprecated use setPlatformAPI({ createCanvas }) instead.
@@ -35208,7 +35208,7 @@ var XMLNS = 'http://www.w3.org/2000/xmlns/';
 var XML_NAMESPACE = 'http://www.w3.org/XML/1998/namespace';
 var META_DATA_PREFIX = 'ecmeta_';
 function createElement(name) {
-    return document.createElementNS(SVGNS, name);
+    return userDocument.createElementNS(SVGNS, name);
 }
 function createVNode(tag, key, attrs, children, text) {
     return {
@@ -36103,7 +36103,7 @@ function setClipPath(clipPath, attrs, scope) {
 }
 
 function createTextNode(text) {
-    return document.createTextNode(text);
+    return userDocument.createTextNode(text);
 }
 function insertBefore(parentNode, newNode, referenceNode) {
     parentNode.insertBefore(newNode, referenceNode);
@@ -36387,7 +36387,7 @@ var SVGPainter = (function () {
         this._id = 'zr' + svgId++;
         this._oldVNode = createSVGVNode(opts.width, opts.height);
         if (root && !opts.ssr) {
-            var viewport = this._viewport = document.createElement('div');
+            var viewport = this._viewport = userDocument.createElement('div');
             viewport.style.cssText = 'position:relative;overflow:hidden';
             var svgDom = this._svgDom = this._oldVNode.elm = createElement('svg');
             updateAttrs(null, this._oldVNode);
@@ -36929,7 +36929,7 @@ function isLayerValid(layer) {
     return true;
 }
 function createRoot(width, height) {
-    var domRoot = document.createElement('div');
+    var domRoot = userDocument.createElement('div');
     domRoot.style.cssText = [
         'position:relative',
         'width:' + width + 'px',
@@ -58878,7 +58878,7 @@ function resetCursor(controller, e, localCursorPoint) {
   !controller._brushType
   // resetCursor should be always called when mouse is in zr area,
   // but not called when mouse is out of zr area to avoid bad influence
-  // if `mousemove`, `mouseup` are triggered from `document` event.
+  // if `mousemove`, `mouseup` are triggered from `userDocument` event.
   || isOutsideZrArea(controller, e.offsetX, e.offsetY)) {
     return;
   }
@@ -72431,7 +72431,7 @@ function isUserFeatureName(featureName) {
   return featureName.indexOf('my') === 0;
 }
 
-/* global window, document */
+/* global window, userDocument */
 var SaveAsImage = /** @class */function (_super) {
   __extends(SaveAsImage, _super);
   function SaveAsImage() {
@@ -72452,13 +72452,13 @@ var SaveAsImage = /** @class */function (_super) {
     var browser = env.browser;
     // Chrome, Firefox, New Edge
     if (isFunction(MouseEvent) && (browser.newEdge || !browser.ie && !browser.edge)) {
-      var $a = document.createElement('a');
+      var $a = userDocument.createElement('a');
       $a.download = title + '.' + type;
       $a.target = '_blank';
       $a.href = url;
       var evt = new MouseEvent('click', {
         // some micro front-end framework， window maybe is a Proxy
-        view: document.defaultView,
+        view: userDocument.defaultView,
         bubbles: true,
         cancelable: false
       });
@@ -72490,23 +72490,23 @@ var SaveAsImage = /** @class */function (_super) {
           var blob = new Blob([u8arr]); // @ts-ignore
           window.navigator.msSaveOrOpenBlob(blob, filename);
         } else {
-          var frame = document.createElement('iframe');
-          document.body.appendChild(frame);
+          var frame = userDocument.createElement('iframe');
+          userDocument.body.appendChild(frame);
           var cw = frame.contentWindow;
-          var doc = cw.document;
+          var doc = cw.userDocument;
           doc.open('image/svg+xml', 'replace');
           doc.write(bstr);
           doc.close();
           cw.focus();
           doc.execCommand('SaveAs', true, filename);
-          document.body.removeChild(frame);
+          userDocument.body.removeChild(frame);
         }
       } else {
         var lang = model.get('lang');
         var html = '' + '<body style="margin:0;">' + '<img src="' + url + '" style="max-width:100%;" title="' + (lang && lang[0] || '') + '" />' + '</body>';
         var tab = window.open();
-        tab.document.write(html);
-        tab.document.title = title;
+        tab.userDocument.write(html);
+        tab.userDocument.title = title;
       }
     }
   };
@@ -72689,7 +72689,7 @@ registerAction({
   ecModel.mergeOption(payload.newOption);
 });
 
-/* global document */
+/* global userDocument */
 var BLOCK_SPLITER = new Array(60).join('-');
 var ITEM_SPLITER = '\t';
 /**
@@ -72917,18 +72917,18 @@ var DataView = /** @class */function (_super) {
     if (this._dom) {
       container.removeChild(this._dom);
     }
-    var root = document.createElement('div');
+    var root = userDocument.createElement('div');
     // use padding to avoid 5px whitespace
     root.style.cssText = 'position:absolute;top:0;bottom:0;left:0;right:0;padding:5px';
     root.style.backgroundColor = model.get('backgroundColor') || '#fff';
     // Create elements
-    var header = document.createElement('h4');
+    var header = userDocument.createElement('h4');
     var lang = model.get('lang') || [];
     header.innerHTML = lang[0] || model.get('title');
     header.style.cssText = 'margin:10px 20px';
     header.style.color = model.get('textColor');
-    var viewMain = document.createElement('div');
-    var textarea = document.createElement('textarea');
+    var viewMain = userDocument.createElement('div');
+    var textarea = userDocument.createElement('textarea');
     viewMain.style.cssText = 'overflow:auto';
     var optionToContent = model.get('optionToContent');
     var contentToOption = model.get('contentToOption');
@@ -72953,12 +72953,12 @@ var DataView = /** @class */function (_super) {
       viewMain.appendChild(textarea);
     }
     var blockMetaList = result.meta;
-    var buttonContainer = document.createElement('div');
+    var buttonContainer = userDocument.createElement('div');
     buttonContainer.style.cssText = 'position:absolute;bottom:5px;left:0;right:0';
     // eslint-disable-next-line max-len
     var buttonStyle = 'float:right;margin-right:20px;border:none;cursor:pointer;padding:2px 5px;font-size:12px;border-radius:3px';
-    var closeButton = document.createElement('div');
-    var refreshButton = document.createElement('div');
+    var closeButton = userDocument.createElement('div');
+    var refreshButton = userDocument.createElement('div');
     buttonStyle += ';background-color:' + model.get('buttonColor');
     buttonStyle += ';color:' + model.get('buttonTextColor');
     var self = this;
@@ -73774,7 +73774,7 @@ var TooltipModel = /** @class */function (_super) {
   return TooltipModel;
 }(ComponentModel);
 
-/* global document */
+/* global userDocument */
 function shouldTooltipConfine(tooltipModel) {
   var confineOption = tooltipModel.get('confine');
   return confineOption != null ? !!confineOption
@@ -73785,7 +73785,7 @@ function testStyle(styleProps) {
   if (!env.domSupported) {
     return;
   }
-  var style = document.documentElement.style;
+  var style = userDocument.documentElement.style;
   for (var i = 0, len = styleProps.length; i < len; i++) {
     if (styleProps[i] in style) {
       return styleProps[i];
@@ -73804,11 +73804,11 @@ function toCSSVendorPrefix(styleVendor, styleProp) {
   return styleVendor.toLowerCase();
 }
 function getComputedStyle(el, style) {
-  var stl = el.currentStyle || document.defaultView && document.defaultView.getComputedStyle(el);
+  var stl = el.currentStyle || userDocument.defaultView && userDocument.defaultView.getComputedStyle(el);
   return stl ? style ? stl[style] : stl : null;
 }
 
-/* global document, window */
+/* global userDocument, window */
 var CSS_TRANSITION_VENDOR = toCSSVendorPrefix(TRANSITION_VENDOR, 'transition');
 var CSS_TRANSFORM_VENDOR = toCSSVendorPrefix(TRANSFORM_VENDOR, 'transform');
 // eslint-disable-next-line
@@ -73961,13 +73961,13 @@ var TooltipHTMLContent = /** @class */function () {
     if (env.wxa) {
       return null;
     }
-    var el = document.createElement('div');
+    var el = userDocument.createElement('div');
     // TODO: TYPE
     el.domBelongToZr = true;
     this.el = el;
     var zr = this._zr = api.getZr();
     var appendTo = opt.appendTo;
-    var container = appendTo && (isString(appendTo) ? document.querySelector(appendTo) : isDom(appendTo) ? appendTo : isFunction(appendTo) && appendTo(api.getDom()));
+    var container = appendTo && (isString(appendTo) ? userDocument.querySelector(appendTo) : isDom(appendTo) ? appendTo : isFunction(appendTo) && appendTo(api.getDom()));
     makeStyleCoord(this._styleCoord, zr, container, api.getWidth() / 2, api.getHeight() / 2);
     (container || api.getDom()).appendChild(el);
     this._api = api;
@@ -74084,8 +74084,8 @@ var TooltipHTMLContent = /** @class */function () {
       // no arrow if empty
       if (arrow && el.childNodes.length) {
         // no need to create a new parent element, but it's not supported by IE 10 and older.
-        // const arrowEl = document.createRange().createContextualFragment(arrow);
-        var arrowEl = document.createElement('div');
+        // const arrowEl = userDocument.createRange().createContextualFragment(arrow);
+        var arrowEl = userDocument.createElement('div');
         arrowEl.innerHTML = arrow;
         el.appendChild(arrowEl);
       }

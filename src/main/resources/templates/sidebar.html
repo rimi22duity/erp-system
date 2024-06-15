@@ -17,6 +17,7 @@
             </a>
         </li>
 
+        <!-- Designation -->
         <li class="nav-item">
             <a class="nav-link collapsed" th:href="@{/designations}">
                 <i class="bi bi-person-badge"></i>
@@ -24,6 +25,15 @@
             </a>
         </li>
 
+        <!-- Category -->
+        <li class="nav-item">
+            <a class="nav-link collapsed" th:href="@{/categories}">
+                <i class="bi bi-person-badge"></i>
+                <span>Categories</span>
+            </a>
+        </li>
+
+        <!-- User -->
         <li class="nav-item">
             <a class="nav-link collapsed"
                data-bs-target="#user-nav"
@@ -33,16 +43,44 @@
                 <span>User</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>
-            <ul id="user-nav" class="nav-content collapsed " data-bs-parent="#sidebar-nav">
+            <ul id="user-nav"
+                class="nav-content collapse"
+                data-bs-parent="#sidebar-nav">
 
-                <li class="nav-item">
+                <li>
                     <a th:href="@{/createUser}">
-                        <i class="bi bi-person-plus sidebar-icon"></i><span>Create User</span>
+                        <i class="bi bi-person-plus sidebar-icon"></i>
+                        <span>Create User</span>
                     </a>
                 </li>
-                <li class="nav-item">
+
+                <li>
                     <a th:href="@{/users}">
-                        <i class="bi bi-people sidebar-icon"></i><span>User List</span>
+                        <i class="bi bi-people sidebar-icon"></i>
+                        <span>User List</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
+        <!-- Product -->
+        <li class="nav-item">
+            <a class="nav-link collapsed"
+               data-bs-target="#product-nav"
+               data-bs-toggle="collapse"
+               href="#">
+                <i class="bi bi-menu-button-wide"></i>
+                <span>Product</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="product-nav"
+                class="nav-content collapse"
+                data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a th:href="@{/createProduct}">
+                        <i class="bi bi-plus sidebar-icon"></i>
+                        <span>Create Product</span>
                     </a>
                 </li>
             </ul>

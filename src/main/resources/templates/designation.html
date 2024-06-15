@@ -66,10 +66,7 @@
     </section>
 </main>
 
-<a href="#"
-   class="back-to-top d-flex align-items-center justify-content-center">
-    <i class="bi bi-arrow-up-short"></i>
-</a>
+<div th:replace="~{go_up}"></div>
 
 <!-- Add Designation Modal -->
 <div class="modal"
@@ -102,7 +99,7 @@
                                 <script type="module"
                                         th:inline="javascript"
                                         th:if="${#fields.hasErrors()}">
-                                    let myModal = new bootstrap.Modal(document.getElementById("AddDesignationModal"), {});
+                                    let myModal = new bootstrap.Modal(userDocument.getElementById("AddDesignationModal"), {});
                                     console.log("Error occured")
                                     myModal.show();
                                 </script>
