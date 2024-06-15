@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 
+import java.util.Set;
+
 @Entity
 @Table
 @Getter
@@ -22,4 +24,7 @@ public class ProductCategory {
     @NotEmpty
     private String title;
     private String description;
+
+    @OneToMany
+    private Set<Product> product;
 }

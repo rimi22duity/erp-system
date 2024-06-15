@@ -22,7 +22,7 @@
 
                 <div class="card">
                     <div class="register-card-body">
-                        <h5 class="card-title">General Information</h5>
+                        <h5 class="card-title">Create Product</h5>
 
                         <div th:if="${successMessage}"
                              th:text="${successMessage}"
@@ -36,7 +36,23 @@
 
                             <div th:insert="~{fragments/general_input :: input_field(fieldName='title', title='Product Title')}"></div>
                             <div th:insert="~{fragments/general_input :: input_text_Area(fieldName='description', title='Product Description')}"></div>
-
+                            <div class="row mb-3">
+                                <label class="col-sm-2 col-form-label">Category</label>
+                                <div class="col-sm-10">
+                                    <select class="form-select"
+                                            aria-label="Default select example"
+                                            th:field="*{categoryId}">
+                                        <option th:value="${0}" selected>Please Select</option>
+                                        <div th:each="category: ${categories}">
+                                            <option th:value="${category.id}"
+                                                    th:text="${category.title}"></option>
+                                        </div>
+                                    </select>
+                                    <span th:if="${#fields.hasErrors('categoryId')}"
+                                          th:errors="*{categoryId}"
+                                          class="error"></span>
+                                </div>
+                            </div>
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Quantity</label>
                                 <div class="col-sm-4">
@@ -71,7 +87,8 @@
                                 <label class="col-sm-2 col-form-label">Price</label>
                                 <div class="col-sm-4">
                                     <div class="input-group mb-3">
-                                        <span class="input-group-text currencySign"></span>
+                                        <span class="input-group-text currencySign"
+                                              th:text="*{currency != null} ? *{currency.signString} : ''"></span>
                                         <input type="text"
                                                class="form-control"
                                                aria-label="Amount (to the nearest dollar)"

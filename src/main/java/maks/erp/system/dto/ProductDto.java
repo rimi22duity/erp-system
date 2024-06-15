@@ -1,5 +1,6 @@
 package maks.erp.system.dto;
 
+import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -19,15 +20,16 @@ public class ProductDto {
     private String description;
 
     @NotNull
-    private ProductCategory productCategory;
+    @Min(value = 1, message = "Please select a category")
+    private long categoryId;
 
-    @NotNull
+    @NotNull(message = "Currency should not be empty")
     private Currency currency;
 
-    @NotNull
+    @NotNull(message = "Price should not be empty")
     private double price;
 
-    @NotNull
+    @NotNull(message = "Quantity should not be empty")
     private int quantity;
 
     private MultipartFile image;

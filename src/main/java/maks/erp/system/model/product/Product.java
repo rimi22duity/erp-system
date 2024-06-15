@@ -38,6 +38,7 @@ public class Product {
 
     @NotNull
     @ManyToOne
+    @JoinColumn(name = "category_id")
     private ProductCategory productCategory;
 
     @NotNull

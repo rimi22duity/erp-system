@@ -18,6 +18,9 @@ public class ProductService {
     @Autowired
     private ProductImageService productImageService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     public void save(ProductDto productDto) throws IOException {
         ProductImage image = new ProductImage();
         image.setFileName(productDto.getImage().getOriginalFilename());
@@ -26,9 +29,10 @@ public class ProductService {
         Product product = Product.builder()
                 .title(productDto.getTitle())
                 .description(productDto.getDescription())
+                .productCategory(categoryService.findCategoryById(productDto.getCategoryId()))
+                .currency(productDto.getCurrency())
                 .price(productDto.getPrice())
                 .quantity(productDto.getQuantity())
-                .productCategory(productDto.getProductCategory())
                 .image(image)
                 .build();
 

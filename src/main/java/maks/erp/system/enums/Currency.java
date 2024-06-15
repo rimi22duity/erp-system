@@ -17,9 +17,11 @@ public enum Currency {
     US_DOLLAR("$ (USD)");
 
     private String sign;
+    private String signString;
 
     Currency(String sign) {
         this.sign = sign;
+        this.signString = sign.equals("\u09F3 (BDT)") ? "\u09F3" : "$";
     }
 
     public static List<String> getCurrencySigns() {

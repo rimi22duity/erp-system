@@ -1,10 +1,91 @@
-<!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
+    <title th:text="#{label.designation.page.title}"/>
+    <meta content="" name="description">
+    <meta content="" name="keywords">
+</head>
+
+<body>
+<div th:replace="~{links}"></div>
+<div th:replace="~{topbar}"></div>
+<div th:replace="~{sidebar}"></div>
+
+<main id="main" class="main">
+    <section class="section">
+        <div class="card">
+            <div class="card-body">
+                <div class="row mb-3">
+                    <div class="col-10">
+                        <h5 class="card-title"
+                            th:text="#{label.product}"></h5>
+                    </div>
+                    
+                    <div class="col-2">
+                        <form th:action="@{/createProduct}"
+                              method="get">
+                            <div class="plus-icon-container">
+                                <button class="btn btn-link"
+                                        type="submit">
+                                    <i class="bi bi-plus-lg plus-icon icon-20"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <table class="table table-hover table-striped datatable"
+                       id="productsTable">
+                    <thead>
+                    <tr>
+                        <th scope="col" th:text="#{label.numbers}"></th>
+                        <th scope="col" th:text="#{label.product.title}"></th>
+                        <th scope="col" th:text="#{label.product.quantity}"></th>
+                        <th scope="col" th:text="#{label.product.price}"></th>
+                        <th class="action-col" scope="col" th:text="#{label.action}"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="product, iterStat: ${products}">
+                        <th scope="row" th:text="${iterStat.index + 1}"></th>
+                        <td th:text="${product.title}"></td>
+                        <td th:text="${product.quantity}"></td>
+                        <td th:text="${product.price}"></td>
+                        <td>
+                            <div class="p-0 m-0 gap-2 d-flex">
+                                <form th:action="@{/editProduct}"
+                                      method="get">
+                                    <input type="hidden"
+                                           name="selectedProductId"
+                                           th:value="${product.id}">
+                                    <input class="btn btn-primary"
+                                           type="submit"
+                                           th:value="Edit">
+                                </form>
+
+                                <form th:action="@{/viewProduct}"
+                                      method="get">
+                                    <input type="hidden"
+                                           name="selectedProductId"
+                                           th:value="${product.id}">
+                                    <input class="btn btn-primary"
+                                           type="submit"
+                                           th:value="View">
+                                </form>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div th:replace="~{go_up}"></div>
+
+<div th:replace="~{footer}"></div>
+<div th:replace="~{scripts}"></div>
 </body>
 </html>
