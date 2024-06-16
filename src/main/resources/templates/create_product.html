@@ -33,7 +33,7 @@
                               th:object="${productDto}"
                               method="post"
                               enctype="multipart/form-data">
-
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='code', title='Product Code')}"></div>
                             <div th:insert="~{fragments/general_input :: input_field(fieldName='title', title='Product Title')}"></div>
                             <div th:insert="~{fragments/general_input :: input_text_Area(fieldName='description', title='Product Description')}"></div>
                             <div class="row mb-3">
@@ -53,6 +53,8 @@
                                           class="error"></span>
                                 </div>
                             </div>
+
+                            <!-- Quantity -->
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Quantity</label>
                                 <div class="col-sm-4">

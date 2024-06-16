@@ -19,6 +19,9 @@ public class ProductDto {
 
     private String description;
 
+    @NotEmpty(message = "Code should not be empty")
+    private String code;
+
     @NotNull
     @Min(value = 1, message = "Please select a category")
     private long categoryId;

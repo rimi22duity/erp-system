@@ -30,6 +30,9 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     private String description;
 
+    @NotEmpty
+    private String code;
+
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 

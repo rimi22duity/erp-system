@@ -22,7 +22,7 @@
                         <h5 class="card-title"
                             th:text="#{label.product}"></h5>
                     </div>
-                    
+
                     <div class="col-2">
                         <form th:action="@{/createProduct}"
                               method="get">
@@ -40,18 +40,20 @@
                     <thead>
                     <tr>
                         <th scope="col" th:text="#{label.numbers}"></th>
+                        <th scope="col" th:text="#{label.product.code}"></th>
                         <th scope="col" th:text="#{label.product.title}"></th>
+                        <th scope="col" th:text="#{label.product.category.title}"></th>
                         <th scope="col" th:text="#{label.product.quantity}"></th>
-                        <th scope="col" th:text="#{label.product.price}"></th>
                         <th class="action-col" scope="col" th:text="#{label.action}"></th>
                     </tr>
                     </thead>
                     <tbody>
                     <tr th:each="product, iterStat: ${products}">
                         <th scope="row" th:text="${iterStat.index + 1}"></th>
+                        <td th:text="${product.code}"></td>
                         <td th:text="${product.title}"></td>
+                        <td th:text="${product.productCategory.title}"></td>
                         <td th:text="${product.quantity}"></td>
-                        <td th:text="${product.price}"></td>
                         <td>
                             <div class="p-0 m-0 gap-2 d-flex">
                                 <form th:action="@{/editProduct}"
