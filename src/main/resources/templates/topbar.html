@@ -1,5 +1,5 @@
 <!-- ======= Header ======= -->
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header fixed-top d-flex align-items-center" xmlns:form="http://www.w3.org/1999/xhtml">
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
@@ -213,10 +213,14 @@
                     </li>
 
                     <li>
-                        <a class="dropdown-item d-flex align-items-center" href="#">
-                            <i class="bi bi-box-arrow-right"></i>
-                            <span>Sign Out</span>
-                        </a>
+                        <form th:action="@{/logout}"
+                                   method="post">
+                            <button class="dropdown-item d-flex align-items-center"
+                               type="submit">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <span>Sign Out</span>
+                            </button>
+                        </form>
                     </li>
 
                 </ul><!-- End Profile Dropdown Items -->
