@@ -58,7 +58,13 @@
                             </div>
                         </div>
                         <div th:if="${action.equals('Edit')}">
-                            <div th:replace="~{submit_button}"></div>
+                            <div class="row form-group">
+                                <div class="col-sm-10">
+                                    <input type="submit"
+                                           class="btn btn-primary"
+                                           value="Submit">
+                                </div>
+                            </div>
                         </div>
                     </form>
                 </div>

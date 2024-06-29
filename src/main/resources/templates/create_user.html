@@ -74,10 +74,10 @@
                                     <input class="form-control"
                                            type="file"
                                            id="formFile"
-                                           th:field="*{userDocument}"
+                                           th:field="*{document}"
                                            accept="image/*,video/*,.pdf">
-                                    <span th:if="${#fields.hasErrors('userDocument')}"
-                                          th:errors="*{userDocument}"
+                                    <span th:if="${#fields.hasErrors('document')}"
+                                          th:errors="*{document}"
                                           class="error"></span>
                                 </div>
                             </div>

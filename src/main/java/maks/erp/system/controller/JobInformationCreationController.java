@@ -35,7 +35,7 @@ public class JobInformationCreationController {
     Logger log = LoggerFactory.getLogger(JobInformationCreationController.class);
 
 
-    @GetMapping("/createCompanyProfile")
+    @PostMapping("/companyProfile")
     public String getCreateCompanyProfile(@RequestParam("selectedUserId") long id,
                                      ModelMap model) {
         User user = userService.findUserById(id);

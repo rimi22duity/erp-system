@@ -78,7 +78,8 @@
                             </div>
 
                             <div th:if="${user.jobInformation == null}">
-                                <form th:action="@{/createCompanyProfile}" method="get">
+                                <form th:action="@{/companyProfile}"
+                                      method="post">
                                     <input type="hidden"
                                            name="selectedUserId"
                                            th:value="${user.id}">
