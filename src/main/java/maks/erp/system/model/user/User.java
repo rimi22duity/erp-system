@@ -11,6 +11,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 /**
  * @author duity
@@ -91,6 +92,9 @@ public class User {
 
     @Transient
     private String fullName;
+
+    @ManyToMany(mappedBy = "users")
+    private Set<Role> roles;
 
     public String getFullName() {
         return this.firstName + " " + this.lastName;
