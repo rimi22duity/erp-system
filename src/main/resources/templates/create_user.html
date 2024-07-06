@@ -54,8 +54,8 @@
                                     </span>
                                 </div>
                             </div>
-                            <div th:include="fragments/general_input :: input_field(fieldName='firstName', title='First Name')"></div>
-                            <div th:include="fragments/general_input :: input_field(fieldName='lastName', title='Last Name')"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='firstName', title='First Name')}"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='lastName', title='Last Name')}"></div>
 
                             <!-- Password -->
                             <div class="row mb-3">
@@ -83,7 +83,7 @@
                             </div>
 
                             <!-- Birth Date-->
-                            <div th:include="fragments/date_fragment :: calender_input(fieldName='birthDate', title='Date of Birth')"></div>
+                            <div th:insert="~{fragments/date_fragment :: calender_input(fieldName='birthDate', title='Date of Birth')}"></div>
 
                             <!-- Gender -->
                             <fieldset class="row mb-3">
@@ -120,15 +120,15 @@
 
                             <!--  Contact Information -->
                             <h5 class="card-title">Contact Information</h5>
-                            <div th:include="fragments/general_input :: input_field(fieldName='contactInfo.phone', title='Phone')"></div>
-                            <div th:include="fragments/general_input :: input_field(fieldName='contactInfo.mobileNumber', title='Mobile')"></div>
-                            <div th:include="fragments/general_input :: input_field(fieldName='contactInfo.email', title='Email')"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='contactInfo.mobileNumber', title='Mobile')}"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='contactInfo.phone', title='Phone')}"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='contactInfo.email', title='Email')}"></div>
 
                             <!-- Emergency Contact Information-->
                             <h5 class="card-title">Emergency Contact Information</h5>
-                            <div th:include="fragments/general_input :: input_field(fieldName='emergencyContact.name', title='Name')"></div>
-                            <div th:include="fragments/general_input :: input_field(fieldName='emergencyContact.phone', title='Phone')"></div>
-                            <div th:include="fragments/general_input :: input_field(fieldName='emergencyContact.mobileNumber', title='Mobile')"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='emergencyContact.name', title='Name')}"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='emergencyContact.phone', title='Phone')}"></div>
+                            <div th:insert="~{fragments/general_input :: input_field(fieldName='emergencyContact.mobileNumber', title='Mobile')}"></div>
 
                             <div class="row mb-3">
                                 <label class="col-sm-2 col-form-label">Relation</label>
@@ -147,11 +147,11 @@
 
                             <!-- Present Address -->
                             <h6 class="card-title">Present Address Information</h6>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressRoad', fieldName='presentAddress.road', title='Road')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressThana', fieldName='presentAddress.thana', title='Thana')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressCity',fieldName='presentAddress.city', title='City')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressDistrict',fieldName='presentAddress.district', title='District')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='presentAddressCode',fieldName='presentAddress.postalCode', title='Postal Code')"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='presentAddressRoad', fieldName='presentAddress.road', title='Road')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='presentAddressThana', fieldName='presentAddress.thana', title='Thana')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='presentAddressCity', fieldName='presentAddress.city', title='City')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='presentAddressDistrict', fieldName='presentAddress.district', title='District')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='presentAddressCode', fieldName='presentAddress.postalCode', title='Postal Code')}"></div>
 
                             <!-- Permanent Address -->
                             <h6 class="card-title">Permanent Address Information</h6>
@@ -168,11 +168,12 @@
                                 </div>
                             </div>
 
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressRoad', fieldName='permanentAddress.road', title='Road')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressThana', fieldName='permanentAddress.thana', title='Thana')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressCity',fieldName='permanentAddress.city', title='City')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressDistrict',fieldName='permanentAddress.district', title='District')"></div>
-                            <div th:include="fragments/address_field_input :: input_field(htmlId='permanentAddressCode',fieldName='permanentAddress.postalCode', title='Postal Code')"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='permanentAddressRoad', fieldName='permanentAddress.road', title='Road')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='permanentAddressThana', fieldName='permanentAddress.thana', title='Thana')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='permanentAddressCity', fieldName='permanentAddress.city', title='City')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='permanentAddressDistrict', fieldName='permanentAddress.district', title='District')}"></div>
+                            <div th:insert="~{fragments/address_field_input :: input_field(htmlId='permanentAddressCode', fieldName='permanentAddress.postalCode', title='Postal Code')}"></div>
+
                             <!-- Submit -->
                             <div th:replace="~{submit_button}"></div>
                         </form>
