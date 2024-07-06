@@ -2,13 +2,21 @@ package maks.erp.system.service;
 
 import lombok.extern.slf4j.Slf4j;
 import maks.erp.system.login.LoginUserDetails;
+import maks.erp.system.model.user.Role;
 import maks.erp.system.model.user.User;
+import maks.erp.system.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 /**
  * @author duity
@@ -22,6 +30,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private RoleRepository roleRepository;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userService.findUserByUsername(username);
@@ -31,6 +42,15 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException(username);
         }
 
-        return new LoginUserDetails(user);
+        Set<Role> roles = roleRepository.findRolesByUsers(username);
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+
+        for(Role role: roles) {
+            System.out.println("Role: " + role.getName());
+            GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(role.getName());
+            grantedAuthorities.add(grantedAuthority);
+        }
+
+        return new LoginUserDetails(user, grantedAuthorities);
     }
 }

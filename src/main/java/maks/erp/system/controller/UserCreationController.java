@@ -10,6 +10,7 @@ import maks.erp.system.dto.UserDto;
 import maks.erp.system.model.user.User;
 import maks.erp.system.service.DesignationService;
 import maks.erp.system.service.RegistrationService;
+import maks.erp.system.service.SecurityService;
 import maks.erp.system.service.UserService;
 import maks.erp.system.utils.DateConverter;
 import org.slf4j.Logger;
@@ -41,10 +42,13 @@ public class UserCreationController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("/createUser")
     public String register(ModelMap model) {
         model.put("userDto", new UserDto());
+        model.put("loginUserDetails", securityService.getLoggedInUser());
 
         return CREATE_USER_PAGE;
     }

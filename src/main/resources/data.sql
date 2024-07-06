@@ -24,3 +24,17 @@ insert into product_category (id, title) values((select next_val from category_s
 update category_seq set next_val=9;
 insert into product_category (id, title) values((select next_val from category_seq), "ETP Plant Lab Equipment");
 update category_seq set next_val=10;
+
+insert into role (id, name) values ((select next_val from role_seq), "DIRECTOR");
+update role_seq set next_val=2;
+insert into role (id, name) values ((select next_val from role_seq), "SYSTEM_ADMIN");
+update role_seq set next_val=3;
+insert into role (id, name) values ((select next_val from role_seq), "INVENTORY_MANAGER");
+update role_seq set next_val=4;
+insert into role (id, name) values ((select next_val from role_seq), "EMPLOYEE");
+update role_seq set next_val=5;
+insert into role (id, name) values ((select next_val from role_seq), "INTERN");
+update role_seq set next_val=6;
+
+insert into role_user (role_id, user_id) values(1, 1);
+

@@ -1,5 +1,6 @@
 package maks.erp.system.login;
 
+import lombok.Getter;
 import maks.erp.system.model.user.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,17 +12,22 @@ import java.util.List;
  * @author duity
  * @since 6/1/24
  */
+
+@Getter
 public class LoginUserDetails implements UserDetails {
 
     private User user;
 
-    public LoginUserDetails(User user) {
+    private List<GrantedAuthority> authorities;
+
+    public LoginUserDetails(User user, List<GrantedAuthority> authorities) {
         this.user = user;
+        this.authorities = authorities;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        return this.authorities;
     }
 
     @Override
