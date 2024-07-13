@@ -47,7 +47,7 @@ public class UserCreationController {
     private SecurityService securityService;
 
     @GetMapping("/createUser")
-    @PreAuthorize("hasAuthority('DIRECTOR')")
+    @PreAuthorize("hasAuthority('can_create_any_user')")
     public String register(ModelMap model) {
         model.put("userDto", new UserDto());
         model.put("loggedInUser", securityService.getLoggedInUser());

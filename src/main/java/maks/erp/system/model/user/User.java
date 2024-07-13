@@ -5,13 +5,13 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
+import maks.erp.system.enums.UserCategory;
 import maks.erp.system.model.JobInformation;
 import maks.erp.system.model.LeaveInfo;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 /**
  * @author duity
@@ -93,8 +93,8 @@ public class User {
     @Transient
     private String fullName;
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private UserCategory category;
 
     public String getFullName() {
         return this.firstName + " " + this.lastName;
