@@ -5,6 +5,7 @@ import maks.erp.system.dto.JobInformationDto;
 import maks.erp.system.model.user.User;
 import maks.erp.system.service.DesignationService;
 import maks.erp.system.service.JobInformationService;
+import maks.erp.system.service.SecurityService;
 import maks.erp.system.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +33,9 @@ public class JobInformationCreationController {
     @Autowired
     private JobInformationService jobInformationService;
 
+    @Autowired
+    private SecurityService securityService;
+
     Logger log = LoggerFactory.getLogger(JobInformationCreationController.class);
 
 
@@ -46,8 +50,9 @@ public class JobInformationCreationController {
         model.put("designationList", designationService.getDesignations());
 
         model.put("selectedUserId", id);
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
-        return CREATE_COMPANY_PROFILE_PAGE;
+        return "create_company_profile";
     }
 
     @PostMapping("/createCompanyProfile")
@@ -61,8 +66,9 @@ public class JobInformationCreationController {
 
             model.put("jobInformationDto", jobInformationDto);
             model.put("designationList", designationService.getDesignations());
+            model.put("loggedInUser", securityService.getLoggedInUser());
 
-            return CREATE_COMPANY_PROFILE_PAGE;
+            return "create_company_profile";
         }
         log.info("Job info joining date: {}", jobInformationDto.getJoiningDate());
         log.info("Job info currency: {}", jobInformationDto.getCurrency());

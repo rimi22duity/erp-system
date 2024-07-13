@@ -5,14 +5,14 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
+    <title th:text="#{label.edit.company.profile}"></title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 </head>
 
 <body>
 <div th:replace="~{links}"></div>
-<div th:replace="~{topbar}"></div>
+<div th:insert="~{fragments/navbar_fragment :: navbar(${loggedInUser.getUsername()})}"></div>
 <div th:replace="~{sidebar}"></div>
 
 <main id="main" class="main">

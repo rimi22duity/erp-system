@@ -50,7 +50,7 @@ public class UserCreationController {
     @PreAuthorize("hasAuthority('DIRECTOR')")
     public String register(ModelMap model) {
         model.put("userDto", new UserDto());
-        model.put("loginUserDetails", securityService.getLoggedInUser().getUsername());
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
         return CREATE_USER_PAGE;
     }
@@ -90,6 +90,7 @@ public class UserCreationController {
     public String getAllUsers(ModelMap model) {
         model.put("users", userService.getUserList());
         model.put("title", "Users");
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
         return USERS_PAGE;
     }
@@ -102,6 +103,7 @@ public class UserCreationController {
 
         model.put("title", "Update Information");
         model.put("userDto", userDto);
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
         return CREATE_USER_PAGE;
     }

@@ -10,7 +10,7 @@
 
 <body>
 <div th:replace="~{links}"></div>
-<div th:replace="~{topbar}"></div>
+<div th:insert="~{fragments/navbar_fragment :: navbar(${loggedInUser.getUsername()})}"></div>
 <div th:replace="~{sidebar}"></div>
 
 <main id="main" class="main">
@@ -60,7 +60,7 @@
                                 <i class="bi bi-info-circle-fill"></i>
                             </button>
 
-                            <div th:replace="fragments/user_list_fragment :: view_user_details_modal (${user})"></div>
+                            <div th:insert="~{fragments/user_list_fragment :: view_user_details_modal (${user})}"></div>
 
                         </td>
                         <td>
@@ -89,7 +89,7 @@
                                     </button>
                                 </form>
                             </div>
-                            <div th:replace="fragments/user_list_fragment :: view_company_profile_modal(${user})"></div>
+                            <div th:insert="~{fragments/user_list_fragment :: view_company_profile_modal(${user})}"></div>
                         </td>
                     </tr>
                     </tbody>

@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import maks.erp.system.dto.CategoryDto;
 import maks.erp.system.model.product.ProductCategory;
 import maks.erp.system.service.CategoryService;
+import maks.erp.system.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -18,14 +19,16 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    private String CATEGORY_PAGE = "category";
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("/categories")
     public String getCategories(ModelMap model) {
         model.put("categories", categoryService.getCategories());
         model.put("categoryDto", new CategoryDto());
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
-        return CATEGORY_PAGE;
+        return "categories";
     }
 
     @PostMapping("/addCategory")
@@ -34,7 +37,8 @@ public class CategoryController {
                                ModelMap model) {
         if(result.hasErrors()) {
             model.put("categoryDto", categoryDto);
-            return CATEGORY_PAGE;
+            model.put("loggedInUser", securityService.getLoggedInUser());
+            return "categories";
         }
 
         categoryService.save(categoryDto);
@@ -49,6 +53,7 @@ public class CategoryController {
         model.put("categoryDto", categoryDto);
         model.put("categoryId", id);
         model.put("action", "Edit");
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
         return "category_details";
     }
@@ -62,10 +67,13 @@ public class CategoryController {
         if(result.hasErrors()) {
             model.put("categoryDto", categoryDto);
             model.put("categoryId", id);
+            model.put("loggedInUser", securityService.getLoggedInUser());
+
             return "category_details";
         }
 
         categoryService.editCategory(id, categoryDto);
+
         return "redirect:/categories";
     }
 
@@ -77,6 +85,8 @@ public class CategoryController {
         model.put("categoryDto", category);
         model.put("categoryId", id);
         model.put("action", "View");
+        model.put("loggedInUser", securityService.getLoggedInUser());
+
         return "category_details";
     }
 }

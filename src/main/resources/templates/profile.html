@@ -14,8 +14,7 @@
 
 <body>
   <div th:replace="~{links}"></div>
-
-  <div th:replace="~{topbar}"></div>
+  <div th:insert="~{fragments/navbar_fragment :: navbar(${loggedInUser.getUsername()})}"></div>
   <div th:replace="~{sidebar}"></div>
 
   <main id="main" class="main">

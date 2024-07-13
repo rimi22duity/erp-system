@@ -1,157 +1,157 @@
-<!DOCTYPE html>
-<html lang="en">
+<!--<!DOCTYPE html>-->
+<!--<html lang="en">-->
 
-<head>
-    <meta charset="utf-8">
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<!--<head>-->
+<!--    <meta charset="utf-8">-->
+<!--    <meta content="width=device-width, initial-scale=1.0" name="viewport">-->
 
-    <title>Forms / Elements - NiceAdmin Bootstrap Template</title>
-    <meta content="" name="description">
-    <meta content="" name="keywords">
-</head>
+<!--    <title>Forms / Elements - NiceAdmin Bootstrap Template</title>-->
+<!--    <meta content="" name="description">-->
+<!--    <meta content="" name="keywords">-->
+<!--</head>-->
 
-<body>
-<div th:replace="~{links}"></div>
-<div th:replace="~{topbar}"></div>
-<div th:replace="~{sidebar}"></div>
+<!--<body>-->
+<!--<div th:replace="~{links}"></div>-->
+<!--<div th:replace="~{fragments/navbar_fragment :: navbar(${logged})}"></div>-->
+<!--<div th:replace="~{sidebar}"></div>-->
 
-<main id="main" class="main">
-    <section class="section">
-        <div class="row">
-            <div class="col-lg-10">
+<!--<main id="main" class="main">-->
+<!--    <section class="section">-->
+<!--        <div class="row">-->
+<!--            <div class="col-lg-10">-->
 
-                <div class="card">
-                    <div class="register-card-body">
-                        <h5 class="card-title">Job Details</h5>
+<!--                <div class="card">-->
+<!--                    <div class="register-card-body">-->
+<!--                        <h5 class="card-title">Job Details</h5>-->
 
-                        <form th:action="@{/jobInformation}"
-                              th:object="${jobInfoDto}"
-                              method="post">
+<!--                        <form th:action="@{/jobInformation}"-->
+<!--                              th:object="${jobInfoDto}"-->
+<!--                              method="post">-->
 
-                            <!--    Designation      -->
-                            <div class="row mb-3">
-                                <label class="col-sm-3 col-form-label">Designation</label>
-                                <div class="col-sm-6">
-                                    <select class="form-select"
-                                            aria-label="Default select example"
-                                            th:field="*{designation}">
-                                        <option th:value="${null}" selected>Please Select</option>
-                                        <div th:each="designation: ${designationList}">
-                                            <option th:value="${designation}"
-                                                    th:text="${designation.title}"
-                                                    th:name="designationTitle">
-                                            </option>
-                                        </div>
-                                        <span th:if="${#fields.hasErrors('designationDto')}"
-                                              th:errors="*{designation}"
-                                              class="error"></span>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- Joining Date-->
-                            <div class="row mb-3">
-                                <label for="joiningDate"
-                                       class="col-sm-2 col-form-label">Joining Date</label>
-                                <div class="col-sm-6">
-                                    <input type="date"
-                                           id="joiningDate"
-                                           class="form-control"
-                                           th:field="*{joiningDate}">
-                                    <span th:if="${#fields.hasErrors('joiningDate')}"
-                                          th:errors="*{joiningDate}"
-                                          class="error"></span>
-                                </div>
-                            </div>
+<!--                            &lt;!&ndash;    Designation      &ndash;&gt;-->
+<!--                            <div class="row mb-3">-->
+<!--                                <label class="col-sm-3 col-form-label">Designation</label>-->
+<!--                                <div class="col-sm-6">-->
+<!--                                    <select class="form-select"-->
+<!--                                            aria-label="Default select example"-->
+<!--                                            th:field="*{designation}">-->
+<!--                                        <option th:value="${null}" selected>Please Select</option>-->
+<!--                                        <div th:each="designation: ${designationList}">-->
+<!--                                            <option th:value="${designation}"-->
+<!--                                                    th:text="${designation.title}"-->
+<!--                                                    th:name="designationTitle">-->
+<!--                                            </option>-->
+<!--                                        </div>-->
+<!--                                        <span th:if="${#fields.hasErrors('designationDto')}"-->
+<!--                                              th:errors="*{designation}"-->
+<!--                                              class="error"></span>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Joining Date&ndash;&gt;-->
+<!--                            <div class="row mb-3">-->
+<!--                                <label for="joiningDate"-->
+<!--                                       class="col-sm-2 col-form-label">Joining Date</label>-->
+<!--                                <div class="col-sm-6">-->
+<!--                                    <input type="date"-->
+<!--                                           id="joiningDate"-->
+<!--                                           class="form-control"-->
+<!--                                           th:field="*{joiningDate}">-->
+<!--                                    <span th:if="${#fields.hasErrors('joiningDate')}"-->
+<!--                                          th:errors="*{joiningDate}"-->
+<!--                                          class="error"></span>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <!-- Currency -->
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Salary Currency</label>
-                                <div class="col-sm-4">
-                                    <select class="form-select"
-                                            aria-label="Default select example">
-                                        <option selected>Please Select</option>
-                                        <div th:each="currency: ${currencyList}">
-                                            <option th:value="${currency}"
-                                                    th:text="${currency}">
-                                            </option>
-                                        </div>
-                                        <span th:if="${#fields.hasErrors('joiningDate')}"
-                                              th:errors="*{currency}"
-                                              class="error"></span>
-                                    </select>
-                                </div>
-                            </div>
+<!--                            &lt;!&ndash; Currency &ndash;&gt;-->
+<!--                            <div class="row mb-3">-->
+<!--                                <label class="col-sm-2 col-form-label">Salary Currency</label>-->
+<!--                                <div class="col-sm-4">-->
+<!--                                    <select class="form-select"-->
+<!--                                            aria-label="Default select example">-->
+<!--                                        <option selected>Please Select</option>-->
+<!--                                        <div th:each="currency: ${currencyList}">-->
+<!--                                            <option th:value="${currency}"-->
+<!--                                                    th:text="${currency}">-->
+<!--                                            </option>-->
+<!--                                        </div>-->
+<!--                                        <span th:if="${#fields.hasErrors('joiningDate')}"-->
+<!--                                              th:errors="*{currency}"-->
+<!--                                              class="error"></span>-->
+<!--                                    </select>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <!-- Salary -->
-                            <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Basic</label>
-                                    <div class="col-sm-6">
-                                        <div class="input-group mb-3">
-                                            <span class="input-group-text">৳</span>
-                                            <input type="text" class="form-control"
-                                                   aria-label="Amount (to the nearest dollar)"
-                                                   th:field="*{basic}">
-                                            <span class="input-group-text">.00</span>
-                                        </div>
-                                    </div>
-                                </div>
+<!--                            &lt;!&ndash; Salary &ndash;&gt;-->
+<!--                            <div class="row mb-3">-->
+<!--                                    <label class="col-sm-2 col-form-label">Basic</label>-->
+<!--                                    <div class="col-sm-6">-->
+<!--                                        <div class="input-group mb-3">-->
+<!--                                            <span class="input-group-text">৳</span>-->
+<!--                                            <input type="text" class="form-control"-->
+<!--                                                   aria-label="Amount (to the nearest dollar)"-->
+<!--                                                   th:field="*{basic}">-->
+<!--                                            <span class="input-group-text">.00</span>-->
+<!--                                        </div>-->
+<!--                                    </div>-->
+<!--                                </div>-->
 
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Conveyance Allowance</label>
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">৳</span>
-                                        <input type="text" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)"
-                                               th:field="*{conveyanceAllowance}">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">Medical Reimbursement</label>
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">৳</span>
-                                        <input type="text" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)"
-                                               th:field="*{medicalReimbursement}">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
-                                </div>
-                            </div>
+<!--                            <div class="row mb-3">-->
+<!--                                <label class="col-sm-2 col-form-label">Conveyance Allowance</label>-->
+<!--                                <div class="col-sm-6">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <span class="input-group-text">৳</span>-->
+<!--                                        <input type="text" class="form-control"-->
+<!--                                               aria-label="Amount (to the nearest dollar)"-->
+<!--                                               th:field="*{conveyanceAllowance}">-->
+<!--                                        <span class="input-group-text">.00</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            <div class="row mb-3">-->
+<!--                                <label class="col-sm-2 col-form-label">Medical Reimbursement</label>-->
+<!--                                <div class="col-sm-6">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <span class="input-group-text">৳</span>-->
+<!--                                        <input type="text" class="form-control"-->
+<!--                                               aria-label="Amount (to the nearest dollar)"-->
+<!--                                               th:field="*{medicalReimbursement}">-->
+<!--                                        <span class="input-group-text">.00</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
 
-                            <div class="row mb-3">
-                                <label class="col-sm-2 col-form-label">House Rent</label>
-                                <div class="col-sm-6">
-                                    <div class="input-group mb-3">
-                                        <span class="input-group-text">৳</span>
-                                        <input type="text" class="form-control"
-                                               aria-label="Amount (to the nearest dollar)"
-                                               th:field="*{houseRent}">
-                                        <span class="input-group-text">.00</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- Submit -->
-                            <div class="row mb-3">
-                                <div class="col-sm-10">
-                                    <input type="submit" class="btn btn-primary" value="Submit Form">
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!--                            <div class="row mb-3">-->
+<!--                                <label class="col-sm-2 col-form-label">House Rent</label>-->
+<!--                                <div class="col-sm-6">-->
+<!--                                    <div class="input-group mb-3">-->
+<!--                                        <span class="input-group-text">৳</span>-->
+<!--                                        <input type="text" class="form-control"-->
+<!--                                               aria-label="Amount (to the nearest dollar)"-->
+<!--                                               th:field="*{houseRent}">-->
+<!--                                        <span class="input-group-text">.00</span>-->
+<!--                                    </div>-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                            &lt;!&ndash; Submit &ndash;&gt;-->
+<!--                            <div class="row mb-3">-->
+<!--                                <div class="col-sm-10">-->
+<!--                                    <input type="submit" class="btn btn-primary" value="Submit Form">-->
+<!--                                </div>-->
+<!--                            </div>-->
+<!--                        </form>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </section>-->
 
-</main><!-- End #main -->
+<!--</main>&lt;!&ndash; End #main &ndash;&gt;-->
 
-<div th:replace="~{footer}"></div>
-<div th:replace="~{scripts}"></div>
-<script th:src="@{/resource/js/addressResolver.js}"></script>
+<!--<div th:replace="~{footer}"></div>-->
+<!--<div th:replace="~{scripts}"></div>-->
+<!--<script th:src="@{/resource/js/addressResolver.js}"></script>-->
 
-</body>
+<!--</body>-->
 
-</html>
+<!--</html>-->

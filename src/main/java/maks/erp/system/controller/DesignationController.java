@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import maks.erp.system.dto.DesignationDto;
 import maks.erp.system.model.user.Designation;
 import maks.erp.system.service.DesignationService;
+import maks.erp.system.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,11 +27,15 @@ public class DesignationController {
     @Autowired
     private DesignationService designationService;
 
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping("/designations")
     public String addDesignations(ModelMap model) {
         model.put("designationDto", new DesignationDto());
         model.put("birthdate", "");
         model.put("joiningDate", "");
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
         setupReferenceData(model);
 
@@ -47,6 +52,7 @@ public class DesignationController {
         model.put("designationDto", designationDto);
         model.put("designationId", id);
         setupReferenceData(model);
+        model.put("loggedInUser", securityService.getLoggedInUser());
         return DESIGNATION_DETAILS_PAGE;
     }
 
@@ -84,6 +90,7 @@ public class DesignationController {
     }
 
     public void setupReferenceData(ModelMap model) {
+        model.put("loggedInUser", securityService.getLoggedInUser());
         model.put("designationList", designationService.getDesignations());
     }
 }

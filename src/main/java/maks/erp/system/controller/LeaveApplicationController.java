@@ -1,9 +1,11 @@
 package maks.erp.system.controller;
 
 
+import jakarta.persistence.SequenceGenerator;
 import jakarta.validation.Valid;
 import maks.erp.system.dto.LeaveInfoDto;
 import maks.erp.system.service.LeaveApplicationService;
+import maks.erp.system.service.SecurityService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +24,18 @@ public class LeaveApplicationController {
 
     @Autowired
     private LeaveApplicationService leaveApplicationService;
+
+    @Autowired
+    private SecurityService securityService;
+
     @GetMapping("/add-leave")
     public String leaveApplication( ModelMap model) {
         model.put("leaveInfoDto", new LeaveInfoDto());
         model.put("leaveTypeList", leaveApplicationService.getLeaveTypes());
+        model.put("loggedInUser", securityService.getLoggedInUser());
         System.out.println(leaveApplicationService.getLeaveTypes());
 
-        return LEAVE_APPLICATION_PAGE;
+        return "leave_details";
     }
 
     @PostMapping("/add-leave")
@@ -41,7 +48,7 @@ public class LeaveApplicationController {
         leaveApplicationService.addLeaveApplication(leaveInfoDto);
         model.put("message", "Leave Application Requested Successfully!");
         System.out.println(leaveInfoDto.getLeaveType());
-        return "redirect:/" + LEAVE_APPLICATION_PAGE;
+        return "redirect:/add-leave";
     }
 
 

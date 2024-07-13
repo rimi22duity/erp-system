@@ -6,6 +6,7 @@ import maks.erp.system.dto.ProductDto;
 import maks.erp.system.model.product.ProductCategory;
 import maks.erp.system.service.CategoryService;
 import maks.erp.system.service.ProductService;
+import maks.erp.system.service.SecurityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -26,12 +27,14 @@ public class ProductCreationController {
     @Autowired
     private CategoryService categoryService;
 
-    private String CRETE_PRODUCT_PAGE = "create_product";
+    @Autowired
+    private SecurityService securityService;
 
     @GetMapping("/createProduct")
     public String getCreateProduct(ModelMap model) {
         model.put("productDto", new ProductDto());
         model.put("categories", categoryService.getCategories());
+        model.put("loggedInUser", securityService.getLoggedInUser());
         return "create_product";
     }
 
@@ -44,7 +47,8 @@ public class ProductCreationController {
         if(result.hasErrors()) {
             model.put("categories", categoryService.getCategories());
             model.put("productDto", productDto);
-            return CRETE_PRODUCT_PAGE;
+            model.put("loggedInUser", securityService.getLoggedInUser());
+            return "create_product";
         }
 
         productService.save(productDto);
@@ -56,6 +60,7 @@ public class ProductCreationController {
     @GetMapping("/products")
     public String getAllProducts(ModelMap model) {
         model.put("products", productService.getAllProducts());
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
         return "product_list";
     }
