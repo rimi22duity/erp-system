@@ -5,8 +5,12 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
 import maks.erp.system.enums.Currency;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table
@@ -15,7 +19,9 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Product {
+public class Product implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     @Id
     @SequenceGenerator(
             name = "productSeq",
@@ -33,11 +39,16 @@ public class Product {
     @NotEmpty
     private String code;
 
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
+
+    @Version
+    private int version = 0;
 
     @NotNull
     @ManyToOne
@@ -56,4 +67,17 @@ public class Product {
 
     @OneToOne
     private ProductImage image;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Product)) return false;
+        Product product = (Product) o;
+        return id == product.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

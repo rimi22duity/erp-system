@@ -5,10 +5,11 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 import lombok.*;
 import maks.erp.system.model.JobInformation;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.Serializable;
+import java.util.*;
 
 /**
  * @author duity
@@ -21,7 +22,8 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @Builder
-public class Designation {
+public class Designation implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @SequenceGenerator(name = "designationSeq", sequenceName = "designationSeq", allocationSize = 1)
@@ -38,13 +40,34 @@ public class Designation {
 
     private String salaryRange;
 
-    @OneToMany
-    private List<User> users;
-
     @OneToMany(mappedBy = "designation")
     private Set<JobInformation> jobInformations;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated;
+
+    @Version
+    private int version = 0;
+
     public Designation() {
         jobInformations  = new HashSet<>();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Designation)) return false;
+        Designation that = (Designation) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

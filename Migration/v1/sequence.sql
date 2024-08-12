@@ -1,0 +1,14 @@
+create table activity_log_seq (next_val bigint);
+create table address_seq (next_val bigint);
+create table category_seq (next_val bigint);
+create table contact_info_seq (next_val bigint);
+create table designation_seq (next_val bigint);
+create table emergency_contact_info_seq (next_val bigint);
+create table job_info_seq (next_val bigint);
+create table leave_info_seq (next_val bigint);
+create table product_image_seq (next_val bigint);
+create table product_seq (next_val bigint);
+create table salary_seq (next_val bigint);
+create table task_seq (next_val bigint);
+create table user_doc_seq (next_val bigint);
+create table user_seq (next_val bigint);

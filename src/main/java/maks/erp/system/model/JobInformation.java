@@ -8,10 +8,14 @@ import maks.erp.system.enums.Currency;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.model.user.Designation;
 import maks.erp.system.model.user.User;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Objects;
 
 @Table
 @Entity
@@ -20,8 +24,8 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class JobInformation {
-
+public class JobInformation implements Serializable {
+    private static final long serialVersionUID = 1L;
     @Id
     @SequenceGenerator(name = "jobInfoSeq",
             sequenceName = "jobInfoSeq",
@@ -55,6 +59,17 @@ public class JobInformation {
     @Transient
     private String joinningDateString;
 
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated;
+
+    @Version
+    private int version = 0;
+
     public String getJoiningDateString() {
         SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
         return format.format(joiningDate);
@@ -79,5 +94,18 @@ public class JobInformation {
 
     public String getHouseRentString() {
         return getFormattedAllowance(this.houseRent);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        JobInformation that = (JobInformation) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

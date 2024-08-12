@@ -63,8 +63,6 @@ public class RegistrationService {
                 .permanentAddress(permanentAddress)
                 .presentAddress(presentAddress)
                 .contactInfo(contactInfo)
-                .created(new Date())
-                .updated(new Date())
                 .build();
 
         userService.save(user);

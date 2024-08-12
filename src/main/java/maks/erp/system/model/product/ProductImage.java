@@ -3,12 +3,19 @@ package maks.erp.system.model.product;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
 @Entity
 @Table
 @Getter
 @Setter
-public class ProductImage {
+public class ProductImage implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @SequenceGenerator(name = "productImageSeq",
@@ -22,4 +29,28 @@ public class ProductImage {
     @Lob
     @Column(length = 100000)
     private byte[] document;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated;
+
+    @Version
+    private int version = 0;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ProductImage)) return false;
+        ProductImage that = (ProductImage) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }
