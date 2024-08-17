@@ -6,6 +6,9 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 import maks.erp.system.enums.LeaveType;
+import maks.erp.system.model.user.User;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -13,7 +16,6 @@ import java.util.Date;
 @Getter
 @Setter
 public class LeaveInfoDto {
-
     @NotBlank(message = "Please select a type")
     @Enumerated(EnumType.STRING)
     private LeaveType leaveType;
@@ -27,4 +29,6 @@ public class LeaveInfoDto {
     @NotBlank(message = "To date should not be empty")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date toDate;
+
+    private User user;
 }

@@ -87,6 +87,7 @@ public class UserCreationController {
     }
 
     @GetMapping("/users")
+    @PreAuthorize("hasAnyAuthority('can_view_any_user')")
     public String getAllUsers(ModelMap model) {
         model.put("users", userService.getUserList());
         model.put("title", "Users");

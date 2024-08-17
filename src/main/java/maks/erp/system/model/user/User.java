@@ -96,7 +96,7 @@ public class User implements Serializable {
     @JoinColumn(name = "job_info_id")
     private JobInformation jobInformation;
 
-    @OneToMany
+    @OneToMany(mappedBy = "user")
     private List<LeaveInfo> leaveInfo;
 
     @Transient
