@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author duity
@@ -59,6 +60,6 @@ public class UserDto {
 
     private AddressDto permanentAddress;
 
-//    private List<LeaveInfoDto> leaveInfo;
+    private List<LeaveInfoDto> leaveInfo;
 
 }

@@ -16,6 +16,7 @@ import maks.erp.system.utils.DateConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -75,6 +76,7 @@ public class UserCreationController {
             result.getFieldErrors().forEach(fieldError ->
                     System.out.println(fieldError.toString()));
             model.put("userDto", userDto);
+            model.put("loggedInUser", securityService.getLoggedInUser());
 
             return CREATE_USER_PAGE;
         }
@@ -82,7 +84,7 @@ public class UserCreationController {
         registrationService.createUser(userDto);
         log.info("In create user post mapping");
         redirectAttributes.addFlashAttribute("successMessage",
-                "user saved successfully");
+                "User saved successfully");
         return "redirect:/createUser";
     }
 

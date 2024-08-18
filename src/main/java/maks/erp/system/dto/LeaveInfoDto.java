@@ -16,17 +16,17 @@ import java.util.Date;
 @Getter
 @Setter
 public class LeaveInfoDto {
-    @NotBlank(message = "Please select a type")
+    @NotNull(message = "Please select a type")
     @Enumerated(EnumType.STRING)
     private LeaveType leaveType;
 
     private String description;
 
-    @NotBlank(message = "From date should not be empty")
+    @NotNull(message = "From field should not be empty")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date fromDate;
 
-    @NotBlank(message = "To date should not be empty")
+    @NotNull(message = "To field should not be empty")
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date toDate;
 

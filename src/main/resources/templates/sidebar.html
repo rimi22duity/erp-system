@@ -1,4 +1,5 @@
 <!-- ======= Sidebar ======= -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
 <aside id="sidebar" class="sidebar">
 
     <ul class="sidebar-nav" id="sidebar-nav">
@@ -25,15 +26,46 @@
             </a>
         </li>
 
-<!--        &lt;!&ndash; Category &ndash;&gt;-->
-<!--        <li class="nav-item">-->
-<!--            <a class="nav-link collapsed" th:href="@{/categories}">-->
-<!--                <i class="bi bi-person-badge"></i>-->
-<!--                <span>Categories</span>-->
-<!--            </a>-->
-<!--        </li>-->
+        <!--        &lt;!&ndash; Category &ndash;&gt;-->
+        <!--        <li class="nav-item">-->
+        <!--            <a class="nav-link collapsed" th:href="@{/categories}">-->
+        <!--                <i class="bi bi-person-badge"></i>-->
+        <!--                <span>Categories</span>-->
+        <!--            </a>-->
+        <!--        </li>-->
 
-        <!-- User -->
+        <!-- Leave -->
+        <li class="nav-item">
+            <a class="nav-link collapsed"
+               data-bs-target="#leave-nav"
+               data-bs-toggle="collapse"
+               href="#">
+                <span class="bi material-symbols-outlined left-icon">
+                    calendar_clock
+                </span>
+                <span>Leave Information</span>
+                <i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="leave-nav"
+                class="nav-content collapse"
+                data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a th:href="@{/createLeave}">
+                        <i class="bi bi-calendar-event"></i>
+                        <span>Create Application</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/leaveApplications}">
+                        <i class="bi bi-list-task"></i>
+                        <span>Applications</span>
+                    </a>
+                </li>
+            </ul>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link collapsed"
                data-bs-target="#user-nav"
@@ -69,7 +101,7 @@
                data-bs-target="#product-nav"
                data-bs-toggle="collapse"
                href="#">
-                <i class="bi bi-menu-button-wide"></i>
+                <i class="bi bi-boxes"></i>
                 <span>Product</span>
                 <i class="bi bi-chevron-down ms-auto"></i>
             </a>

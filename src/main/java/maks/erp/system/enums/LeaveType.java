@@ -1,9 +1,12 @@
 package maks.erp.system.enums;
 
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+@Getter
 public enum LeaveType {
     CASUAL("Casual"),
     SICK("Sick");

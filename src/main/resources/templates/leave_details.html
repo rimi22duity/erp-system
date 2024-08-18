@@ -23,8 +23,12 @@
                 <div class="card">
                     <div class="register-card-body">
                         <h5 class="card-title">Leave Information</h5>
+                        <div th:if="${successMessage}"
+                             th:text="${successMessage}"
+                             class="alert alert-success">
+                        </div>
 
-                        <form th:action="@{/add-leave}"
+                        <form th:action="@{/createLeave}"
                               th:object="${leaveInfoDto}"
                               method="post">
                             <!-- Leave Type -->
@@ -32,16 +36,16 @@
                               <label class="col-sm-3 col-form-label">Type</label>
                               <div class="col-sm-6">
                                 <select class="form-select"
-                                        aria-label="Default select example">
-                                  <option selected>Please Select</option>
-                                  <div th:each="type: ${leaveTypeList}">
+                                        aria-label="Default select example"
+                                        th:field="*{leaveType}">
+                                  <div th:each="type: ${T(maks.erp.system.enums.LeaveType).values()}">
                                     <option th:value="${type}"
                                             th:name="leaveTypeTitle"
-                                            th:text="${type}"></option>
+                                            th:text="${type.fullString}"></option>
                                   </div>
-<!--                                  <span th:if="${#fields.hasErrors('leaveType')}"-->
-<!--                                        th:errors="*{type}"-->
-<!--                                        class="error"></span>-->
+                                  <span th:if="${#fields.hasErrors('leaveType')}"
+                                        th:errors="*{leaveType}"
+                                        class="error"></span>
                                 </select>
                               </div>
                             </div>
