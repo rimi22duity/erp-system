@@ -112,7 +112,8 @@
                                             th:field="*{religion}">
                                         <div th:each="reli: ${T(maks.erp.system.enums.Religion).values()}">
                                             <option th:value="${reli}"
-                                                    th:text="${reli.fullString}"></option>
+                                                    th:text="${reli.fullString}">
+                                            </option>
                                         </div>
                                     </select>
                                 </div>

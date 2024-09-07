@@ -2,6 +2,12 @@ package maks.erp.system.model.user;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.io.Serializable;
+import java.util.Date;
+import java.util.Objects;
 
 /**
  * @author duity
@@ -16,7 +22,8 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class Address {
+public class Address implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @SequenceGenerator(name = "addressSeq",
@@ -30,4 +37,28 @@ public class Address {
     private String city;
     private String district;
     private String postalCode;
+
+    @CreationTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
+    @UpdateTimestamp
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date updated;
+
+    @Version
+    private int version = 0;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Address address = (Address) o;
+        return id == address.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 }

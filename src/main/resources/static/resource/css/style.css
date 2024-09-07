@@ -735,6 +735,18 @@ h6 {
   color: #727a2f;
 }
 
+.material-symbols-outlined {
+  font-variation-settings:
+          'FILL' 0,
+          'wght' 200,
+          'GRAD' -25,
+          'opsz' 20
+}
+
+.left-icon {
+  margin-right: 10px;
+}
+
 .sidebar-nav .nav-link.collapsed {
   color: #012970;
   background: #fff;

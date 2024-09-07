@@ -20,12 +20,13 @@ public class LeaveApplicationService {
                 .description(leaveInfoDto.getDescription())
                 .fromDate(leaveInfoDto.getFromDate())
                 .toDate(leaveInfoDto.getToDate())
+                .user(leaveInfoDto.getUser())
                 .build();
 
         leaveInfoRepository.save(leaveInfo);
     }
 
-    public List<String> getLeaveTypes() {
-        return LeaveType.getLeaveTypeList();
+    public List<LeaveInfo> findAll() {
+        return leaveInfoRepository.findAll();
     }
 }

@@ -5,13 +5,17 @@ import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import maks.erp.system.enums.Gender;
 import maks.erp.system.enums.Religion;
+import maks.erp.system.enums.UserCategory;
 import maks.erp.system.model.JobInformation;
 import maks.erp.system.model.LeaveInfo;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
+import java.util.Objects;
 
 /**
  * @author duity
@@ -29,7 +33,8 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class User implements Serializable {
+    private static final long serialVersionUID = 1L;
 
     @Id
     @SequenceGenerator(name = "userSeq", sequenceName = "userSeq", allocationSize = 1)
@@ -47,11 +52,16 @@ public class User {
     @NotBlank(message = "This field should not be empty!")
     private String lastName;
 
+    @CreationTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date created;
 
+    @UpdateTimestamp
     @Temporal(TemporalType.TIMESTAMP)
     private Date updated;
+
+    @Version
+    private int version;
 
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date birthDate;
@@ -86,17 +96,29 @@ public class User {
     @JoinColumn(name = "job_info_id")
     private JobInformation jobInformation;
 
-    @OneToMany
-    @JoinColumn(name = "leave_info_id")
+    @OneToMany(mappedBy = "user")
     private List<LeaveInfo> leaveInfo;
 
     @Transient
     private String fullName;
 
-    @ManyToMany(mappedBy = "users")
-    private Set<Role> roles;
+    @Enumerated(EnumType.STRING)
+    private UserCategory category;
 
     public String getFullName() {
         return this.firstName + " " + this.lastName;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return id == user.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

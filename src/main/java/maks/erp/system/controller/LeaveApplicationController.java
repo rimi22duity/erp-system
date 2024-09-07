@@ -15,6 +15,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class LeaveApplicationController {
@@ -28,28 +29,41 @@ public class LeaveApplicationController {
     @Autowired
     private SecurityService securityService;
 
-    @GetMapping("/add-leave")
+    @GetMapping("/createLeave")
     public String leaveApplication( ModelMap model) {
         model.put("leaveInfoDto", new LeaveInfoDto());
-        model.put("leaveTypeList", leaveApplicationService.getLeaveTypes());
         model.put("loggedInUser", securityService.getLoggedInUser());
-        System.out.println(leaveApplicationService.getLeaveTypes());
 
         return "leave_details";
     }
 
-    @PostMapping("/add-leave")
+    @PostMapping("/createLeave")
     public String addLeaveApplication(@ModelAttribute @Valid LeaveInfoDto leaveInfoDto,
                                       BindingResult result,
-                                      ModelMap model) {
+                                      ModelMap model,
+                                      RedirectAttributes redirectAttributes) {
+
         if(result.hasErrors()) {
+            System.out.println("errors");
+            model.put("leaveInfoDto", leaveInfoDto);
+            model.put("loggedInUser", securityService.getLoggedInUser());
+
             return LEAVE_APPLICATION_PAGE;
         }
+
+        leaveInfoDto.setUser(securityService.getLoggedInUser().getUser());
         leaveApplicationService.addLeaveApplication(leaveInfoDto);
-        model.put("message", "Leave Application Requested Successfully!");
-        System.out.println(leaveInfoDto.getLeaveType());
-        return "redirect:/add-leave";
+        redirectAttributes.addFlashAttribute("successMessage",
+                "Application saved successfully");
+
+        return "redirect:/createLeave";
     }
 
+    @GetMapping("/leaveApplications")
+    public String showListOfApplications(ModelMap model) {
+        model.put("leaveApplications", leaveApplicationService.findAll());
+        model.put("loggedInUser", securityService.getLoggedInUser());
 
+        return "leave_application_list";
+    }
 }

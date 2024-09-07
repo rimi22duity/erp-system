@@ -1,7 +1,7 @@
 package maks.erp.system.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import maks.erp.system.enums.UserRole;
+import maks.erp.system.enums.UserCategory;
 import maks.erp.system.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -51,7 +51,7 @@ public class WebSecurityConfiguration {
                 .logout(logout -> logout
                         .permitAll()
                 );
-        log.info("AuthorityAuthorizationManager: ", AuthorityAuthorizationManager.hasRole(UserRole.DIRECTOR.name()));
+        log.info("AuthorityAuthorizationManager: ", AuthorityAuthorizationManager.hasRole(UserCategory.DIRECTOR.name()));
         return http.build();
     }
 }
